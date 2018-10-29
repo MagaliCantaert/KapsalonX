@@ -1,0 +1,46 @@
+﻿@model EE.KapsalonX.Web.Models.BoekenIndexVm
+@{
+    ViewData["Title"] = "Index";
+}
+<script src="https://unpkg.com/vue"></script>
+
+<h2>Kies de gewenste behandeling</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-4">
+            <a asp-controller="Boeken" asp-action="DamesBehandeling" class="thumbnail">
+                Dames
+            </a>
+        </div>
+        <div class="col-xs-4">
+            <a href="#" class="thumbnail">
+                Heren
+            </a>
+        </div>
+        <div class="col-xs-4">
+            <a href="#" class="thumbnail">
+                Kinderen
+            </a>
+        </div>
+    </div>
+</div>
+
+
+@foreach (var behandeling in Model.BehandelingenDames)
+{
+    <li v-if="hide">@behandeling.Coupe.ToUpper(): @behandeling.Optie (@behandeling.Tijdsduur)</li>
+}
+<br />
+@foreach (var behandeling in Model.BehandelingenHeren)
+{
+    <li>@behandeling.Optie (@behandeling.Tijdsduur)</li>
+}
+<br />
+@foreach (var behandeling in Model.BehandelingenKinderen)
+{
+    <li>@behandeling.Optie (@behandeling.Tijdsduur)</li>
+}
+
+
+
