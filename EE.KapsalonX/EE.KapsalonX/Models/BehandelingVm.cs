@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace EE.KapsalonX.Domain.Boeken
+namespace EE.KapsalonX.Web.Models
 {
-    public class Behandeling
+    public class BehandelingVm
     {
-        public Guid BehandelingId { get; set; }
-        public string Geslacht { get; set; }
         public string Coupe { get; set; }
         public string Optie { get; set; }
         public TimeSpan Tijdsduur { get; set; }
