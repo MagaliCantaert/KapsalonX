@@ -47,7 +47,7 @@ namespace EE.KapsalonX.Web.Controllers
             viewModel.BehandelingenHeren = BehandelingenHeren;
             viewModel.BehandelingenKinderen = BehandelingenKinderen;
 
-            viewModel.Cart = new List<BehandelingVm>();
+            viewModel.Cart = new List<BehandelingVm>();            
 
             string serialized = HttpContext.Session.GetString(STATEKEY);
             if (serialized != null)
@@ -57,10 +57,15 @@ namespace EE.KapsalonX.Web.Controllers
             return View("Index", viewModel);
         }
      
-        public IActionResult Kalender(BoekenIndexVm viewModel)
+        //public IActionResult Kalender(BoekenIndexVm viewModel)
+        public IActionResult Kalender(BoekenIndexVm viewModel, string optie) //<-- Aanpassing om de optie om met parameters te werken in je view te benutten.
         {
+            /*
+             * Eenmaal je op je Kalender terugkomt, heb je wel de juiste keuze niet meer in je viewModel zitten. Hier ga je even moeten over nadenken.
+             * Voor het verdere verloop van de code even vanuitgaan dat de dames gekozen werden.
+             */
+            BehandelingVm selectedBehandeling = BehandelingenDames.FirstOrDefault(bd => bd.Optie == optie);
 
-            BehandelingVm selectedBehandeling = BehandelingenDames.FirstOrDefault();
             if (selectedBehandeling == null)
             {
                 return RedirectToAction("Index");
@@ -72,6 +77,7 @@ namespace EE.KapsalonX.Web.Controllers
             {
                 behandelingList = JsonConvert.DeserializeObject<List<BehandelingVm>>(serialized);
             }
+                       
             behandelingList.Add(selectedBehandeling);
             viewModel.Cart = behandelingList;
             serialized = JsonConvert.SerializeObject(behandelingList);

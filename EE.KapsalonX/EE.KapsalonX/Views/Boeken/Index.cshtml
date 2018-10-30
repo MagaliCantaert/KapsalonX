@@ -26,7 +26,20 @@
 {
     foreach (var item in Model.BehandelingenDames)
     {
+        <!-- Hier maak je een a element mee aan dat enkel en alleen een url zal vormen naar je controller maar geen keuze meegeeft.
+            Dit wordt dan <a href="/Boeken/Kalender"> .... </a>
+            Je wil echter wel iets gaan meegeven van waardes. Je kan dit op veel verschillende manieren gaan doen. Maar als je opteert voor een link (a element)
+            limiteer je je een klein beetje tot het toevoegen van parameters.
+            -->
         <li><a asp-action="Kalender">@item.Coupe.ToUpper(): @item.Optie (@item.Tijdsduur)</a></li>
+        <!--
+            Mogelijke optie hieronder
+        -->
+        <li><a asp-action="Kalender" asp-route-optie="@item.Optie">@item.Coupe.ToUpper(): @item.Optie (@item.Tijdsduur)</a></li>
+        <!--
+            Door in de razor syntax de asp-route-xyz te gebruiken. Waar xyz de naam is van de parameter die je zo meteen in je controller zal hanteren!
+            zal je url in het a element wel een klein beetje meer informatie bevatten.
+        -->
     }
 }
 else if (Model.Geslacht == "Heren")
@@ -48,7 +61,7 @@ else if (Model.Geslacht == "Kinderen")
 
 
 @*@for (int i = 0; i < Model.BehandelingenDames.Count; i++)
-{
-    <label>@Model.BehandelingenDames[i].Optie</label>
-}*@
+    {
+        <label>@Model.BehandelingenDames[i].Optie</label>
+    }*@
 
