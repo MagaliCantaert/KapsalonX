@@ -10,5 +10,7 @@ namespace EE.KapsalonX.Web.Models
         public string Coupe { get; set; }
         public string Optie { get; set; }
         public TimeSpan Tijdsduur { get; set; }
+
+
     }
 }

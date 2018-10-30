@@ -18,5 +18,9 @@ namespace EE.KapsalonX.Web.Models
         public List<BehandelingVm> BehandelingenDames { get; set; }
         public List<BehandelingVm> BehandelingenHeren{ get; set; }
         public List<BehandelingVm> BehandelingenKinderen { get; set; }
+
+        public List<BehandelingVm> Cart { get; set; }
+
+
     }
 }
