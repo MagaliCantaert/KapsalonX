@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using EE.KapsalonX.Web.Models;
@@ -9,6 +10,7 @@ namespace EE.KapsalonX.Web.Controllers
 {
     public class BoekenController : Controller
     {
+    
         List<BehandelingVm> BehandelingenDames = new List<BehandelingVm>
         {
             new BehandelingVm { Coupe = "Kort haar", Optie = "Knippen", Tijdsduur = new TimeSpan(00,30,00)},
@@ -37,22 +39,12 @@ namespace EE.KapsalonX.Web.Controllers
             new BehandelingVm { Optie = "Snit jongens", Tijdsduur = new TimeSpan(00,30,00)}
         };
 
-        public IActionResult Index()
+        public IActionResult Index(BoekenIndexVm viewModel)
         {
-            var viewModel = new BoekenIndexVm();
             viewModel.BehandelingenDames = BehandelingenDames;
             viewModel.BehandelingenHeren = BehandelingenHeren;
             viewModel.BehandelingenKinderen = BehandelingenKinderen;
             return View("Index", viewModel);
         }
-
-        public IActionResult DamesBehandeling()
-        {
-            var viewModel = new BoekenIndexVm();
-            viewModel.BehandelingenDames = BehandelingenDames;
-            ViewBag.Behandeling = BehandelingenDames;
-            return View("Index", viewModel);
-        }
-
     }
 }

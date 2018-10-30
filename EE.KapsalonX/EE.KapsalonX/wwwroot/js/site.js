@@ -3,10 +3,3 @@
 
 // Write your JavaScript code.
 
-new Vue({
-    el: '#demo',
-    data: {
-        show: true
-    }
-});
-

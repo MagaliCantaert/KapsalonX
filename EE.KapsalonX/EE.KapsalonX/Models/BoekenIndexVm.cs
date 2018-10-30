@@ -7,6 +7,8 @@ namespace EE.KapsalonX.Web.Models
 {
     public class BoekenIndexVm
     {
+        public string Geslacht { get; set; }
+
         public Guid KlantId { get; set; }
         public string Voornaam { get; set; }
         public string Achternaam { get; set; }
@@ -16,6 +18,5 @@ namespace EE.KapsalonX.Web.Models
         public List<BehandelingVm> BehandelingenDames { get; set; }
         public List<BehandelingVm> BehandelingenHeren{ get; set; }
         public List<BehandelingVm> BehandelingenKinderen { get; set; }
-
     }
 }

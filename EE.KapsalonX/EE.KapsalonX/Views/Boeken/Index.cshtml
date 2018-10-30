@@ -2,45 +2,44 @@
 @{
     ViewData["Title"] = "Index";
 }
-<script src="https://unpkg.com/vue"></script>
+@*<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>*@
 
 <h2>Kies de gewenste behandeling</h2>
 
+
 <div class="container">
     <div class="row">
-        <div class="col-xs-4">
-            <a asp-controller="Boeken" asp-action="DamesBehandeling" class="thumbnail">
-                Dames
-            </a>
-        </div>
-        <div class="col-xs-4">
-            <a href="#" class="thumbnail">
-                Heren
-            </a>
-        </div>
-        <div class="col-xs-4">
-            <a href="#" class="thumbnail">
-                Kinderen
-            </a>
-        </div>
+        <form asp-controller="Boeken" asp-action="Index">
+            <button value="Dames" name="Geslacht">Dames</button>
+        </form>
+        <form asp-controller="Boeken" asp-action="Index">
+            <button value="Heren" name="Geslacht">Heren</button>
+        </form>
+        <form asp-controller="Boeken" asp-action="Index">
+            <button value="Kinderen" name="Geslacht">Kinderen</button>
+        </form>
     </div>
 </div>
 
 
-@foreach (var behandeling in Model.BehandelingenDames)
+@if (Model.Geslacht == "Dames")
 {
-    <li v-if="hide">@behandeling.Coupe.ToUpper(): @behandeling.Optie (@behandeling.Tijdsduur)</li>
+    foreach (var item in Model.BehandelingenDames)
+    {
+        <li><a>@item.Coupe.ToUpper(): @item.Optie (@item.Tijdsduur)</a></li>
+    }
 }
-<br />
-@foreach (var behandeling in Model.BehandelingenHeren)
+else if (Model.Geslacht == "Heren")
 {
-    <li>@behandeling.Optie (@behandeling.Tijdsduur)</li>
+    foreach (var item in Model.BehandelingenHeren)
+    {
+        <li><a>@item.Optie (@item.Tijdsduur)</a></li>
+    }
 }
-<br />
-@foreach (var behandeling in Model.BehandelingenKinderen)
+else if (Model.Geslacht == "Kinderen")
 {
-    <li>@behandeling.Optie (@behandeling.Tijdsduur)</li>
+    foreach (var item in Model.BehandelingenKinderen)
+    {
+        <li><a>@item.Optie (@item.Tijdsduur)</a></li>
+    }
 }
-
-
-
