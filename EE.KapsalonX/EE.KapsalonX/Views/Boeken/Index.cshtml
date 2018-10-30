@@ -26,7 +26,7 @@
 {
     foreach (var item in Model.BehandelingenDames)
     {
-        <li><a>@item.Coupe.ToUpper(): @item.Optie (@item.Tijdsduur)</a></li>
+        <li><a asp-controller="Boeken" asp-action="Kalender">@item.Coupe.ToUpper(): @item.Optie (@item.Tijdsduur)</a></li>
     }
 }
 else if (Model.Geslacht == "Heren")
@@ -43,3 +43,17 @@ else if (Model.Geslacht == "Kinderen")
         <li><a>@item.Optie (@item.Tijdsduur)</a></li>
     }
 }
+
+<div id="app">
+    <vuejs-datepicker></vuejs-datepicker>
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vuejs-datepicker"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        components: {
+            vuejsDatepicker
+        }
+    })
+</script>

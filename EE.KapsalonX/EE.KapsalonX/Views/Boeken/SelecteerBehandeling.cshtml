@@ -1,0 +1,12 @@
+﻿@model EE.KapsalonX.Web.Models.BoekenIndexVm
+@{
+    ViewData["Title"] = "SelecteerBehandeling";
+}
+
+<h2>SelecteerBehandeling</h2>
+
+@foreach (var item in Model.Cart)
+{
+    <li>@item.Coupe: @item.Optie (@item.Tijdsduur)</li>
+
+}
