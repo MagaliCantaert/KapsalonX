@@ -10,6 +10,7 @@ namespace EE.KapsalonX.Web.Controllers
 {
     public class BoekenController : Controller
     {
+        const string COOKIENAME = "TheCookie";
     
         List<BehandelingVm> BehandelingenDames = new List<BehandelingVm>
         {
@@ -41,10 +42,28 @@ namespace EE.KapsalonX.Web.Controllers
 
         public IActionResult Index(BoekenIndexVm viewModel)
         {
+            if (Request.Cookies.ContainsKey(COOKIENAME))
+            {
+                string cookieBehandeling = Request.Cookies[COOKIENAME];
+
+                var behandeling = BehandelingenDames.FirstOrDefault(c => c.Optie == cookieBehandeling);
+                if (behandeling != null)
+                {
+                    return View("Kalender", behandeling);
+
+                }
+
+            }
             viewModel.BehandelingenDames = BehandelingenDames;
-            viewModel.BehandelingenHeren = BehandelingenHeren;
-            viewModel.BehandelingenKinderen = BehandelingenKinderen;
             return View("Index", viewModel);
+            
         }
+
+        //public IActionResult Kalender()
+        //{
+        //    BehandelingVm viewModel = new BehandelingVm();
+        //    viewModel.Coupe = 
+        //    return View(viewModel);
+        //}
     }
 }
