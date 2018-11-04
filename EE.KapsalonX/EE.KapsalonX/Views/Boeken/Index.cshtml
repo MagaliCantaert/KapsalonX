@@ -1,6 +1,7 @@
 ﻿@model EE.KapsalonX.Web.Models.BoekenIndexVm
+
 @{
-    ViewData["Title"] = "Index";
+//ViewData["Title"] = "Index";
 }
 @*<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>*@
 
@@ -8,6 +9,96 @@
 
 
 <div class="container">
+    <div class="row">
+        <form method="post" asp-action="index">
+
+
+            <div class=" form-check">
+                <label asp-for="Geslacht">Kies je geslacht:</label>
+                <select asp-for="Geslacht">
+                    <option selected>Choose...</option>
+                    <option value="V">Vrouw</option>
+                    <option value="M">Man</option>
+                    <option value="K">Kind</option>
+                </select>
+                <button type="submit">Voeg geslacht toe</button>
+            </div>
+
+            @if (Model.Geslacht == "V")
+            {
+            <div class="form-check">
+                <label asp-for="Geslacht">Kies de gewenste behandeling:</label>
+                <select asp-for="Behandeling" asp-items="Model.Behandelingen"></select>
+            </div>
+                <button type="submit">Voeg behandeling toe</button>
+            }
+
+
+            @if (Model.Geslacht == "M")
+            {
+                <div class="form-group">
+                    <label asp-for="BehandelingenHeren">Behandelingen Heren:</label>
+                    <input asp-for="BehandelingenHeren" class="form-control">
+                </div>
+            }
+            @if (Model.Geslacht == "K")
+            {
+                <div class="form-group">
+                    <label asp-for="BehandelingenKinderen">Behandelingen Kinderen:</label>
+                    <input asp-for="BehandelingenKinderen" class="form-control">
+                </div>
+            }
+
+            @*<button type="submit" class="btn btn-default"><b>GO</b></button>*@
+        </form>
+
+
+
+        @if (Model.Geslacht == "V")
+        {
+            <div>
+                <div>Geslacht: <b>@Model.Geslacht</b></div>
+                <div>Behandeling: <b>@Model.Behandeling</b></div>
+            </div>
+        }
+        @if (Model.Geslacht == "M")
+        {
+            <div>
+                <div>Geslacht: <b>@Model.Geslacht</b></div>
+                <div>Behandeling: <b>@Model.BehandelingenHeren</b></div>
+            </div>
+        }
+        @if (Model.Geslacht == "K")
+        {
+            <div>
+                <div>Geslacht: <b>@Model.Geslacht</b></div>
+                <div>Behandeling: <b>@Model.BehandelingenKinderen</b></div>
+            </div>
+        }
+
+
+
+
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<div class="container">
     <div class="row">
         <form asp-controller="Boeken" asp-action="Index">
             <button value="Dames" name="Geslacht">Dames</button>
@@ -42,13 +133,6 @@ else if (Model.Geslacht == "Kinderen")
     {
         <li><a>@item.Optie (@item.Tijdsduur)</a></li>
     }
-}
-
-
-
-
-@*@for (int i = 0; i < Model.BehandelingenDames.Count; i++)
-{
-    <label>@Model.BehandelingenDames[i].Optie</label>
 }*@
+
 

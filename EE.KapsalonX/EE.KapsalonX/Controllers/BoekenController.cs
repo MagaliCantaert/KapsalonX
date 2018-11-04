@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 using EE.KapsalonX.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
+using static EE.KapsalonX.Web.Models.BoekenIndexVm;
 
 namespace EE.KapsalonX.Web.Controllers
 {
     public class BoekenController : Controller
     {
-        const string STATEKEY = "SessionOpties";
+        //const string STATEKEY = "SessionOpties";
 
         List<BehandelingVm> BehandelingenDames = new List<BehandelingVm>
         {
@@ -41,43 +43,61 @@ namespace EE.KapsalonX.Web.Controllers
             new BehandelingVm { Optie = "Snit jongens", Tijdsduur = new TimeSpan(00,30,00)}
         };
 
-        public IActionResult Index(BoekenIndexVm viewModel)
-        {         
-            viewModel.BehandelingenDames = BehandelingenDames;
-            viewModel.BehandelingenHeren = BehandelingenHeren;
-            viewModel.BehandelingenKinderen = BehandelingenKinderen;
+        List<BehandelingVm> Behandelingen { get; set; }
 
-            viewModel.Cart = new List<BehandelingVm>();
 
-            string serialized = HttpContext.Session.GetString(STATEKEY);
-            if (serialized != null)
-            {
-                viewModel.Cart = JsonConvert.DeserializeObject<List<BehandelingVm>>(serialized);
-            }
-            return View("Index", viewModel);
-        }
-     
-        public IActionResult Kalender(BoekenIndexVm viewModel)
+        public IActionResult Index()
         {
-
-            BehandelingVm selectedBehandeling = BehandelingenDames.FirstOrDefault();
-            if (selectedBehandeling == null)
-            {
-                return RedirectToAction("Index");
-            }
-
-            string serialized = HttpContext.Session.GetString(STATEKEY);
-            List<BehandelingVm> behandelingList = new List<BehandelingVm>();
-            if (serialized != null)
-            {
-                behandelingList = JsonConvert.DeserializeObject<List<BehandelingVm>>(serialized);
-            }
-            behandelingList.Add(selectedBehandeling);
-            viewModel.Cart = behandelingList;
-            serialized = JsonConvert.SerializeObject(behandelingList);
-            HttpContext.Session.SetString(STATEKEY, serialized);
+            var viewModel = new BoekenIndexVm();
+            viewModel.BehandelingenDames = BehandelingenDames;
+            //viewModel.BehandelingenHeren = BehandelingenHeren;
+            //viewModel.BehandelingenKinderen = BehandelingenKinderen;
             return View(viewModel);
         }
+
+        [HttpPost]
+        public IActionResult Index(BoekenIndexVm vm)
+        {
+            vm.BehandelingenDames = BehandelingenDames;
+            return View(vm);
+        }
+
+
+        public IActionResult Submit(BoekenIndexVm viewModel)
+        {
+            var submitVm = new BoekenIndexVm
+            {
+                Geslacht = viewModel.Geslacht,
+                BehandelingenDames = viewModel.BehandelingenDames,
+                BehandelingenHeren = viewModel.BehandelingenHeren,
+                BehandelingenKinderen = viewModel.BehandelingenKinderen             
+            };
+            return View(viewModel);
+           
+        }
+
+     
+        //public IActionResult Kalender(BoekenIndexVm viewModel)
+        //{
+
+        //    BehandelingVm selectedBehandeling = BehandelingenDames.FirstOrDefault();
+        //    if (selectedBehandeling == null)
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
+
+        //    //string serialized = HttpContext.Session.GetString(STATEKEY);
+        //    List<BehandelingVm> behandelingList = new List<BehandelingVm>();
+        //    //if (serialized != null)
+        //    //{
+        //    //    behandelingList = JsonConvert.DeserializeObject<List<BehandelingVm>>(serialized);
+        //    //}
+        //    behandelingList.Add(selectedBehandeling);
+        //    viewModel.Cart = behandelingList;
+        //    //serialized = JsonConvert.SerializeObject(behandelingList);
+        //    //HttpContext.Session.SetString(STATEKEY, serialized);
+        //    return View(viewModel);
+        //}
     }
 
 }

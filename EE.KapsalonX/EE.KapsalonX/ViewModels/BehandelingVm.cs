@@ -7,6 +7,7 @@ namespace EE.KapsalonX.Web.Models
 {
     public class BehandelingVm
     {
+        public int Id { get; set; }
         public string Coupe { get; set; }
         public string Optie { get; set; }
         public TimeSpan Tijdsduur { get; set; }
