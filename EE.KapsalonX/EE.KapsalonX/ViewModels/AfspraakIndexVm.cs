@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EE.KapsalonX.Web.ViewModels
 {
-    public class BoekenIndexVm
+    public class AfspraakIndexVm
     {
         public Guid KlantId { get; set; }
         public string Voornaam { get; set; }
@@ -14,10 +14,11 @@ namespace EE.KapsalonX.Web.ViewModels
         public string Emailadres { get; set; }
         public string Telefoonnummer { get; set; }
 
-        public List<BehandelingVm> BehandelingenDames { get; set; }
-        public List<BehandelingVm> BehandelingenHeren{ get; set; }
-        public List<BehandelingVm> BehandelingenKinderen { get; set; }
-
+        public List<AfspraakBehandelingVm> BehandelingenDames { get; set; }
+        public List<AfspraakBehandelingVm> BehandelingenHeren{ get; set; }
+        public List<AfspraakBehandelingVm> BehandelingenKinderen { get; set; }
+        
+        public List<AfspraakBehandelingVm> Geslacht { get; set; }
 
 
     }
