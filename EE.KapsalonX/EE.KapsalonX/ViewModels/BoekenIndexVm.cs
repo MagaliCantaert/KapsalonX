@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EE.KapsalonX.Web.Models
+namespace EE.KapsalonX.Web.ViewModels
 {
     public class BoekenIndexVm
     {
-        public string Geslacht { get; set; }
-
         public Guid KlantId { get; set; }
         public string Voornaam { get; set; }
         public string Achternaam { get; set; }
@@ -18,5 +17,10 @@ namespace EE.KapsalonX.Web.Models
         public List<BehandelingVm> BehandelingenDames { get; set; }
         public List<BehandelingVm> BehandelingenHeren{ get; set; }
         public List<BehandelingVm> BehandelingenKinderen { get; set; }
+
+
+
     }
+
+
 }

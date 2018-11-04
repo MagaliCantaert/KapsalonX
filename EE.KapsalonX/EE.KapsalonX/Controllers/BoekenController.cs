@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using EE.KapsalonX.Web.Models;
+using EE.KapsalonX.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EE.KapsalonX.Web.Controllers
 {
     public class BoekenController : Controller
     {
-        const string COOKIENAME = "TheCookie";
-    
+
         List<BehandelingVm> BehandelingenDames = new List<BehandelingVm>
         {
             new BehandelingVm { Coupe = "Kort haar", Optie = "Knippen", Tijdsduur = new TimeSpan(00,30,00)},
@@ -40,30 +40,11 @@ namespace EE.KapsalonX.Web.Controllers
             new BehandelingVm { Optie = "Snit jongens", Tijdsduur = new TimeSpan(00,30,00)}
         };
 
-        public IActionResult Index(BoekenIndexVm viewModel)
+        public IActionResult Index()
         {
-            if (Request.Cookies.ContainsKey(COOKIENAME))
-            {
-                string cookieBehandeling = Request.Cookies[COOKIENAME];
-
-                var behandeling = BehandelingenDames.FirstOrDefault(c => c.Optie == cookieBehandeling);
-                if (behandeling != null)
-                {
-                    return View("Kalender", behandeling);
-
-                }
-
-            }
+            BoekenIndexVm viewModel = new BoekenIndexVm();
             viewModel.BehandelingenDames = BehandelingenDames;
-            return View("Index", viewModel);
-            
+            return View(viewModel);
         }
-
-        //public IActionResult Kalender()
-        //{
-        //    BehandelingVm viewModel = new BehandelingVm();
-        //    viewModel.Coupe = 
-        //    return View(viewModel);
-        //}
     }
 }
