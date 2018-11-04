@@ -34,8 +34,12 @@ namespace EE.KapsalonX
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddMemoryCache();
-            services.AddSession();
+            services.AddSession(options =>
+            {
+                options.Cookie.SameSite = SameSiteMode.Strict; //protect session id from being hijacked
+                options.Cookie.HttpOnly = true;
+                options.IdleTimeout = TimeSpan.FromSeconds(15); // Set a short timeout for easy testing.
+            });
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
@@ -58,14 +62,18 @@ namespace EE.KapsalonX
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
+
             }
-            
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
+
 
             app.UseAuthentication();
-            app.UseSession();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -1,0 +1,33 @@
+﻿@model EE.KapsalonX.Web.Models.BoekenIndexVm
+@*@{
+    ViewData["Title"] = "Kalender";
+}*@
+
+<h2>Kalender</h2>
+
+<div id="app">
+    <vuejs-datepicker></vuejs-datepicker>
+</div>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vuejs-datepicker"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        components: {
+            vuejsDatepicker
+        }
+    });
+</script>
+
+<form asp-action="Kalender">
+
+    @*@foreach (var item in Model.Cart)
+    {
+        @item.Coupe @item.Optie @item.Tijdsduur;
+    }*@
+
+
+    <div class="clearfix">
+        <a asp-action="Kalender" class="btn btn-primary">Click</a>
+    </div>
+</form>
