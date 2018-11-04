@@ -49,7 +49,7 @@ namespace EE.KapsalonX.Web.Controllers
         public IActionResult Index()
         {
             var viewModel = new BoekenIndexVm();
-            viewModel.BehandelingenDames = BehandelingenDames;
+            //viewModel.BehandelingenDames = BehandelingenDames;
             //viewModel.BehandelingenHeren = BehandelingenHeren;
             //viewModel.BehandelingenKinderen = BehandelingenKinderen;
             return View(viewModel);
@@ -58,7 +58,7 @@ namespace EE.KapsalonX.Web.Controllers
         [HttpPost]
         public IActionResult Index(BoekenIndexVm vm)
         {
-            vm.BehandelingenDames = BehandelingenDames;
+            //vm.BehandelingenDames = BehandelingenDames;
             return View(vm);
         }
 
@@ -68,9 +68,9 @@ namespace EE.KapsalonX.Web.Controllers
             var submitVm = new BoekenIndexVm
             {
                 Geslacht = viewModel.Geslacht,
-                BehandelingenDames = viewModel.BehandelingenDames,
-                BehandelingenHeren = viewModel.BehandelingenHeren,
-                BehandelingenKinderen = viewModel.BehandelingenKinderen             
+                //BehandelingenDames = viewModel.BehandelingenDames,
+                //BehandelingenHeren = viewModel.BehandelingenHeren,
+                //BehandelingenKinderen = viewModel.BehandelingenKinderen             
             };
             return View(viewModel);
            

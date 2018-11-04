@@ -12,41 +12,40 @@
     <div class="row">
         <form method="post" asp-action="index">
 
+            <label asp-for="Geslacht">Kies je geslacht:</label>
+            <select asp-for="Geslacht">
+                <option selected>Kies...</option>
+                <option value="V">Vrouw</option>
+                <option value="M">Man</option>
+                <option value="K">Kind</option>
+            </select>
+            <button type="submit">Voeg geslacht toe</button>
 
-            <div class=" form-check">
-                <label asp-for="Geslacht">Kies je geslacht:</label>
-                <select asp-for="Geslacht">
-                    <option selected>Choose...</option>
-                    <option value="V">Vrouw</option>
-                    <option value="M">Man</option>
-                    <option value="K">Kind</option>
-                </select>
-                <button type="submit">Voeg geslacht toe</button>
-            </div>
 
             @if (Model.Geslacht == "V")
             {
-            <div class="form-check">
-                <label asp-for="Geslacht">Kies de gewenste behandeling:</label>
-                <select asp-for="Behandeling" asp-items="Model.Behandelingen"></select>
-            </div>
+                <div class="form-check">
+                    <label asp-for="BehandelingDame">Kies de gewenste behandeling:</label>
+                    <select asp-for="BehandelingDame" asp-items="Model.BehandelingenDames"></select>
+                </div>
                 <button type="submit">Voeg behandeling toe</button>
             }
 
-
             @if (Model.Geslacht == "M")
             {
-                <div class="form-group">
-                    <label asp-for="BehandelingenHeren">Behandelingen Heren:</label>
-                    <input asp-for="BehandelingenHeren" class="form-control">
+                <div class="form-check">
+                    <label asp-for="BehandelingHeer">Kies de gewenste behandeling:</label>
+                    <select asp-for="BehandelingHeer" asp-items="Model.BehandelingenHeren"></select>
                 </div>
+            <button type="submit">Voeg behandeling toe</button>
             }
             @if (Model.Geslacht == "K")
-            {
-                <div class="form-group">
-                    <label asp-for="BehandelingenKinderen">Behandelingen Kinderen:</label>
-                    <input asp-for="BehandelingenKinderen" class="form-control">
+            { 
+                <div class="form-check">
+                    <label asp-for="BehandelingKind">Kies de gewenste behandeling:</label>
+                    <select asp-for="BehandelingKind" asp-items="Model.BehandelingenKinderen"></select>
                 </div>
+            <button type="submit">Voeg behandeling toe</button>
             }
 
             @*<button type="submit" class="btn btn-default"><b>GO</b></button>*@
@@ -54,25 +53,27 @@
 
 
 
+
+
         @if (Model.Geslacht == "V")
         {
             <div>
                 <div>Geslacht: <b>@Model.Geslacht</b></div>
-                <div>Behandeling: <b>@Model.Behandeling</b></div>
+                <div>Behandeling: <b>@Model.BehandelingDame</b></div>
             </div>
         }
         @if (Model.Geslacht == "M")
         {
             <div>
                 <div>Geslacht: <b>@Model.Geslacht</b></div>
-                <div>Behandeling: <b>@Model.BehandelingenHeren</b></div>
+                <div>Behandeling: <b>@Model.BehandelingHeer</b></div>
             </div>
         }
         @if (Model.Geslacht == "K")
         {
             <div>
                 <div>Geslacht: <b>@Model.Geslacht</b></div>
-                <div>Behandeling: <b>@Model.BehandelingenKinderen</b></div>
+                <div>Behandeling: <b>@Model.BehandelingKind</b></div>
             </div>
         }
 
