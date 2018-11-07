@@ -13,8 +13,4 @@
     <PackageReference Include="vue" Version="2.5.17" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Shared\Components\" />
-  </ItemGroup>
-
 </Project>

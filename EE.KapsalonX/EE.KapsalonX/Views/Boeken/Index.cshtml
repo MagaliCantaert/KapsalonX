@@ -1,139 +1,31 @@
-﻿@model EE.KapsalonX.Web.Models.BoekenIndexVm
+﻿@model EE.KapsalonX.Web.Models.BoekenModel
 
 @{
-//ViewData["Title"] = "Index";
+    //ViewData["Title"] = "Index";
 }
 @*<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>*@
+<h2>Maak uw afspraak</h2>
+<h1>Stap @Model.Stap</h1>
 
-<h2>Kies de gewenste behandeling</h2>
+<form asp-controller="Boeken" asp-action="Index" method="post">
+    <input asp-for="Stap" hidden />
 
-
-<div class="container">
-    <div class="row">
-        <form method="post" asp-action="index">
-
-            <label asp-for="Geslacht">Kies je geslacht:</label>
-            <select asp-for="Geslacht">
-                <option selected>Kies...</option>
-                <option value="V">Vrouw</option>
-                <option value="M">Man</option>
-                <option value="K">Kind</option>
-            </select>
-            <button type="submit">Voeg geslacht toe</button>
-
-
-            @if (Model.Geslacht == "V")
-            {
-                <div class="form-check">
-                    <label asp-for="BehandelingDame">Kies de gewenste behandeling:</label>
-                    <select asp-for="BehandelingDame" asp-items="Model.BehandelingenDames"></select>
-                </div>
-                <button type="submit">Voeg behandeling toe</button>
-            }
-
-            @if (Model.Geslacht == "M")
-            {
-                <div class="form-check">
-                    <label asp-for="BehandelingHeer">Kies de gewenste behandeling:</label>
-                    <select asp-for="BehandelingHeer" asp-items="Model.BehandelingenHeren"></select>
-                </div>
-            <button type="submit">Voeg behandeling toe</button>
-            }
-            @if (Model.Geslacht == "K")
-            { 
-                <div class="form-check">
-                    <label asp-for="BehandelingKind">Kies de gewenste behandeling:</label>
-                    <select asp-for="BehandelingKind" asp-items="Model.BehandelingenKinderen"></select>
-                </div>
-            <button type="submit">Voeg behandeling toe</button>
-            }
-
-            @*<button type="submit" class="btn btn-default"><b>GO</b></button>*@
-        </form>
-
-
-
-
-
-        @if (Model.Geslacht == "V")
-        {
-            <div>
-                <div>Geslacht: <b>@Model.Geslacht</b></div>
-                <div>Behandeling: <b>@Model.BehandelingDame</b></div>
-            </div>
-        }
-        @if (Model.Geslacht == "M")
-        {
-            <div>
-                <div>Geslacht: <b>@Model.Geslacht</b></div>
-                <div>Behandeling: <b>@Model.BehandelingHeer</b></div>
-            </div>
-        }
-        @if (Model.Geslacht == "K")
-        {
-            <div>
-                <div>Geslacht: <b>@Model.Geslacht</b></div>
-                <div>Behandeling: <b>@Model.BehandelingKind</b></div>
-            </div>
-        }
-
-
-
-
-
-
-    </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*<div class="container">
-    <div class="row">
-        <form asp-controller="Boeken" asp-action="Index">
-            <button value="Dames" name="Geslacht">Dames</button>
-        </form>
-        <form asp-controller="Boeken" asp-action="Index">
-            <button value="Heren" name="Geslacht">Heren</button>
-        </form>
-        <form asp-controller="Boeken" asp-action="Index">
-            <button value="Kinderen" name="Geslacht">Kinderen</button>
-        </form>
-    </div>
-</div>
-
-
-@if (Model.Geslacht == "Dames")
-{
-    foreach (var item in Model.BehandelingenDames)
+    @switch (Model.Stap)
     {
-        <li><a asp-action="Kalender">@item.Coupe.ToUpper(): @item.Optie (@item.Tijdsduur)</a></li>
+        case 1:
+            <label asp-for="Geslacht">Kies geslacht</label><br />
+            <input asp-for="Geslacht" /><br />
+            <input asp-for="Optie" hidden /><br />
+            break;
+        case 2:
+            <label asp-for="Geslacht" hidden>Kies geslacht</label>
+            <input asp-for="Geslacht" hidden />
+            <label asp-for="Optie">Kies behandeling</label><br />
+            <input asp-for="Optie" />
+            break;
+        default:
+            break;
     }
-}
-else if (Model.Geslacht == "Heren")
-{
-    foreach (var item in Model.BehandelingenHeren)
-    {
-        <li><a>@item.Optie (@item.Tijdsduur)</a></li>
-    }
-}
-else if (Model.Geslacht == "Kinderen")
-{
-    foreach (var item in Model.BehandelingenKinderen)
-    {
-        <li><a>@item.Optie (@item.Tijdsduur)</a></li>
-    }
-}*@
-
-
+    <br />
+    <button type="submit">Volgende</button>
+</form>

@@ -5,10 +5,16 @@ using System.Threading.Tasks;
 
 namespace EE.KapsalonX.Web.Models
 {
-    public class Behandeling
+    public class BehandelingModel
     {
-        public string Geslacht { get; set; }
+        public int Id { get; set; }
         public string Coupe { get; set; }
         public string Optie { get; set; }
+        public TimeSpan Tijdsduur { get; set; }
+
+        public BehandelingModel()
+        {
+
+        }
     }
 }
