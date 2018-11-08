@@ -15,7 +15,6 @@ namespace EE.KapsalonX.Web.Controllers
     public class BoekenController : Controller
     {
         //const string STATEKEY = "SessionOpties";
-
         List<BehandelingModel> BehandelingenDames = new List<BehandelingModel>
         {
             new BehandelingModel {Coupe = "Kort haar", Optie = "Knippen", Tijdsduur = new TimeSpan(00,30,00)},
@@ -46,6 +45,7 @@ namespace EE.KapsalonX.Web.Controllers
         public IActionResult Index(int? stapId)
         {
             BoekenModel boekenModel = new BoekenModel(stapId.GetValueOrDefault(1));
+            boekenModel.BehandelingenDames = BehandelingenDames;
             WaardenNaarViewModel(boekenModel);
             return View(boekenModel);
         }
@@ -56,6 +56,7 @@ namespace EE.KapsalonX.Web.Controllers
         {
             if (boekenModel.Stap == 2)
             {
+                boekenModel.Stap++;
                 return RedirectToAction("Kalender", boekenModel);
             }
             else
@@ -67,15 +68,16 @@ namespace EE.KapsalonX.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Kalender(BoekenModel boekenModel)
+        public IActionResult Kalender(int? stapId, BoekenModel boekenModel)
         {
+            stapId.GetValueOrDefault(3);
             return View(boekenModel);
         }
 
         private void WaardenNaarViewModel(BoekenModel boekenModel)
         {
             boekenModel.Geslacht = TempData["Geslacht"]?.ToString();
-            boekenModel.Optie = TempData["Optie"]?.ToString();
+            boekenModel.Optie = TempData["BehandelingenDames"]?.ToString();
         }
 
         private void WaardenNaarTempDate(BoekenModel boekenModel)

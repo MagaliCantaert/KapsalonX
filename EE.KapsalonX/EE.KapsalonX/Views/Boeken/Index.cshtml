@@ -14,14 +14,25 @@
     {
         case 1:
             <label asp-for="Geslacht">Kies geslacht</label><br />
-            <input asp-for="Geslacht" /><br />
-            <input asp-for="Optie" hidden /><br />
+            <input asp-for="Geslacht" type="radio" name="Geslacht" id="Dames" value="Dames" />
+            <label asp-for="Geslacht">Dames</label><br />
+            <input asp-for="Geslacht" type="radio" name="Geslacht" id="Heren" value="Heren" />
+            <label asp-for="Geslacht">Heren</label><br />
+            <input asp-for="Geslacht" type="radio" name="Geslacht" id="Kinderen" value="Kinderen" />
+            <label asp-for="Geslacht">Kinderen</label>
             break;
         case 2:
-            <label asp-for="Geslacht" hidden>Kies geslacht</label>
-            <input asp-for="Geslacht" hidden />
-            <label asp-for="Optie">Kies behandeling</label><br />
-            <input asp-for="Optie" />
+            <label asp-for="Optie">Kies behandeling</label>
+            <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
+            if (Model.Geslacht == "Dames")
+            {
+                <select>
+                    @foreach (var item in Model.BehandelingenDames)
+                    {
+                        <option asp-for="@Model.Optie" value="@item.Optie">@item.Coupe: @item.Optie (@item.Tijdsduur)</option>
+                    }
+                </select>
+            }
             break;
         default:
             break;

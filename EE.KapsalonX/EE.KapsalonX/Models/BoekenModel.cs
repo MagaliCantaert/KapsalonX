@@ -13,7 +13,7 @@ namespace EE.KapsalonX.Web.Models
 
         public List<BehandelingModel> BehandelingenDames { get; set; }
         public List<BehandelingModel> BehandelingenHeren { get; set; }
-        public List<BehandelingModel> BehandelingenKinderen { get; set; }
+        public List<BehandelingModel> BehandelingenKinderen { get; set; }        
 
         public BoekenModel()
         {
