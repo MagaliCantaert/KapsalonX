@@ -1,6 +1,6 @@
 using System;
 
-namespace EE.KapsalonX.Models
+namespace EE.KapsalonX.ViewModels
 {
     public class ErrorViewModel
     {
