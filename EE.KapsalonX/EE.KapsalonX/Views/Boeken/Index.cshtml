@@ -1,7 +1,7 @@
 ﻿@model EE.KapsalonX.Web.Models.BoekenModel
 
 @{
-    //ViewData["Title"] = "Index";
+    ViewData["Title"] = "Index";
 }
 @*<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>*@
 <h2>Maak uw afspraak</h2>
@@ -13,7 +13,7 @@
     @switch (Model.Stap)
     {
         case 1:
-            <label asp-for="Geslacht">Kies geslacht</label><br />
+            <p>Kies geslacht</p><br />
             <input asp-for="Geslacht" type="radio" name="Geslacht" id="Dames" value="Dames" />
             <label asp-for="Geslacht">Dames</label><br />
             <input asp-for="Geslacht" type="radio" name="Geslacht" id="Heren" value="Heren" />
@@ -22,14 +22,37 @@
             <label asp-for="Geslacht">Kinderen</label>
             break;
         case 2:
-            <label asp-for="Optie">Kies behandeling</label>
+            <p>Kies behandeling</p><br />
             <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
+            @*if (Model.Geslacht == "Dames")
+                {
+                    <select asp-for="Optie" asp-items="@Model.BehandelingDame">
+                    </select>
+                }*@
             if (Model.Geslacht == "Dames")
             {
-                <select>
+                <select asp-for="Behandeling">
                     @foreach (var item in Model.BehandelingenDames)
                     {
-                        <option asp-for="@Model.Optie" value="@item.Optie">@item.Coupe: @item.Optie (@item.Tijdsduur)</option>
+                        <option>@item.Behandeling (@item.Tijdsduur)</option>
+                    }
+                </select>
+            }
+            else if (Model.Geslacht == "Heren")
+            {
+                <select asp-for="Behandeling">
+                    @foreach (var item in Model.BehandelingenHeren)
+                    {
+                        <option>@item.Behandeling (@item.Tijdsduur)</option>
+                    }
+                </select>
+            }
+            else if (Model.Geslacht == "Kinderen")
+            {
+                <select asp-for="Behandeling">
+                    @foreach (var item in Model.BehandelingenKinderen)
+                    {
+                        <option>@item.Behandeling (@item.Tijdsduur)</option>
                     }
                 </select>
             }

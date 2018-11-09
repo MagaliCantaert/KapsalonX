@@ -14,38 +14,46 @@ namespace EE.KapsalonX.Web.Controllers
 {
     public class BoekenController : Controller
     {
-        //const string STATEKEY = "SessionOpties";
+        #region Opvullen van behandelinglijst
         List<BehandelingModel> BehandelingenDames = new List<BehandelingModel>
         {
-            new BehandelingModel {Coupe = "Kort haar", Optie = "Knippen", Tijdsduur = new TimeSpan(00,30,00)},
-            new BehandelingModel {Coupe = "Kort haar", Optie = "Kleuren", Tijdsduur = new TimeSpan(00,45,00)},
-            new BehandelingModel {Coupe = "Kort haar", Optie = "Brushing", Tijdsduur = new TimeSpan(00,30,00)},
-            new BehandelingModel {Coupe = "Kort haar", Optie = "Knippen + kleuren", Tijdsduur = new TimeSpan(01,15,00)},
-            new BehandelingModel {Coupe = "Kort haar", Optie = "Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(01,45,00)},
+            new BehandelingModel { Behandeling = "KORT HAAR - Knippen", Tijdsduur = new TimeSpan(00,30,00)},
+            new BehandelingModel { Behandeling = "KORT HAAR - Kleuren", Tijdsduur = new TimeSpan(00,45,00)},
+            new BehandelingModel { Behandeling = "KORT HAAR - Brushing", Tijdsduur = new TimeSpan(00,30,00)},
+            new BehandelingModel { Behandeling = "KORT HAAR - Knippen + kleuren", Tijdsduur = new TimeSpan(01,15,00)},
+            new BehandelingModel { Behandeling = "KORT HAAR - Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(01,45,00)},
 
-            new BehandelingModel {Coupe = "Lang haar", Optie = "Knippen", Tijdsduur = new TimeSpan(00,40,00)},
-            new BehandelingModel {Coupe = "Lang haar", Optie = "Kleuren", Tijdsduur = new TimeSpan(01,00,00)},
-            new BehandelingModel {Coupe = "Lang haar", Optie = "Brushing", Tijdsduur = new TimeSpan(00,40,00)},
-            new BehandelingModel {Coupe = "Lang haar", Optie = "Knippen + kleuren", Tijdsduur = new TimeSpan(01,40,00)},
-            new BehandelingModel {Coupe = "Lang haar", Optie = "Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(02,20,00)}
+            new BehandelingModel { Behandeling = "KORT HAAR - Knippen", Tijdsduur = new TimeSpan(00,40,00)},
+            new BehandelingModel { Behandeling = "KORT HAAR - Kleuren", Tijdsduur = new TimeSpan(01,00,00)},
+            new BehandelingModel { Behandeling = "KORT HAAR - Brushing", Tijdsduur = new TimeSpan(00,40,00)},
+            new BehandelingModel { Behandeling = "KORT HAAR - Knippen + kleuren", Tijdsduur = new TimeSpan(01,40,00)},
+            new BehandelingModel { Behandeling = "KORT HAAR - Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(02,20,00)}
         };
         List<BehandelingModel> BehandelingenHeren = new List<BehandelingModel>
         {
-            new BehandelingModel { Optie = "Snit", Tijdsduur = new TimeSpan(00,30,00) },
-            new BehandelingModel { Optie = "Tondeuse", Tijdsduur = new TimeSpan(00,30,00) },
-            new BehandelingModel { Optie = "Knippen + kleuren", Tijdsduur = new TimeSpan(01,00,00)}
+            new BehandelingModel { Behandeling = "Snit", Tijdsduur = new TimeSpan(00,30,00) },
+            new BehandelingModel { Behandeling = "Tondeuse", Tijdsduur = new TimeSpan(00,30,00) },
+            new BehandelingModel { Behandeling = "Knippen + kleuren", Tijdsduur = new TimeSpan(01,00,00)}
         };
         List<BehandelingModel> BehandelingenKinderen = new List<BehandelingModel>
         {
-            new BehandelingModel { Optie = "Snit meisjes", Tijdsduur = new TimeSpan(00,30,00)},
-            new BehandelingModel { Optie = "Snit jongens", Tijdsduur = new TimeSpan(00,30,00)}
+            new BehandelingModel { Behandeling = "Snit meisjes", Tijdsduur = new TimeSpan(00,30,00)},
+            new BehandelingModel { Behandeling = "Snit jongens", Tijdsduur = new TimeSpan(00,30,00)}
         };
-        
+        #endregion
+
         [HttpGet]
         public IActionResult Index(int? stapId)
         {
             BoekenModel boekenModel = new BoekenModel(stapId.GetValueOrDefault(1));
             boekenModel.BehandelingenDames = BehandelingenDames;
+            boekenModel.BehandelingenHeren = BehandelingenHeren;
+            boekenModel.BehandelingenKinderen = BehandelingenKinderen;
+            //boekenModel.BehandelingDame = new List<SelectListItem>
+            //{
+            //    new SelectListItem {Text="Knippen", Value="Knippen"},
+            //    new SelectListItem {Text="kleuren", Value="kleuren"}
+            //};
             WaardenNaarViewModel(boekenModel);
             return View(boekenModel);
         }
@@ -63,7 +71,7 @@ namespace EE.KapsalonX.Web.Controllers
             {
                 boekenModel.Stap++;
             }
-            WaardenNaarTempDate(boekenModel);
+            WaardenNaarTempData(boekenModel);
             return RedirectToAction("Index", new { stapId = boekenModel.Stap });
         }
 
@@ -77,13 +85,13 @@ namespace EE.KapsalonX.Web.Controllers
         private void WaardenNaarViewModel(BoekenModel boekenModel)
         {
             boekenModel.Geslacht = TempData["Geslacht"]?.ToString();
-            boekenModel.Optie = TempData["BehandelingenDames"]?.ToString();
+            boekenModel.Behandeling = TempData["Behandeling"]?.ToString();
         }
 
-        private void WaardenNaarTempDate(BoekenModel boekenModel)
+        private void WaardenNaarTempData(BoekenModel boekenModel)
         {
             TempData["Geslacht"] = boekenModel.Geslacht;
-            TempData["Optie"] = boekenModel.Optie;
+            TempData["Behandeling"] = boekenModel.Behandelingen?.SingleOrDefault(o => o.Selected);
         }
     }
 }
