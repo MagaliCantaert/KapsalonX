@@ -49,11 +49,8 @@ namespace EE.KapsalonX.Web.Controllers
             boekenModel.BehandelingenDames = BehandelingenDames;
             boekenModel.BehandelingenHeren = BehandelingenHeren;
             boekenModel.BehandelingenKinderen = BehandelingenKinderen;
-            //boekenModel.BehandelingDame = new List<SelectListItem>
-            //{
-            //    new SelectListItem {Text="Knippen", Value="Knippen"},
-            //    new SelectListItem {Text="kleuren", Value="kleuren"}
-            //};
+            var datum = boekenModel.Datum;
+
             WaardenNaarViewModel(boekenModel);
             return View(boekenModel);
         }
@@ -62,7 +59,7 @@ namespace EE.KapsalonX.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Index(BoekenModel boekenModel)
         {
-            if (boekenModel.Stap == 2)
+            if (boekenModel.Stap == 3)
             {
                 boekenModel.Stap++;
                 return RedirectToAction("Kalender", boekenModel);
@@ -86,12 +83,14 @@ namespace EE.KapsalonX.Web.Controllers
         {
             boekenModel.Geslacht = TempData["Geslacht"]?.ToString();
             boekenModel.Behandeling = TempData["Behandeling"]?.ToString();
+            boekenModel.GekozenDatum = TempData["Datum"]?.ToString();
         }
 
         private void WaardenNaarTempData(BoekenModel boekenModel)
         {
             TempData["Geslacht"] = boekenModel.Geslacht;
             TempData["Behandeling"] = boekenModel.Behandelingen?.SingleOrDefault(o => o.Selected);
+            TempData["Datum"] = boekenModel.GekozenDatum;
         }
     }
 }

@@ -3,6 +3,9 @@
 <h2>Maak uw afspraak</h2>
 <h1>Stap @Model.Stap</h1>
 
+
+
+
 <div>
     <h4>Overzicht boeking</h4>
     <hr />
@@ -19,20 +22,28 @@
         <dd>
             @Html.DisplayFor(model => model.Behandeling)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Datum)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Datum)
+        </dd>
     </dl>
     <hr />
 </div>
 
-<div id="app">
-    <vuejs-datepicker></vuejs-datepicker>
-</div>
-<script src="https://unpkg.com/vue"></script>
-<script src="https://unpkg.com/vuejs-datepicker"></script>
-<script>
-    const app = new Vue({
-        el: '#app',
-        components: {
-            vuejsDatepicker
-        }
-    });
-</script>
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" src="/scripts/jquery.min.js"></script>
+<script type="text/javascript" src="/scripts/moment.min.js"></script>
+<script type="text/javascript" src="/scripts/bootstrap.min.js"></script>
+<script type="text/javascript" src="/scripts/bootstrap-datetimepicker.*js"></script>
+<script src="~/js/DateTimePicker.js"></script>

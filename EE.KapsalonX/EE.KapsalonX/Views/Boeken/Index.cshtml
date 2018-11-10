@@ -24,11 +24,7 @@
         case 2:
             <p>Kies behandeling</p><br />
             <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
-            @*if (Model.Geslacht == "Dames")
-                {
-                    <select asp-for="Optie" asp-items="@Model.BehandelingDame">
-                    </select>
-                }*@
+
             if (Model.Geslacht == "Dames")
             {
                 <select asp-for="Behandeling">
@@ -37,6 +33,8 @@
                         <option>@item.Behandeling (@item.Tijdsduur)</option>
                     }
                 </select>
+
+
             }
             else if (Model.Geslacht == "Heren")
             {
@@ -46,6 +44,7 @@
                         <option>@item.Behandeling (@item.Tijdsduur)</option>
                     }
                 </select>
+
             }
             else if (Model.Geslacht == "Kinderen")
             {
@@ -55,11 +54,52 @@
                         <option>@item.Behandeling (@item.Tijdsduur)</option>
                     }
                 </select>
+
             }
+            break;
+        case 3:
+            <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
+
+            if (Model.Geslacht == "Dames")
+            {
+                <select asp-for="Behandeling" hidden>
+                    @foreach (var item in Model.BehandelingenDames)
+                    {
+                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
+                    }
+                </select>
+            }
+            else if (Model.Geslacht == "Heren")
+            {
+                <select asp-for="Behandeling" hidden>
+                    @foreach (var item in Model.BehandelingenHeren)
+                    {
+                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
+                    }
+                </select>
+
+            }
+            else if (Model.Geslacht == "Kinderen")
+            {
+                <select asp-for="Behandeling" hidden>
+                    @foreach (var item in Model.BehandelingenKinderen)
+                    {
+                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
+                    }
+                </select>
+
+            }
+           
+                <label asp-for="Datum"></label>
+                <input asp-for="Datum" class="form-control" />
+            
             break;
         default:
             break;
     }
+
+
+
     <br />
     <button type="submit">Volgende</button>
 </form>
