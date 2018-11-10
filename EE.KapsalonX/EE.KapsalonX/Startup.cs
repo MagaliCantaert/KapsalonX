@@ -54,11 +54,20 @@ namespace EE.KapsalonX
                 options.IdleTimeout = TimeSpan.FromSeconds(15); // Set a short timeout for easy testing.
             });
 
+            // Inloggen met Google-account:
             services.AddAuthentication().AddGoogle(googleOptions =>
             {
                 googleOptions.ClientId = Configuration["Authentication:Google:ClientId"];
                 googleOptions.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
             });
+
+            // Inloggen met Facebook-account:
+            services.AddAuthentication().AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            });
+
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
