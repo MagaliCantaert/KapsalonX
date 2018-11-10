@@ -58,7 +58,7 @@ namespace EE.KapsalonX.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Index(BoekenModel boekenModel)
         {
-            if (boekenModel.Stap == 4)
+            if (boekenModel.Stap == 3)
             {
                 boekenModel.Stap++;
                 return RedirectToAction("Kalender", boekenModel);
