@@ -97,7 +97,6 @@ namespace EE.KapsalonX.Web.Models
                     Group = secondGroup
                 }
             };
-
             BehandelingenHeren = new List<SelectListItem>
             {
                 new SelectListItem
@@ -116,7 +115,6 @@ namespace EE.KapsalonX.Web.Models
                     Text = "Knippen & Kleuren"
                 }
             };
-
             BehandelingenKinderen = new List<SelectListItem>
             {
                 new SelectListItem

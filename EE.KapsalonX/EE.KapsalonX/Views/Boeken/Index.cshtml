@@ -15,37 +15,37 @@
             <label asp-for="Geslacht">Kies je geslacht:</label>
             <select asp-for="Geslacht">
                 <option selected>Kies...</option>
-                <option value="V">Vrouw</option>
-                <option value="M">Man</option>
-                <option value="K">Kind</option>
-            </select>
+                <option value="Vrouw">Vrouw</option>
+                <option value="Man">Man</option>
+                <option value="Kind">Kind</option>
+            </select><br />
             <button type="submit">Voeg geslacht toe</button>
 
 
-            @if (Model.Geslacht == "V")
+            @if (Model.Geslacht == "Vrouw")
             {
                 <div class="form-check">
                     <label asp-for="BehandelingDame">Kies de gewenste behandeling:</label>
                     <select asp-for="BehandelingDame" asp-items="Model.BehandelingenDames"></select>
                 </div>
-                <button type="submit">Voeg behandeling toe</button>
+                <button type="submit">Voeg behandeling toe</button><br />
             }
 
-            @if (Model.Geslacht == "M")
+            @if (Model.Geslacht == "Man")
             {
                 <div class="form-check">
                     <label asp-for="BehandelingHeer">Kies de gewenste behandeling:</label>
                     <select asp-for="BehandelingHeer" asp-items="Model.BehandelingenHeren"></select>
                 </div>
-            <button type="submit">Voeg behandeling toe</button>
+            <button type="submit">Voeg behandeling toe</button><br />
             }
-            @if (Model.Geslacht == "K")
+            @if (Model.Geslacht == "Kind")
             { 
                 <div class="form-check">
                     <label asp-for="BehandelingKind">Kies de gewenste behandeling:</label>
                     <select asp-for="BehandelingKind" asp-items="Model.BehandelingenKinderen"></select>
                 </div>
-            <button type="submit">Voeg behandeling toe</button>
+            <button type="submit">Voeg behandeling toe</button><br />
             }
 
             @*<button type="submit" class="btn btn-default"><b>GO</b></button>*@
@@ -55,21 +55,21 @@
 
 
 
-        @if (Model.Geslacht == "V")
+        @if (Model.Geslacht == "Vrouw")
         {
             <div>
                 <div>Geslacht: <b>@Model.Geslacht</b></div>
                 <div>Behandeling: <b>@Model.BehandelingDame</b></div>
             </div>
         }
-        @if (Model.Geslacht == "M")
+        @if (Model.Geslacht == "Man")
         {
             <div>
                 <div>Geslacht: <b>@Model.Geslacht</b></div>
                 <div>Behandeling: <b>@Model.BehandelingHeer</b></div>
             </div>
         }
-        @if (Model.Geslacht == "K")
+        @if (Model.Geslacht == "Kind")
         {
             <div>
                 <div>Geslacht: <b>@Model.Geslacht</b></div>

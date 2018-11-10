@@ -15,7 +15,6 @@ namespace EE.KapsalonX.Web.Controllers
 {
     public class BoekenController : Controller
     {
-        //const string STATEKEY = "SessionOpties";
 
         List<BehandelingVm> BehandelingenDames = new List<BehandelingVm>
         {
@@ -59,9 +58,10 @@ namespace EE.KapsalonX.Web.Controllers
         public IActionResult Index(BoekenIndexVm vm)
         {
             //vm.BehandelingenDames = BehandelingenDames;
+
+
             return View(vm);
         }
-
 
         public IActionResult Submit(BoekenIndexVm viewModel)
         {
@@ -75,29 +75,6 @@ namespace EE.KapsalonX.Web.Controllers
             return View(viewModel);
            
         }
-
-     
-        //public IActionResult Kalender(BoekenIndexVm viewModel)
-        //{
-
-        //    BehandelingVm selectedBehandeling = BehandelingenDames.FirstOrDefault();
-        //    if (selectedBehandeling == null)
-        //    {
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    //string serialized = HttpContext.Session.GetString(STATEKEY);
-        //    List<BehandelingVm> behandelingList = new List<BehandelingVm>();
-        //    //if (serialized != null)
-        //    //{
-        //    //    behandelingList = JsonConvert.DeserializeObject<List<BehandelingVm>>(serialized);
-        //    //}
-        //    behandelingList.Add(selectedBehandeling);
-        //    viewModel.Cart = behandelingList;
-        //    //serialized = JsonConvert.SerializeObject(behandelingList);
-        //    //HttpContext.Session.SetString(STATEKEY, serialized);
-        //    return View(viewModel);
-        //}
     }
 
 }
