@@ -23,11 +23,11 @@ namespace EE.KapsalonX.Web.Controllers
             new BehandelingModel { Behandeling = "KORT HAAR - Knippen + kleuren", Tijdsduur = new TimeSpan(01,15,00)},
             new BehandelingModel { Behandeling = "KORT HAAR - Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(01,45,00)},
 
-            new BehandelingModel { Behandeling = "KORT HAAR - Knippen", Tijdsduur = new TimeSpan(00,40,00)},
-            new BehandelingModel { Behandeling = "KORT HAAR - Kleuren", Tijdsduur = new TimeSpan(01,00,00)},
-            new BehandelingModel { Behandeling = "KORT HAAR - Brushing", Tijdsduur = new TimeSpan(00,40,00)},
-            new BehandelingModel { Behandeling = "KORT HAAR - Knippen + kleuren", Tijdsduur = new TimeSpan(01,40,00)},
-            new BehandelingModel { Behandeling = "KORT HAAR - Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(02,20,00)}
+            new BehandelingModel { Behandeling = "LANG HAAR - Knippen", Tijdsduur = new TimeSpan(00,40,00)},
+            new BehandelingModel { Behandeling = "LANG HAAR - Kleuren", Tijdsduur = new TimeSpan(01,00,00)},
+            new BehandelingModel { Behandeling = "LANG HAAR - Brushing", Tijdsduur = new TimeSpan(00,40,00)},
+            new BehandelingModel { Behandeling = "LANG HAAR - Knippen + kleuren", Tijdsduur = new TimeSpan(01,40,00)},
+            new BehandelingModel { Behandeling = "LANG HAAR - Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(02,20,00)}
         };
         List<BehandelingModel> BehandelingenHeren = new List<BehandelingModel>
         {
@@ -48,12 +48,7 @@ namespace EE.KapsalonX.Web.Controllers
             BoekenModel boekenModel = new BoekenModel(stapId.GetValueOrDefault(1));
             boekenModel.BehandelingenDames = BehandelingenDames;
             boekenModel.BehandelingenHeren = BehandelingenHeren;
-            boekenModel.BehandelingenKinderen = BehandelingenKinderen;
-            //boekenModel.BehandelingDame = new List<SelectListItem>
-            //{
-            //    new SelectListItem {Text="Knippen", Value="Knippen"},
-            //    new SelectListItem {Text="kleuren", Value="kleuren"}
-            //};
+            boekenModel.BehandelingenKinderen = BehandelingenKinderen;        
             WaardenNaarViewModel(boekenModel);
             return View(boekenModel);
         }
@@ -62,10 +57,10 @@ namespace EE.KapsalonX.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Index(BoekenModel boekenModel)
         {
-            if (boekenModel.Stap == 2)
+            if (boekenModel.Stap == 4)
             {
                 boekenModel.Stap++;
-                return RedirectToAction("Kalender", boekenModel);
+                return RedirectToAction("Overzicht", boekenModel);
             }
             else
             {
@@ -76,22 +71,53 @@ namespace EE.KapsalonX.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Kalender(int? stapId, BoekenModel boekenModel)
+        public IActionResult Overzicht(BoekenModel boekenModel)
         {
-            stapId.GetValueOrDefault(3);
-            return View(boekenModel);
+            if (ModelState.IsValid)
+            {   
+                // Hier opvullen nieuwe klant, nieuwe afspraak, enz...
+                return new RedirectToActionResult("Bevestigen", "Boeken", null);
+            }
+            else
+            {
+                return View(boekenModel);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Bevestigen()
+        {
+
+            return View();
         }
 
         private void WaardenNaarViewModel(BoekenModel boekenModel)
         {
             boekenModel.Geslacht = TempData["Geslacht"]?.ToString();
             boekenModel.Behandeling = TempData["Behandeling"]?.ToString();
+            boekenModel.Datum = TempData["Datum"]?.ToString();
+            boekenModel.Tijdstip = TempData["Tijdstip"]?.ToString();
+
+            boekenModel.Voornaam = TempData["Voornaam"]?.ToString();
+            boekenModel.Achternaam = TempData["Achternaam"]?.ToString();
+            boekenModel.Telefoonnummer = TempData["Telefoonnummer"]?.ToString();
+            boekenModel.Emailadres = TempData["Emailadres"]?.ToString();
+            boekenModel.Opmerkingen = TempData["Opmerkingen"]?.ToString();
         }
 
         private void WaardenNaarTempData(BoekenModel boekenModel)
         {
             TempData["Geslacht"] = boekenModel.Geslacht;
             TempData["Behandeling"] = boekenModel.Behandelingen?.SingleOrDefault(o => o.Selected);
+            TempData["Datum"] = boekenModel.Date.ToShortDateString();
+            TempData["Tijdstip"] = boekenModel.Time.ToShortTimeString();
+
+            TempData["Voornaam"] = boekenModel.Voornaam;
+            TempData["Achternaam"] = boekenModel.Achternaam;
+            TempData["Telefoonnummer"] = boekenModel.Telefoonnummer;
+            TempData["Emailadres"] = boekenModel.Emailadres;
+            TempData["Opmerkingen"] = boekenModel.Opmerkingen;
+
         }
     }
 }

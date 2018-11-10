@@ -7,29 +7,26 @@
 <h2>Maak uw afspraak</h2>
 <h1>Stap @Model.Stap</h1>
 
+<div asp-validation-summary="ModelOnly"></div>
 <form asp-controller="Boeken" asp-action="Index" method="post">
     <input asp-for="Stap" hidden />
 
     @switch (Model.Stap)
     {
         case 1:
-            <p>Kies geslacht</p><br />
-            <input asp-for="Geslacht" type="radio" name="Geslacht" id="Dames" value="Dames" />
-            <label asp-for="Geslacht">Dames</label><br />
-            <input asp-for="Geslacht" type="radio" name="Geslacht" id="Heren" value="Heren" />
-            <label asp-for="Geslacht">Heren</label><br />
-            <input asp-for="Geslacht" type="radio" name="Geslacht" id="Kinderen" value="Kinderen" />
-            <label asp-for="Geslacht">Kinderen</label>
+            <p>Wie ben je?</p><br />
+            <input asp-for="Geslacht" type="radio" name="Geslacht" id="Dame" value="Dame" />
+            <label asp-for="Geslacht">Dame</label><br />
+            <input asp-for="Geslacht" type="radio" name="Geslacht" id="Heer" value="Heer" />
+            <label asp-for="Geslacht">Heer</label><br />
+            <input asp-for="Geslacht" type="radio" name="Geslacht" id="Kind" value="Kind" />
+            <label asp-for="Geslacht">Kind</label>
             break;
         case 2:
-            <p>Kies behandeling</p><br />
+            <p>Kies je behandeling</p><br />
             <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
-            @*if (Model.Geslacht == "Dames")
-                {
-                    <select asp-for="Optie" asp-items="@Model.BehandelingDame">
-                    </select>
-                }*@
-            if (Model.Geslacht == "Dames")
+
+            if (Model.Geslacht == "Dame")
             {
                 <select asp-for="Behandeling">
                     @foreach (var item in Model.BehandelingenDames)
@@ -38,7 +35,7 @@
                     }
                 </select>
             }
-            else if (Model.Geslacht == "Heren")
+            else if (Model.Geslacht == "Heer")
             {
                 <select asp-for="Behandeling">
                     @foreach (var item in Model.BehandelingenHeren)
@@ -47,7 +44,7 @@
                     }
                 </select>
             }
-            else if (Model.Geslacht == "Kinderen")
+            else if (Model.Geslacht == "Kind")
             {
                 <select asp-for="Behandeling">
                     @foreach (var item in Model.BehandelingenKinderen)
@@ -58,14 +55,108 @@
             }
             break;
         case 3:
-        <p>Kies datum en tijdstip</p>
-        <input asp-for="Geslacht" value="@Model.Geslacht" />
-            <label asp-for="DatumTijdstip"></label>
-            <input asp-for="DatumTijdstip" class="form-control" />
+            <p>Kies de gewenste datum en tijd</p>
+            <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
+
+            if (Model.Geslacht == "Dame")
+            {
+                <select asp-for="Behandeling" hidden>
+                    @foreach (var item in Model.BehandelingenDames)
+                    {
+                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
+                    }
+                </select>
+            }
+            else if (Model.Geslacht == "Heer")
+            {
+                <select asp-for="Behandeling" hidden>
+                    @foreach (var item in Model.BehandelingenHeren)
+                    {
+                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
+                    }
+                </select>
+            }
+            else if (Model.Geslacht == "Kind")
+            {
+                <select asp-for="Behandeling" hidden>
+                    @foreach (var item in Model.BehandelingenKinderen)
+                    {
+                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
+                    }
+                </select>
+            }
+            <label asp-for="Date"></label>
+            <input asp-for="Date" class="form-control" /><br />
+
+            <label asp-for="Time"></label>
+            <input asp-for="Time" class="form-control" />
+            break;
+        case 4:
+            <p>Vul je gegevens in</p>
+            <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
+            <input asp-for="Datum" value="@Model.Datum" hidden />
+            <input asp-for="Tijdstip" value="@Model.Tijdstip" hidden />
+
+            if (Model.Geslacht == "Dame")
+            {
+                <select asp-for="Behandeling" hidden>
+                    @foreach (var item in Model.BehandelingenDames)
+                    {
+                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
+                    }
+                </select>
+            }
+            else if (Model.Geslacht == "Heer")
+            {
+                <select asp-for="Behandeling" hidden>
+                    @foreach (var item in Model.BehandelingenHeren)
+                    {
+                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
+                    }
+                </select>
+            }
+            else if (Model.Geslacht == "Kind")
+            {
+                <select asp-for="Behandeling" hidden>
+                    @foreach (var item in Model.BehandelingenKinderen)
+                    {
+                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
+                    }
+                </select>
+            }
+
+            <div class="form-group">
+                <label asp-for="Voornaam"></label>
+                <input asp-for="Voornaam" class="form-control" />
+                <span asp-validation-for="Voornaam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Achternaam"></label>
+                <input asp-for="Achternaam" class="form-control" />
+                <span asp-validation-for="Achternaam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefoonnummer"></label>
+                <input asp-for="Telefoonnummer" class="form-control" />
+                <span asp-validation-for="Telefoonnummer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Emailadres"></label>
+                <input asp-for="Emailadres" class="form-control" />
+                <span asp-validation-for="Emailadres" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Opmerkingen"></label>
+                <textarea asp-for="Opmerkingen" class="form-control" placeholder="Heeft u speciale opmerkingen?"></textarea>
+            </div>
+
             break;
         default:
             break;
     }
+
+
+
     <br />
     <button type="submit">Volgende</button>
 </form>
