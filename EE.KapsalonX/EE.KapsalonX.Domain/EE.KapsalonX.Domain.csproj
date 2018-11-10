@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.2.0" />
     <PackageReference Include="vue" Version="2.5.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EE.KapsalonX\EE.KapsalonX.Web.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,9 +1,27 @@
-﻿@model EE.KapsalonX.Web.Models.BoekenIndexVm
-@*@{
-    ViewData["Title"] = "Kalender";
-}*@
+﻿@model EE.KapsalonX.Web.Models.BoekenModel
 
-<h2>Kalender</h2>
+<h2>Maak uw afspraak</h2>
+<h1>Stap @Model.Stap</h1>
+
+<div>
+    <h4>Overzicht boeking</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Geslacht)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Geslacht)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Behandeling)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Behandeling)
+        </dd>
+    </dl>
+    <hr />
+</div>
 
 <div id="app">
     <vuejs-datepicker></vuejs-datepicker>
@@ -18,16 +36,3 @@
         }
     });
 </script>
-
-<form asp-action="Kalender">
-
-    @*@foreach (var item in Model.Cart)
-    {
-        @item.Coupe @item.Optie @item.Tijdsduur;
-    }*@
-
-
-    <div class="clearfix">
-        <a asp-action="Kalender" class="btn btn-primary">Click</a>
-    </div>
-</form>

@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using EE.KapsalonX.Models;
+using EE.KapsalonX.ViewModels;
 
 namespace EE.KapsalonX.Controllers
 {
