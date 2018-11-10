@@ -59,8 +59,19 @@ namespace EE.KapsalonX.Web.Controllers
         {
             if (boekenModel.Stap == 4)
             {
-                boekenModel.Stap++;
-                return RedirectToAction("Overzicht", boekenModel);
+                if (ModelState.IsValid)
+                {
+                    boekenModel.Stap++;
+                    return RedirectToAction("Overzicht", boekenModel);
+                }
+                else
+                {
+                    boekenModel.BehandelingenDames = BehandelingenDames;
+                    boekenModel.BehandelingenHeren = BehandelingenHeren;
+                    boekenModel.BehandelingenKinderen = BehandelingenKinderen;
+                    return View(boekenModel);
+                }
+                
             }
             else
             {
@@ -73,15 +84,7 @@ namespace EE.KapsalonX.Web.Controllers
         [HttpGet]
         public IActionResult Overzicht(BoekenModel boekenModel)
         {
-            if (ModelState.IsValid)
-            {   
-                // Hier opvullen nieuwe klant, nieuwe afspraak, enz...
-                return new RedirectToActionResult("Bevestigen", "Boeken", null);
-            }
-            else
-            {
-                return View(boekenModel);
-            }
+            return View(boekenModel);
         }
 
         [HttpPost]
