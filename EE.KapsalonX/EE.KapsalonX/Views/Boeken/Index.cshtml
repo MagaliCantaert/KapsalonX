@@ -57,6 +57,12 @@
                 </select>
             }
             break;
+        case 3:
+        <p>Kies datum en tijdstip</p>
+        <input asp-for="Geslacht" value="@Model.Geslacht" />
+            <label asp-for="DatumTijdstip"></label>
+            <input asp-for="DatumTijdstip" class="form-control" />
+            break;
         default:
             break;
     }
