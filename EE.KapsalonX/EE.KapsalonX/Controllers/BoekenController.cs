@@ -23,11 +23,11 @@ namespace EE.KapsalonX.Web.Controllers
             new BehandelingModel { Behandeling = "KORT HAAR - Knippen + kleuren", Tijdsduur = new TimeSpan(01,15,00)},
             new BehandelingModel { Behandeling = "KORT HAAR - Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(01,45,00)},
 
-            new BehandelingModel { Behandeling = "KORT HAAR - Knippen", Tijdsduur = new TimeSpan(00,40,00)},
-            new BehandelingModel { Behandeling = "KORT HAAR - Kleuren", Tijdsduur = new TimeSpan(01,00,00)},
-            new BehandelingModel { Behandeling = "KORT HAAR - Brushing", Tijdsduur = new TimeSpan(00,40,00)},
-            new BehandelingModel { Behandeling = "KORT HAAR - Knippen + kleuren", Tijdsduur = new TimeSpan(01,40,00)},
-            new BehandelingModel { Behandeling = "KORT HAAR - Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(02,20,00)}
+            new BehandelingModel { Behandeling = "LANG HAAR - Knippen", Tijdsduur = new TimeSpan(00,40,00)},
+            new BehandelingModel { Behandeling = "LANG HAAR - Kleuren", Tijdsduur = new TimeSpan(01,00,00)},
+            new BehandelingModel { Behandeling = "LANG HAAR - Brushing", Tijdsduur = new TimeSpan(00,40,00)},
+            new BehandelingModel { Behandeling = "LANG HAAR - Knippen + kleuren", Tijdsduur = new TimeSpan(01,40,00)},
+            new BehandelingModel { Behandeling = "LANG HAAR - Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(02,20,00)}
         };
         List<BehandelingModel> BehandelingenHeren = new List<BehandelingModel>
         {
@@ -60,7 +60,7 @@ namespace EE.KapsalonX.Web.Controllers
             if (boekenModel.Stap == 4)
             {
                 boekenModel.Stap++;
-                return RedirectToAction("Kalender", boekenModel);
+                return RedirectToAction("Overzicht", boekenModel);
             }
             else
             {
@@ -71,10 +71,24 @@ namespace EE.KapsalonX.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Kalender(int? stapId, BoekenModel boekenModel)
+        public IActionResult Overzicht(BoekenModel boekenModel)
         {
-            stapId.GetValueOrDefault(3);
-            return View(boekenModel);
+            if (ModelState.IsValid)
+            {   
+                // Hier opvullen nieuwe klant, nieuwe afspraak, enz...
+                return new RedirectToActionResult("Bevestigen", "Boeken", null);
+            }
+            else
+            {
+                return View(boekenModel);
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Bevestigen()
+        {
+
+            return View();
         }
 
         private void WaardenNaarViewModel(BoekenModel boekenModel)
