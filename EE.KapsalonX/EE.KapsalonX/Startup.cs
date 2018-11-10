@@ -34,6 +34,16 @@ namespace EE.KapsalonX
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.SignIn.RequireConfirmedEmail = true; // E-mailadres moet bevestigd worden.
+                options.Password.RequireDigit = false;
+                options.Password.RequiredUniqueChars = 0;
+                options.Password.RequireUppercase = false;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); // 5 min locken bij teveel verkeerd wachtwoord ingegeven
+                options.Lockout.MaxFailedAccessAttempts = 8;
+            });
+
             services.AddSession(options =>
             {
                 options.Cookie.SameSite = SameSiteMode.Strict; //protect session id from being hijacked
