@@ -12,8 +12,8 @@ namespace EE.KapsalonX.Web.Models
         public int Stap { get; set; }
         public string Geslacht { get; set; }
         public string Behandeling { get; set; }
-        public string GekozenDatum { get; set; }
-        public string GekozenTijd { get; set; }
+        public string Datum { get; set; }
+        public string Tijdstip { get; set; }
 
         public List<SelectListItem> Behandelingen { get; set; }
         public List<BehandelingModel> BehandelingenDames { get; set; }
@@ -25,11 +25,19 @@ namespace EE.KapsalonX.Web.Models
         [Display(Name = "Datum")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime Datum { get; set; }
+        public DateTime Date { get; set; }
 
         [Display(Name = "Tijdstip")]
         [DataType(DataType.Time)]
-        public DateTime Tijdstip { get; set; }
+        public DateTime Time { get; set; }
+
+
+        public string Voornaam { get; set; }
+        public string Achternaam { get; set; }
+        public string Telefoonnummer { get; set; }
+        public string Emailadres { get; set; }
+        public string Opmerkingen { get; set; }
+
 
         public BoekenModel()
         {

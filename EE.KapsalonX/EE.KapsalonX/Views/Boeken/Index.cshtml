@@ -54,6 +54,7 @@
             }
             break;
         case 3:
+            <p>Kies de datum en het tijdstip</p>
             <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
 
             if (Model.Geslacht == "Dames")
@@ -83,14 +84,67 @@
                     }
                 </select>
             }
-            <label asp-for="Datum"></label>
-            <input asp-for="Datum" class="form-control" /><br />
+            <label asp-for="Date"></label>
+            <input asp-for="Date" class="form-control" /><br />
 
-            <label asp-for="Tijdstip"></label>
-            <input asp-for="Tijdstip" class="form-control" />
+            <label asp-for="Time"></label>
+            <input asp-for="Time" class="form-control" />
             break;
+        case 4:
+            <p>Vul je gegevens in</p>
+            <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
+            <input asp-for="Datum" value="@Model.Datum" hidden/>
+            <input asp-for="Tijdstip" value="@Model.Tijdstip" hidden />
 
+            if (Model.Geslacht == "Dames")
+            {
+                <select asp-for="Behandeling" hidden>
+                    @foreach (var item in Model.BehandelingenDames)
+                    {
+                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
+                    }
+                </select>
+            }
+            else if (Model.Geslacht == "Heren")
+            {
+                <select asp-for="Behandeling" hidden>
+                    @foreach (var item in Model.BehandelingenHeren)
+                    {
+                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
+                    }
+                </select>
+            }
+            else if (Model.Geslacht == "Kinderen")
+            {
+                <select asp-for="Behandeling" hidden>
+                    @foreach (var item in Model.BehandelingenKinderen)
+                    {
+                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
+                    }
+                </select>
+            }
 
+            <div class="form-group">
+                <label asp-for="Voornaam"></label>
+                <input asp-for="Voornaam" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Achternaam"></label>
+                <input asp-for="Achternaam" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefoonnummer"></label>
+                <input asp-for="Telefoonnummer" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Emailadres"></label>
+                <input asp-for="Emailadres" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Opmerkingen"></label>
+                <textarea asp-for="Opmerkingen" class="form-control" placeholder="Heeft u speciale opmerkingen?"></textarea>
+            </div>
+            break;
         default:
             break;
     }

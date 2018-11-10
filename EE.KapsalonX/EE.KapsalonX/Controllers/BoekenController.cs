@@ -49,7 +49,6 @@ namespace EE.KapsalonX.Web.Controllers
             boekenModel.BehandelingenDames = BehandelingenDames;
             boekenModel.BehandelingenHeren = BehandelingenHeren;
             boekenModel.BehandelingenKinderen = BehandelingenKinderen;        
-
             WaardenNaarViewModel(boekenModel);
             return View(boekenModel);
         }
@@ -58,7 +57,7 @@ namespace EE.KapsalonX.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Index(BoekenModel boekenModel)
         {
-            if (boekenModel.Stap == 3)
+            if (boekenModel.Stap == 4)
             {
                 boekenModel.Stap++;
                 return RedirectToAction("Kalender", boekenModel);
@@ -82,16 +81,29 @@ namespace EE.KapsalonX.Web.Controllers
         {
             boekenModel.Geslacht = TempData["Geslacht"]?.ToString();
             boekenModel.Behandeling = TempData["Behandeling"]?.ToString();
-            boekenModel.GekozenDatum = TempData["Datum"]?.ToString();
-            boekenModel.GekozenTijd = TempData["Tijdstip"]?.ToString();
+            boekenModel.Datum = TempData["Datum"]?.ToString();
+            boekenModel.Tijdstip = TempData["Tijdstip"]?.ToString();
+
+            boekenModel.Voornaam = TempData["Voornaam"]?.ToString();
+            boekenModel.Achternaam = TempData["Achternaam"]?.ToString();
+            boekenModel.Telefoonnummer = TempData["Telefoonnummer"]?.ToString();
+            boekenModel.Emailadres = TempData["Emailadres"]?.ToString();
+            boekenModel.Opmerkingen = TempData["Opmerkingen"]?.ToString();
         }
 
         private void WaardenNaarTempData(BoekenModel boekenModel)
         {
             TempData["Geslacht"] = boekenModel.Geslacht;
             TempData["Behandeling"] = boekenModel.Behandelingen?.SingleOrDefault(o => o.Selected);
-            TempData["Datum"] = boekenModel.GekozenDatum;
-            TempData["Tijdstip"] = boekenModel.GekozenTijd;
+            TempData["Datum"] = boekenModel.Date.ToShortDateString();
+            TempData["Tijdstip"] = boekenModel.Time.ToShortTimeString();
+
+            TempData["Voornaam"] = boekenModel.Voornaam;
+            TempData["Achternaam"] = boekenModel.Achternaam;
+            TempData["Telefoonnummer"] = boekenModel.Telefoonnummer;
+            TempData["Emailadres"] = boekenModel.Emailadres;
+            TempData["Opmerkingen"] = boekenModel.Opmerkingen;
+
         }
     }
 }
