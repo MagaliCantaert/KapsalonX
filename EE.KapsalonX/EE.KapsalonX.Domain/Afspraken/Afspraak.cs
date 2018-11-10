@@ -9,7 +9,7 @@ namespace EE.KapsalonX.Domain.Boeken
         public Guid AfspraakId { get; set; }
         public Klant KlantGegevens { get; set; }
         public Behandeling BehandelingGegevens { get; set; }
-        public DateTime DatumTijdstip { get; set; }
-
+        public string Datum { get; set; }
+        public string Tijdstip { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using EE.KapsalonX.Domain.Boeken;
 using EE.KapsalonX.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -82,17 +83,56 @@ namespace EE.KapsalonX.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Overzicht(BoekenModel boekenModel)
+        public IActionResult Overzicht(int? stapId, BoekenModel boekenModel)
         {
             return View(boekenModel);
         }
 
         [HttpPost]
-        public IActionResult Bevestigen()
+        [ValidateAntiForgeryToken]
+        public IActionResult Overzicht(BoekenModel boekenModel)
         {
+            var nieuweKlant = new Klant
+            {
+                Voornaam = boekenModel.Voornaam,
+                Achternaam = boekenModel.Achternaam,
+                Telefoonnummer = boekenModel.Telefoonnummer,
+                Emailadres = boekenModel.Emailadres,
+                Opmerking = boekenModel.Opmerkingen
+            };
+            //ONDERSTAAND TOEVOEGEN BIJ AANMAAK DATABASE
+            //_context.Add(nieuweKlant);
+            //_context.SaveChanges();
 
-            return View();
+            var nieuweBehandeling = new Behandeling
+            {
+                Geslacht = boekenModel.Geslacht,
+                GekozenBehandeling = boekenModel.Behandeling
+            };
+            //ONDERSTAAND TOEVOEGEN BIJ AANMAAK DATABASE
+            //_context.Add(nieuweBehandeling);
+            //_context.SaveChanges();
+
+            var nieuweAfspraak = new Afspraak();
+            nieuweAfspraak.KlantGegevens = nieuweKlant;
+            nieuweAfspraak.BehandelingGegevens = nieuweBehandeling;
+            nieuweAfspraak.Datum = boekenModel.Datum;
+            nieuweAfspraak.Tijdstip = boekenModel.Tijdstip;
+            //ONDERSTAAND TOEVOEGEN BIJ AANMAAK DATABASE
+            //_context.Add(nieuweAfspraak);
+            //_context.SaveChanges();
+
+            //HIER LATER VERSTUREN VAN MAIL NAAR KLANT MET GEGEVENS AFSPRAAK
+            return new RedirectToActionResult("Bevestiging", "Boeken", boekenModel);
         }
+
+        
+        public IActionResult Bevestiging (BoekenModel boekenModel)
+        {
+            return View(boekenModel);
+        }
+
+
 
         private void WaardenNaarViewModel(BoekenModel boekenModel)
         {

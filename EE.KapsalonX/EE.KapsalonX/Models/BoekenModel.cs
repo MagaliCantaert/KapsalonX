@@ -40,6 +40,7 @@ namespace EE.KapsalonX.Web.Models
         [Required(ErrorMessage = "Dit is een verplicht veld")]
         public string Telefoonnummer { get; set; }
 
+        [Display(Name = "Email-adres")]
         [Required(ErrorMessage = "Dit is een verplicht veld")]
         public string Emailadres { get; set; }
 
