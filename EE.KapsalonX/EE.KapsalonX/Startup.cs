@@ -43,6 +43,7 @@ namespace EE.KapsalonX
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); // 5 min locken bij teveel verkeerd wachtwoord ingegeven
                 options.Lockout.MaxFailedAccessAttempts = 8;
             });
+       
 
             services.AddSession(options =>
             {
@@ -72,15 +73,12 @@ namespace EE.KapsalonX
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
-
             }
-
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseSession();
-
 
             app.UseAuthentication();
 
