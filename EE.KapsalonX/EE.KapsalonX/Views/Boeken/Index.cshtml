@@ -33,8 +33,6 @@
                         <option>@item.Behandeling (@item.Tijdsduur)</option>
                     }
                 </select>
-
-
             }
             else if (Model.Geslacht == "Heren")
             {
@@ -44,7 +42,6 @@
                         <option>@item.Behandeling (@item.Tijdsduur)</option>
                     }
                 </select>
-
             }
             else if (Model.Geslacht == "Kinderen")
             {
@@ -54,7 +51,6 @@
                         <option>@item.Behandeling (@item.Tijdsduur)</option>
                     }
                 </select>
-
             }
             break;
         case 3:
@@ -77,7 +73,6 @@
                         <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
                     }
                 </select>
-
             }
             else if (Model.Geslacht == "Kinderen")
             {
@@ -87,12 +82,43 @@
                         <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
                     }
                 </select>
-
             }
-           
-                <label asp-for="Datum"></label>
-                <input asp-for="Datum" class="form-control" />
-            
+            <label asp-for="Datum"></label>
+            <input asp-for="Datum" class="form-control" />
+            break;
+
+        case 4:
+            <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
+
+            if (Model.Geslacht == "Dames")
+            {
+                <select asp-for="Behandeling" hidden>
+                    @foreach (var item in Model.BehandelingenDames)
+                    {
+                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
+                    }
+                </select>
+            }
+            else if (Model.Geslacht == "Heren")
+            {
+                <select asp-for="Behandeling" hidden>
+                    @foreach (var item in Model.BehandelingenHeren)
+                    {
+                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
+                    }
+                </select>
+            }
+            else if (Model.Geslacht == "Kinderen")
+            {
+                <select asp-for="Behandeling" hidden>
+                    @foreach (var item in Model.BehandelingenKinderen)
+                    {
+                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
+                    }
+                </select>
+            }
+            <label asp-for="Tijdstip"></label>
+            <input asp-for="Tijdstip" class="form-control" />
             break;
         default:
             break;
