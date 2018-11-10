@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using EE.KapsalonX.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using EE.KapsalonX.Web.Areas.Identity.Services;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace EE.KapsalonX
 {
@@ -59,6 +61,10 @@ namespace EE.KapsalonX
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // E-mailondersteuning:
+            services.AddSingleton<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
