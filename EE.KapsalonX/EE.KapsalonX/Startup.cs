@@ -14,14 +14,19 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using EE.KapsalonX.Web.Areas.Identity.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace EE.KapsalonX
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IHostingEnvironment environment;
+
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            this.environment = env;
         }
 
         public IConfiguration Configuration { get; }
@@ -29,6 +34,13 @@ namespace EE.KapsalonX
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Lokaal met http, Deployen naar server: via https
+            if (!environment.IsDevelopment())
+            {
+                services.Configure<MvcOptions>(o =>
+                o.Filters.Add(new RequireHttpsAttribute()));
+            }
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -36,16 +48,19 @@ namespace EE.KapsalonX
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
             services.Configure<IdentityOptions>(options =>
             {
-                options.SignIn.RequireConfirmedEmail = true; // E-mailadres moet bevestigd worden.
+                options.SignIn.RequireConfirmedEmail = false; // E-mailadres moet bevestigd worden.
                 options.Password.RequireDigit = false;
-                options.Password.RequiredUniqueChars = 0;
+                //options.Password.RequiredUniqueChars = 0;
                 options.Password.RequireUppercase = false;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); // 5 min locken bij teveel verkeerd wachtwoord ingegeven
                 options.Lockout.MaxFailedAccessAttempts = 8;
             });
-       
 
             services.AddSession(options =>
             {
@@ -68,12 +83,9 @@ namespace EE.KapsalonX
                 facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
             });
 
-
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -82,9 +94,14 @@ namespace EE.KapsalonX
             services.Configure<AuthMessageSenderOptions>(Configuration);
         }
 
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
+        IServiceProvider serviceProvider)
         {
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -109,6 +126,84 @@ namespace EE.KapsalonX
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            CreateRolesAndAdminUser(serviceProvider);
         }
+
+
+        private static void CreateRolesAndAdminUser(IServiceProvider serviceProvider)
+        {
+            const string adminRoleName = "Administrator";
+            string[] roleNames = { adminRoleName, "User"};
+
+            foreach (string roleName in roleNames)
+            {
+                CreateRole(serviceProvider, roleName);
+            }
+
+            // Get these value from "appsettings.json" file.
+            string adminUserEmail = "test@test.be";
+            string adminPwd = "Test123!";
+            AddUserToRole(serviceProvider, adminUserEmail, adminPwd, adminRoleName);
+        }
+
+        /// <summary>
+        /// Create a role if not exists.
+        /// </summary>
+        /// <param name="serviceProvider">Service Provider</param>
+        /// <param name="roleName">Role Name</param>
+        private static void CreateRole(IServiceProvider serviceProvider, string roleName)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+            Task<bool> roleExists = roleManager.RoleExistsAsync(roleName);
+            roleExists.Wait();
+
+            if (!roleExists.Result)
+            {
+                Task<IdentityResult> roleResult = roleManager.CreateAsync(new IdentityRole(roleName));
+                roleResult.Wait();
+            }
+        }
+
+        /// <summary>
+        /// Add user to a role if the user exists, otherwise, create the user and adds him to the role.
+        /// </summary>
+        /// <param name="serviceProvider">Service Provider</param>
+        /// <param name="userEmail">User Email</param>
+        /// <param name="userPwd">User Password. Used to create the user if not exists.</param>
+        /// <param name="roleName">Role Name</param>
+        private static void AddUserToRole(IServiceProvider serviceProvider, string userEmail,
+            string userPwd, string roleName)
+        {
+            var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+            Task<IdentityUser> checkAppUser = userManager.FindByEmailAsync(userEmail);
+            checkAppUser.Wait();
+
+            IdentityUser appUser = checkAppUser.Result;
+
+            if (checkAppUser.Result == null)
+            {
+                IdentityUser newAppUser = new IdentityUser
+                {
+                    Email = userEmail,
+                    UserName = userEmail
+                };
+
+                Task<IdentityResult> taskCreateAppUser = userManager.CreateAsync(newAppUser, userPwd);
+                taskCreateAppUser.Wait();
+
+                if (taskCreateAppUser.Result.Succeeded)
+                {
+                    appUser = newAppUser;
+                }
+            }
+
+            Task<IdentityResult> newUserRole = userManager.AddToRoleAsync(appUser, roleName);
+            newUserRole.Wait();
+        }
+
+
     }
 }

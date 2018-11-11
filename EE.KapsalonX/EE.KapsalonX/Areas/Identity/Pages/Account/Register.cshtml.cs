@@ -16,6 +16,7 @@ namespace EE.KapsalonX.Web.Areas.Identity.Pages.Account
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
@@ -23,11 +24,13 @@ namespace EE.KapsalonX.Web.Areas.Identity.Pages.Account
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
             _logger = logger;
             _emailSender = emailSender;
         }
@@ -95,5 +98,43 @@ namespace EE.KapsalonX.Web.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             return Page();
         }
+
+        //public async Task CreateRoles()
+        //{
+        //    //if (await _context.Roles.AnyAsync())
+        //    //{// not waste time
+        //    //    _logger.LogInformation("Exists Roles.");
+        //    //    return;
+        //    //}
+        //    var adminRole = "Admin";
+        //    var roleNames = new String[] { adminRole, "Manager", "Crew", "Guest", "Designer" };
+
+        //    foreach (var roleName in roleNames)
+        //    {
+        //        var role = await _roleManager.RoleExistsAsync(roleName);
+        //        if (!role)
+        //        {
+        //            var result = await _roleManager.CreateAsync(new IdentityRole { Name = roleName });
+        //            _logger.LogInformation("Create {0}: {1}", roleName, result.Succeeded);
+        //        }
+        //    }
+        //    // administrator
+        //    var user = new IdentityUser
+        //    {
+        //        UserName = "Administrator",
+        //        Email = "something@something.com",
+        //        //EmailConfirmed = true
+        //    };
+        //    var i = await _userManager.FindByEmailAsync(user.Email);
+        //    if (i == null)
+        //    {
+        //        var adminUser = await _userManager.CreateAsync(user, "Something*");
+        //        if (adminUser.Succeeded)
+        //        {
+        //            await _userManager.AddToRoleAsync(user, adminRole);
+        //            _logger.LogInformation("Create {0}", user.UserName);
+        //        }
+        //    }
+        //}
     }
 }

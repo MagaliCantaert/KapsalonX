@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace EE.KapsalonX.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         public IActionResult Index()
@@ -16,7 +17,7 @@ namespace EE.KapsalonX.Controllers
             return View();
         }
 
-        [Authorize] // Om te illusteren dat je moet ingelogd zijn om deze pagina te bezoeken
+        //[Authorize] // Om te illusteren dat je moet ingelogd zijn om deze pagina te bezoeken
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -24,6 +25,7 @@ namespace EE.KapsalonX.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Administrator")]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
