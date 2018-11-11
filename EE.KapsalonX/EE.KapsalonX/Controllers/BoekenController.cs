@@ -108,7 +108,7 @@ namespace EE.KapsalonX.Web.Controllers
         private void WaardenNaarTempData(BoekenModel boekenModel)
         {
             TempData["Geslacht"] = boekenModel.Geslacht;
-            TempData["Behandeling"] = boekenModel.Behandelingen?.SingleOrDefault(o => o.Selected);
+            TempData["Behandeling"] = boekenModel.Behandeling?.ToString();
             TempData["Datum"] = boekenModel.Date.ToShortDateString();
             TempData["Tijdstip"] = boekenModel.Time.ToShortTimeString();
 
