@@ -50,10 +50,7 @@ namespace EE.KapsalonX.Web.Controllers
             boekenModel.BehandelingenDames = BehandelingenDames;
             boekenModel.BehandelingenHeren = BehandelingenHeren;
             boekenModel.BehandelingenKinderen = BehandelingenKinderen;
-            boekenModel.Geslacht = TempData["Geslacht"]?.ToString();
-                boekenModel.Behandeling = TempData["Behandeling"]?.ToString();
-
-            //WaardenNaarViewModel(boekenModel);
+            WaardenNaarViewModel(boekenModel);
             return View(boekenModel);
         }
 
@@ -61,44 +58,26 @@ namespace EE.KapsalonX.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Index(BoekenModel boekenModel)
         {
-            if (boekenModel.Stap == 1)
+            if (boekenModel.Stap == 4)
+            {
+                if (ModelState.IsValid)
+                {
+                    boekenModel.Stap++;
+                    return RedirectToAction("Overzicht", boekenModel);
+                }
+                else
+                {
+                    boekenModel.BehandelingenDames = BehandelingenDames;
+                    boekenModel.BehandelingenHeren = BehandelingenHeren;
+                    boekenModel.BehandelingenKinderen = BehandelingenKinderen;
+                    return View(boekenModel);
+                }
+            }
+            else
             {
                 boekenModel.Stap++;
-                TempData["Geslacht"] = boekenModel.Geslacht;
-                TempData.Keep();
             }
-            else if (boekenModel.Stap == 2)
-            {
-                boekenModel.Stap++;
-                TempData["Geslacht"] = boekenModel.Geslacht;
-                TempData["Behandeling"] = boekenModel.Behandeling;
-                TempData.Keep();
-            }
-            else if (boekenModel.Stap == 3)
-            {
-                boekenModel.Stap++;
-            }
-            //if (boekenModel.Stap == 4)
-            //{
-            //    if (ModelState.IsValid)
-            //    {
-            //        boekenModel.Stap++;
-            //        return RedirectToAction("Overzicht", boekenModel);
-            //    }
-            //    else
-            //    {
-            //        boekenModel.BehandelingenDames = BehandelingenDames;
-            //        boekenModel.BehandelingenHeren = BehandelingenHeren;
-            //        boekenModel.BehandelingenKinderen = BehandelingenKinderen;
-            //        return View(boekenModel);
-            //    }
-
-            //}
-            //else
-            //{
-            //    boekenModel.Stap++;
-            //}
-            //WaardenNaarTempData(boekenModel);
+            WaardenNaarTempData(boekenModel);
             return RedirectToAction("Index", new { stapId = boekenModel.Stap, boekenModel });
         }
 
@@ -171,7 +150,7 @@ namespace EE.KapsalonX.Web.Controllers
         private void WaardenNaarTempData(BoekenModel boekenModel)
         {
             TempData["Geslacht"] = boekenModel.Geslacht;
-            TempData["Behandeling"] = boekenModel.Behandelingen?.SingleOrDefault(b => b.Selected);
+            TempData["Behandeling"] = boekenModel.Behandeling?.ToString();
             TempData["Datum"] = boekenModel.Date.ToShortDateString();
             TempData["Tijdstip"] = boekenModel.Time.ToShortTimeString();
 
