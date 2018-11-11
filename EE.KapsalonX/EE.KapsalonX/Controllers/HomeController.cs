@@ -25,7 +25,6 @@ namespace EE.KapsalonX.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Administrator")]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
@@ -42,6 +41,12 @@ namespace EE.KapsalonX.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public IActionResult Administrator()
+        {
+            return View();
         }
     }
 }
