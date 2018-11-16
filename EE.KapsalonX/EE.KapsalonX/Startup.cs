@@ -94,8 +94,6 @@ namespace EE.KapsalonX
             services.Configure<AuthMessageSenderOptions>(Configuration);
         }
 
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
         IServiceProvider serviceProvider)
         {
@@ -130,7 +128,10 @@ namespace EE.KapsalonX
             CreateRolesAndAdminUser(serviceProvider);
         }
 
-
+        /// <summary>
+        /// Administrator toevoegen aan Administrator-rol
+        /// </summary>
+        /// <param name="serviceProvider"></param>
         private static void CreateRolesAndAdminUser(IServiceProvider serviceProvider)
         {
             const string adminRoleName = "Administrator";
@@ -141,14 +142,13 @@ namespace EE.KapsalonX
                 CreateRole(serviceProvider, roleName);
             }
 
-            // Get these value from "appsettings.json" file.
             string adminUserEmail = "test@test.be";
             string adminPwd = "Test123!";
             AddUserToRole(serviceProvider, adminUserEmail, adminPwd, adminRoleName);
         }
 
         /// <summary>
-        /// Create a role if not exists.
+        /// Een rol aanmaken
         /// </summary>
         /// <param name="serviceProvider">Service Provider</param>
         /// <param name="roleName">Role Name</param>
@@ -167,7 +167,7 @@ namespace EE.KapsalonX
         }
 
         /// <summary>
-        /// Add user to a role if the user exists, otherwise, create the user and adds him to the role.
+        /// User toevoegen aan een rol
         /// </summary>
         /// <param name="serviceProvider">Service Provider</param>
         /// <param name="userEmail">User Email</param>
