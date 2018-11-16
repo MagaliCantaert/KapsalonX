@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace EE.KapsalonX.Data.Migrations
+namespace EE.KapsalonX.Web.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,6 +45,34 @@ namespace EE.KapsalonX.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Behandelingen",
+                columns: table => new
+                {
+                    BehandelingId = table.Column<Guid>(nullable: false),
+                    Geslacht = table.Column<string>(nullable: true),
+                    GekozenBehandeling = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Behandelingen", x => x.BehandelingId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Klanten",
+                columns: table => new
+                {
+                    KlantId = table.Column<Guid>(nullable: false),
+                    Voornaam = table.Column<string>(maxLength: 50, nullable: false),
+                    Achternaam = table.Column<string>(maxLength: 50, nullable: false),
+                    Emailadres = table.Column<string>(nullable: false),
+                    Telefoonnummer = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Klanten", x => x.KlantId);
                 });
 
             migrationBuilder.CreateTable(
@@ -93,8 +121,8 @@ namespace EE.KapsalonX.Data.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -138,8 +166,8 @@ namespace EE.KapsalonX.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -152,6 +180,38 @@ namespace EE.KapsalonX.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Afspraken",
+                columns: table => new
+                {
+                    AfspraakId = table.Column<Guid>(nullable: false),
+                    BehandelingGegevensBehandelingId = table.Column<Guid>(nullable: true),
+                    Datum = table.Column<string>(nullable: false),
+                    Tijdstip = table.Column<string>(nullable: false),
+                    Opmerking = table.Column<string>(maxLength: 300, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Afspraken", x => x.AfspraakId);
+                    table.ForeignKey(
+                        name: "FK_Afspraken_Klanten_AfspraakId",
+                        column: x => x.AfspraakId,
+                        principalTable: "Klanten",
+                        principalColumn: "KlantId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Afspraken_Behandelingen_BehandelingGegevensBehandelingId",
+                        column: x => x.BehandelingGegevensBehandelingId,
+                        principalTable: "Behandelingen",
+                        principalColumn: "BehandelingId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Afspraken_BehandelingGegevensBehandelingId",
+                table: "Afspraken",
+                column: "BehandelingGegevensBehandelingId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -196,6 +256,9 @@ namespace EE.KapsalonX.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Afspraken");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -209,6 +272,12 @@ namespace EE.KapsalonX.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Klanten");
+
+            migrationBuilder.DropTable(
+                name: "Behandelingen");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

@@ -53,8 +53,8 @@ namespace EE.KapsalonX.Data
                 .HasKey(e => e.AfspraakId);
             modelBuilder.Entity<Afspraak>()
                 .Property(e => e.Datum)
-                .HasColumnType("date")
                 .IsRequired();
+            
             modelBuilder.Entity<Afspraak>()
                 .Property(e => e.Tijdstip)
                 .IsRequired();
@@ -62,9 +62,11 @@ namespace EE.KapsalonX.Data
                 .Property(e => e.Opmerking)
                 .HasMaxLength(300);
             modelBuilder.Entity<Afspraak>()
-                .Property(e => e.KlantGegevens);
+                .HasOne(e => e.KlantGegevens)
+                .WithMany(p => p.Afspraken)
+                .HasForeignKey(p => p.AfspraakId);
             modelBuilder.Entity<Afspraak>()
-                .Property(e => e.BehandelingGegevens);
+                .HasOne(e => e.BehandelingGegevens);
 
             base.OnModelCreating(modelBuilder);
         }

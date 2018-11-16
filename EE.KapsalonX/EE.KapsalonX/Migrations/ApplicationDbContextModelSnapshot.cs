@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace EE.KapsalonX.Data.Migrations
+namespace EE.KapsalonX.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -18,6 +18,66 @@ namespace EE.KapsalonX.Data.Migrations
                 .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("EE.KapsalonX.Domain.Boeken.Afspraak", b =>
+                {
+                    b.Property<Guid>("AfspraakId");
+
+                    b.Property<Guid?>("BehandelingGegevensBehandelingId");
+
+                    b.Property<string>("Datum")
+                        .IsRequired();
+
+                    b.Property<string>("Opmerking")
+                        .HasMaxLength(300);
+
+                    b.Property<string>("Tijdstip")
+                        .IsRequired();
+
+                    b.HasKey("AfspraakId");
+
+                    b.HasIndex("BehandelingGegevensBehandelingId");
+
+                    b.ToTable("Afspraken");
+                });
+
+            modelBuilder.Entity("EE.KapsalonX.Domain.Boeken.Behandeling", b =>
+                {
+                    b.Property<Guid>("BehandelingId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("GekozenBehandeling");
+
+                    b.Property<string>("Geslacht");
+
+                    b.HasKey("BehandelingId");
+
+                    b.ToTable("Behandelingen");
+                });
+
+            modelBuilder.Entity("EE.KapsalonX.Domain.Boeken.Klant", b =>
+                {
+                    b.Property<Guid>("KlantId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Achternaam")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Emailadres")
+                        .IsRequired();
+
+                    b.Property<string>("Telefoonnummer")
+                        .IsRequired();
+
+                    b.Property<string>("Voornaam")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("KlantId");
+
+                    b.ToTable("Klanten");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -178,6 +238,18 @@ namespace EE.KapsalonX.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("EE.KapsalonX.Domain.Boeken.Afspraak", b =>
+                {
+                    b.HasOne("EE.KapsalonX.Domain.Boeken.Klant", "KlantGegevens")
+                        .WithMany("Afspraken")
+                        .HasForeignKey("AfspraakId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("EE.KapsalonX.Domain.Boeken.Behandeling", "BehandelingGegevens")
+                        .WithMany()
+                        .HasForeignKey("BehandelingGegevensBehandelingId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

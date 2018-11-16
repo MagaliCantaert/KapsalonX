@@ -96,8 +96,7 @@ namespace EE.KapsalonX.Web.Controllers
                 Voornaam = boekenModel.Voornaam,
                 Achternaam = boekenModel.Achternaam,
                 Telefoonnummer = boekenModel.Telefoonnummer,
-                Emailadres = boekenModel.Emailadres,
-                Opmerking = boekenModel.Opmerkingen
+                Emailadres = boekenModel.Emailadres
             };
             //ONDERSTAAND TOEVOEGEN BIJ AANMAAK DATABASE
             //_context.Add(nieuweKlant);
@@ -117,6 +116,7 @@ namespace EE.KapsalonX.Web.Controllers
             nieuweAfspraak.BehandelingGegevens = nieuweBehandeling;
             nieuweAfspraak.Datum = boekenModel.Datum;
             nieuweAfspraak.Tijdstip = boekenModel.Tijdstip;
+            nieuweAfspraak.Opmerking = boekenModel.Opmerkingen;
             //ONDERSTAAND TOEVOEGEN BIJ AANMAAK DATABASE
             //_context.Add(nieuweAfspraak);
             //_context.SaveChanges();
