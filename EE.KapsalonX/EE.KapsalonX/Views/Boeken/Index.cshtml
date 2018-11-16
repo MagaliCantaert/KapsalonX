@@ -4,8 +4,7 @@
     ViewData["Title"] = "Index";
 }
 @*<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>*@
-<h2>Maak uw afspraak</h2>
-<h1>Stap @Model.Stap</h1>
+<h1>Stap @Model.Stap van 5</h1>
 
 <div asp-validation-summary="ModelOnly"></div>
 <form asp-controller="Boeken" asp-action="Index" method="post">
@@ -14,114 +13,62 @@
     @switch (Model.Stap)
     {
         case 1:
-            <p>Wie ben je?</p><br />
-            <input asp-for="Geslacht" type="radio" name="Geslacht" id="Dame" value="Dame" />
-            <label asp-for="Geslacht">Dame</label><br />
-            <input asp-for="Geslacht" type="radio" name="Geslacht" id="Heer" value="Heer" />
-            <label asp-for="Geslacht">Heer</label><br />
-            <input asp-for="Geslacht" type="radio" name="Geslacht" id="Kind" value="Kind" />
-            <label asp-for="Geslacht">Kind</label>
+            <p>Ik wens een behandeling voor</p>
+            <img src="https://picsum.photos/80/80" />
+            <input asp-for="Geslacht" type="submit" name="Geslacht" id="GeslachtDames" value="Dames" /><br />
+            <img src="https://picsum.photos/80/80" />
+            <input asp-for="Geslacht" type="submit" name="Geslacht" id="GeslachtHeren" value="Heren" /><br />
+            <img src="https://picsum.photos/80/80" />
+            <input asp-for="Geslacht" type="submit" name="Geslacht" id="GeslachtKinderen" value="Kinderen" /><br />
             break;
         case 2:
-            <p>Kies je behandeling</p><br />
+            <p>Ik wens de volgende behandeling</p>
             <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
 
-            if (Model.Geslacht == "Dame")
+            if (Model.Geslacht == "Dames")
             {
-                <select asp-for="Behandeling">
-                    @foreach (var item in Model.BehandelingenDames)
-                    {
-                        <option>@item.Behandeling (@item.Tijdsduur)</option>
-                    }
-                </select>
+                foreach (var item in Model.BehandelingenDames)
+                {
+                    <img src="https://picsum.photos/80/80" />
+                    <input asp-for="Behandeling" type="submit" name="Behandeling" id="BehandelingDames" value="@item.Behandeling (@item.Tijdsduur)" /><br />
+                }
             }
-            else if (Model.Geslacht == "Heer")
+            else if (Model.Geslacht == "Heren")
             {
-                <select asp-for="Behandeling">
-                    @foreach (var item in Model.BehandelingenHeren)
-                    {
-                        <option>@item.Behandeling (@item.Tijdsduur)</option>
-                    }
-                </select>
+                foreach (var item in Model.BehandelingenHeren)
+                {
+                    <img src="https://picsum.photos/80/80" />
+                    <input asp-for="Behandeling" type="submit" name="Behandeling" id="BehandelingHeren" value="@item.Behandeling (@item.Tijdsduur)" /><br />
+                }
             }
-            else if (Model.Geslacht == "Kind")
+            else if (Model.Geslacht == "Kinderen")
             {
-                <select asp-for="Behandeling">
-                    @foreach (var item in Model.BehandelingenKinderen)
-                    {
-                        <option>@item.Behandeling (@item.Tijdsduur)</option>
-                    }
-                </select>
+                foreach (var item in Model.BehandelingenKinderen)
+                {
+                    <img src="https://picsum.photos/80/80" />
+                    <input asp-for="Behandeling" type="submit" name="Behandeling" id="BehandelingKinderen" value="@item.Behandeling (@item.Tijdsduur)" /><br />
+                }
             }
             break;
         case 3:
-            <p>Kies de gewenste datum en tijd</p>
+            <p>Kies gewenste datum en tijdstip</p>
             <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
-
-            if (Model.Geslacht == "Dame")
-            {
-                <select asp-for="Behandeling" hidden>
-                    @foreach (var item in Model.BehandelingenDames)
-                    {
-                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
-                    }
-                </select>
-            }
-            else if (Model.Geslacht == "Heer")
-            {
-                <select asp-for="Behandeling" hidden>
-                    @foreach (var item in Model.BehandelingenHeren)
-                    {
-                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
-                    }
-                </select>
-            }
-            else if (Model.Geslacht == "Kind")
-            {
-                <select asp-for="Behandeling" hidden>
-                    @foreach (var item in Model.BehandelingenKinderen)
-                    {
-                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
-                    }
-                </select>
-            }
+            <input asp-for="Behandeling" value="@Model.Behandeling" hidden />
 
             <label asp-for="Date"></label>
             <input asp-for="Date" class="form-control" /><br />
 
             <label asp-for="Time"></label>
             <input asp-for="Time" class="form-control" />
+            <br />
+            <button type="submit">Volgende</button>
+
             break;
+
         case 4:
-            <p>Vul je gegevens in</p>
+            <p>Vul onderstaande gegevens in</p>
             <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
-            if (Model.Geslacht == "Dame")
-            {
-                <select asp-for="Behandeling" hidden>
-                    @foreach (var item in Model.BehandelingenDames)
-                    {
-                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
-                    }
-                </select>
-            }
-            else if (Model.Geslacht == "Heer")
-            {
-                <select asp-for="Behandeling" hidden>
-                    @foreach (var item in Model.BehandelingenHeren)
-                    {
-                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
-                    }
-                </select>
-            }
-            else if (Model.Geslacht == "Kind")
-            {
-                <select asp-for="Behandeling" hidden>
-                    @foreach (var item in Model.BehandelingenKinderen)
-                    {
-                        <option hidden>@item.Behandeling (@item.Tijdsduur)</option>
-                    }
-                </select>
-            }
+            <input asp-for="Behandeling" value="@Model.Behandeling" hidden />
             <input asp-for="Datum" value="@Model.Datum" hidden />
             <input asp-for="Tijdstip" value="@Model.Tijdstip" hidden />
 
@@ -149,11 +96,10 @@
                 <label asp-for="Opmerkingen"></label>
                 <textarea asp-for="Opmerkingen" class="form-control" placeholder="Heeft u speciale opmerkingen?"></textarea>
             </div>
-
+            <br />
+            <button type="submit">Volgende</button>
             break;
         default:
             break;
     }
-    <br />
-    <button type="submit">Volgende</button>
 </form>

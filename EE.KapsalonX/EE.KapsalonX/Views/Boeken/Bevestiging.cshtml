@@ -1,11 +1,11 @@
 ﻿@model EE.KapsalonX.Web.Models.BoekenModel
+@{
+    ViewData["Title"] = "Bevestiging";
+}
 
-<h1>Stap @Model.Stap van 5</h1>
-
-
+<h1>Uw afspraak werd succesvol geboekt!</h1>
 <div>
-    <h4>Controleer boeking</h4>
-    <p>Indien onderstaande boeking klopt, klikt u op 'bevestigen' om de boeking te voltooien</p>
+    <h4>Hieronder vindt u een overzicht van uw gemaakte boeking.</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -67,8 +67,4 @@
     </dl>
     <hr />
 </div>
-
-<form method="post">
-    <button type="submit">Bevestigen</button>
-</form>
 

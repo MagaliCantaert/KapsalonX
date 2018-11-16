@@ -8,7 +8,6 @@ namespace EE.KapsalonX.Domain.Boeken
     {
         public Guid BehandelingId { get; set; }
         public string Geslacht { get; set; }
-        public string GewensteBehandeling { get; set; }
-        public TimeSpan Tijdsduur { get; set; }
+        public string GekozenBehandeling { get; set; }
     }
 }
