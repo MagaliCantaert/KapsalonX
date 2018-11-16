@@ -105,7 +105,6 @@ namespace EE.KapsalonX.Web.Controllers
                 Telefoonnummer = boekenModel.Telefoonnummer,
                 Emailadres = boekenModel.Emailadres
             };
-            //ONDERSTAAND TOEVOEGEN BIJ AANMAAK DATABASE
             _context.Add(nieuweKlant);
             _context.SaveChanges();
 
@@ -114,7 +113,6 @@ namespace EE.KapsalonX.Web.Controllers
                 Geslacht = boekenModel.Geslacht,
                 GekozenBehandeling = boekenModel.Behandeling
             };
-            //ONDERSTAAND TOEVOEGEN BIJ AANMAAK DATABASE
             _context.Add(nieuweBehandeling);
             _context.SaveChanges();
 
@@ -124,7 +122,6 @@ namespace EE.KapsalonX.Web.Controllers
             nieuweAfspraak.Datum = boekenModel.Datum;
             nieuweAfspraak.Tijdstip = boekenModel.Tijdstip;
             nieuweAfspraak.Opmerking = boekenModel.Opmerkingen;
-            //ONDERSTAAND TOEVOEGEN BIJ AANMAAK DATABASE
             _context.Add(nieuweAfspraak);
             _context.SaveChanges();
 
