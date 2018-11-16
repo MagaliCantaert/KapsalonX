@@ -1,162 +1,169 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using EE.KapsalonX.Data;
 using EE.KapsalonX.Domain.Boeken;
+using EE.KapsalonX.Web.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Caching.Memory;
+using Newtonsoft.Json;
 
 namespace EE.KapsalonX.Web.Controllers
 {
     public class AfspraakController : Controller
     {
-        private readonly ApplicationDbContext _context;
-
+        private ApplicationDbContext _context;
         public AfspraakController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Afspraak
-        public async Task<IActionResult> Index()
+        #region Opvullen van behandelinglijst
+        List<BehandelingModel> BehandelingenDames = new List<BehandelingModel>
         {
-            var applicationDbContext = _context.Afspraken.Include(a => a.KlantGegevens);
-            return View(await applicationDbContext.ToListAsync());
+            new BehandelingModel { Behandeling = "KORT HAAR - Knippen", Tijdsduur = new TimeSpan(00,30,00)},
+            new BehandelingModel { Behandeling = "KORT HAAR - Kleuren", Tijdsduur = new TimeSpan(00,45,00)},
+            new BehandelingModel { Behandeling = "KORT HAAR - Brushing", Tijdsduur = new TimeSpan(00,30,00)},
+            new BehandelingModel { Behandeling = "KORT HAAR - Knippen + kleuren", Tijdsduur = new TimeSpan(01,15,00)},
+            new BehandelingModel { Behandeling = "KORT HAAR - Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(01,45,00)},
+
+            new BehandelingModel { Behandeling = "LANG HAAR - Knippen", Tijdsduur = new TimeSpan(00,40,00)},
+            new BehandelingModel { Behandeling = "LANG HAAR - Kleuren", Tijdsduur = new TimeSpan(01,00,00)},
+            new BehandelingModel { Behandeling = "LANG HAAR - Brushing", Tijdsduur = new TimeSpan(00,40,00)},
+            new BehandelingModel { Behandeling = "LANG HAAR - Knippen + kleuren", Tijdsduur = new TimeSpan(01,40,00)},
+            new BehandelingModel { Behandeling = "LANG HAAR - Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(02,20,00)}
+        };
+        List<BehandelingModel> BehandelingenHeren = new List<BehandelingModel>
+        {
+            new BehandelingModel { Behandeling = "Snit", Tijdsduur = new TimeSpan(00,30,00) },
+            new BehandelingModel { Behandeling = "Tondeuse", Tijdsduur = new TimeSpan(00,30,00) },
+            new BehandelingModel { Behandeling = "Knippen + kleuren", Tijdsduur = new TimeSpan(01,00,00)}
+        };
+        List<BehandelingModel> BehandelingenKinderen = new List<BehandelingModel>
+        {
+            new BehandelingModel { Behandeling = "Snit meisjes", Tijdsduur = new TimeSpan(00,30,00)},
+            new BehandelingModel { Behandeling = "Snit jongens", Tijdsduur = new TimeSpan(00,30,00)}
+        };
+        #endregion
+
+        [HttpGet]
+        public IActionResult Index(int? stapId)
+        {
+            AfspraakModel boekenModel = new AfspraakModel(stapId.GetValueOrDefault(1));
+            boekenModel.BehandelingenDames = BehandelingenDames;
+            boekenModel.BehandelingenHeren = BehandelingenHeren;
+            boekenModel.BehandelingenKinderen = BehandelingenKinderen;
+            WaardenNaarViewModel(boekenModel);
+            return View(boekenModel);
         }
 
-        // GET: Afspraak/Details/5
-        public async Task<IActionResult> Details(Guid? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var afspraak = await _context.Afspraken
-                .Include(a => a.KlantGegevens)
-                .Include(b => b.BehandelingGegevens)
-                .FirstOrDefaultAsync(m => m.AfspraakId == id);
-            if (afspraak == null)
-            {
-                return NotFound();
-            }
-
-            return View(afspraak);
-        }
-
-        // GET: Afspraak/Create
-        public IActionResult Create()
-        {
-            ViewData["AfspraakId"] = new SelectList(_context.Klanten, "KlantId", "Achternaam");
-            return View();
-        }
-
-        // POST: Afspraak/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AfspraakId,Datum,Tijdstip,Opmerking")] Afspraak afspraak)
+        public IActionResult Index(AfspraakModel boekenModel)
         {
-            if (ModelState.IsValid)
+            if (boekenModel.Stap == 4)
             {
-                afspraak.AfspraakId = Guid.NewGuid();
-                _context.Add(afspraak);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    boekenModel.Stap++;
+                    return RedirectToAction("Overzicht", boekenModel);
+                }
+                else
+                {
+                    boekenModel.BehandelingenDames = BehandelingenDames;
+                    boekenModel.BehandelingenHeren = BehandelingenHeren;
+                    boekenModel.BehandelingenKinderen = BehandelingenKinderen;
+                    return View(boekenModel);
+                }
             }
-            ViewData["AfspraakId"] = new SelectList(_context.Klanten, "KlantId", "Achternaam", afspraak.AfspraakId);
-            return View(afspraak);
+            else
+            {
+                boekenModel.Stap++;
+            }
+            WaardenNaarTempData(boekenModel);
+            return RedirectToAction("Index", new { stapId = boekenModel.Stap, boekenModel });
         }
 
-        // GET: Afspraak/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        [HttpGet]
+        public IActionResult Overzicht(int? stapId, AfspraakModel boekenModel)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var afspraak = await _context.Afspraken.FindAsync(id);
-            if (afspraak == null)
-            {
-                return NotFound();
-            }
-            ViewData["AfspraakId"] = new SelectList(_context.Klanten, "KlantId", "Achternaam", afspraak.AfspraakId);
-            return View(afspraak);
+            return View(boekenModel);
         }
 
-        // POST: Afspraak/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("AfspraakId,Datum,Tijdstip,Opmerking")] Afspraak afspraak)
+        public IActionResult Overzicht(AfspraakModel boekenModel)
         {
-            if (id != afspraak.AfspraakId)
+            var nieuweKlant = new Klant
             {
-                return NotFound();
-            }
+                Voornaam = boekenModel.Voornaam,
+                Achternaam = boekenModel.Achternaam,
+                Telefoonnummer = boekenModel.Telefoonnummer,
+                Emailadres = boekenModel.Emailadres
+            };
+            _context.Add(nieuweKlant);
+            _context.SaveChanges();
 
-            if (ModelState.IsValid)
+            var nieuweBehandeling = new Behandeling
             {
-                try
-                {
-                    _context.Update(afspraak);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AfspraakExists(afspraak.AfspraakId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["AfspraakId"] = new SelectList(_context.Klanten, "KlantId", "Achternaam", afspraak.AfspraakId);
-            return View(afspraak);
+                Geslacht = boekenModel.Geslacht,
+                GekozenBehandeling = boekenModel.Behandeling
+            };
+            _context.Add(nieuweBehandeling);
+            _context.SaveChanges();
+
+            var nieuweAfspraak = new Afspraak();
+            nieuweAfspraak.KlantGegevens = nieuweKlant;
+            nieuweAfspraak.BehandelingGegevens = nieuweBehandeling;
+            nieuweAfspraak.Datum = boekenModel.Datum;
+            nieuweAfspraak.Tijdstip = boekenModel.Tijdstip;
+            nieuweAfspraak.Opmerking = boekenModel.Opmerkingen;
+            _context.Add(nieuweAfspraak);
+            _context.SaveChanges();
+
+            //HIER LATER VERSTUREN VAN MAIL NAAR KLANT MET GEGEVENS AFSPRAAK
+            return new RedirectToActionResult("Bevestiging", "Afspraak", boekenModel);
         }
 
-        // GET: Afspraak/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        
+        public IActionResult Bevestiging (AfspraakModel boekenModel)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var afspraak = await _context.Afspraken
-                .Include(a => a.KlantGegevens)
-                .FirstOrDefaultAsync(m => m.AfspraakId == id);
-            if (afspraak == null)
-            {
-                return NotFound();
-            }
-
-            return View(afspraak);
+            return View(boekenModel);
         }
 
-        // POST: Afspraak/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+
+
+        private void WaardenNaarViewModel(AfspraakModel boekenModel)
         {
-            var afspraak = await _context.Afspraken.FindAsync(id);
-            _context.Afspraken.Remove(afspraak);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            boekenModel.Geslacht = TempData["Geslacht"]?.ToString();
+            boekenModel.Behandeling = TempData["Behandeling"]?.ToString();
+            boekenModel.Datum = TempData["Datum"]?.ToString();
+            boekenModel.Tijdstip = TempData["Tijdstip"]?.ToString();
+
+            boekenModel.Voornaam = TempData["Voornaam"]?.ToString();
+            boekenModel.Achternaam = TempData["Achternaam"]?.ToString();
+            boekenModel.Telefoonnummer = TempData["Telefoonnummer"]?.ToString();
+            boekenModel.Emailadres = TempData["Emailadres"]?.ToString();
+            boekenModel.Opmerkingen = TempData["Opmerkingen"]?.ToString();
         }
 
-        private bool AfspraakExists(Guid id)
+        private void WaardenNaarTempData(AfspraakModel boekenModel)
         {
-            return _context.Afspraken.Any(e => e.AfspraakId == id);
+            TempData["Geslacht"] = boekenModel.Geslacht;
+            TempData["Behandeling"] = boekenModel.Behandeling?.ToString();
+            TempData["Datum"] = boekenModel.Date.ToShortDateString();
+            TempData["Tijdstip"] = boekenModel.Time.ToShortTimeString();
+
+            TempData["Voornaam"] = boekenModel.Voornaam;
+            TempData["Achternaam"] = boekenModel.Achternaam;
+            TempData["Telefoonnummer"] = boekenModel.Telefoonnummer;
+            TempData["Emailadres"] = boekenModel.Emailadres;
+            TempData["Opmerkingen"] = boekenModel.Opmerkingen;
+
         }
     }
 }

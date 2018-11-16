@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EE.KapsalonX.Web.Models
 {
-    public class BoekenModel
+    public class AfspraakModel
     {
         public int Stap { get; set; }
 
@@ -47,11 +47,11 @@ namespace EE.KapsalonX.Web.Models
         public string Opmerkingen { get; set; }
 
 
-        public BoekenModel()
+        public AfspraakModel()
         {
         }
 
-        public BoekenModel(int stap)
+        public AfspraakModel(int stap)
         {
             Stap = stap;
         }
