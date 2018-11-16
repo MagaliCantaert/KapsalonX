@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using EE.KapsalonX.Data;
 using EE.KapsalonX.Domain.Boeken;
 using EE.KapsalonX.Web.Models;
 using Microsoft.AspNetCore.Http;
@@ -15,6 +16,12 @@ namespace EE.KapsalonX.Web.Controllers
 {
     public class BoekenController : Controller
     {
+        private ApplicationDbContext _context;
+        public BoekenController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         #region Opvullen van behandelinglijst
         List<BehandelingModel> BehandelingenDames = new List<BehandelingModel>
         {
@@ -99,8 +106,8 @@ namespace EE.KapsalonX.Web.Controllers
                 Emailadres = boekenModel.Emailadres
             };
             //ONDERSTAAND TOEVOEGEN BIJ AANMAAK DATABASE
-            //_context.Add(nieuweKlant);
-            //_context.SaveChanges();
+            _context.Add(nieuweKlant);
+            _context.SaveChanges();
 
             var nieuweBehandeling = new Behandeling
             {
@@ -108,8 +115,8 @@ namespace EE.KapsalonX.Web.Controllers
                 GekozenBehandeling = boekenModel.Behandeling
             };
             //ONDERSTAAND TOEVOEGEN BIJ AANMAAK DATABASE
-            //_context.Add(nieuweBehandeling);
-            //_context.SaveChanges();
+            _context.Add(nieuweBehandeling);
+            _context.SaveChanges();
 
             var nieuweAfspraak = new Afspraak();
             nieuweAfspraak.KlantGegevens = nieuweKlant;
@@ -118,8 +125,8 @@ namespace EE.KapsalonX.Web.Controllers
             nieuweAfspraak.Tijdstip = boekenModel.Tijdstip;
             nieuweAfspraak.Opmerking = boekenModel.Opmerkingen;
             //ONDERSTAAND TOEVOEGEN BIJ AANMAAK DATABASE
-            //_context.Add(nieuweAfspraak);
-            //_context.SaveChanges();
+            _context.Add(nieuweAfspraak);
+            _context.SaveChanges();
 
             //HIER LATER VERSTUREN VAN MAIL NAAR KLANT MET GEGEVENS AFSPRAAK
             return new RedirectToActionResult("Bevestiging", "Boeken", boekenModel);
