@@ -23,8 +23,15 @@ namespace EE.KapsalonX.Web.Controllers
         // GET: Admin
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Afspraken.Include(a => a.KlantGegevens);
-            return View(await applicationDbContext.ToListAsync());
+            var viewModel = new AdminModel
+            {
+                Klanten = await _context.Klanten.ToListAsync(),
+                Behandenlingen = await _context.Behandelingen.ToListAsync(),
+                Afspraken = await _context.Afspraken.Include(a => a.KlantGegevens).ToListAsync()
+            };
+            return View(viewModel);
+            //var applicationDbContext = _context.Afspraken.Include(a => a.KlantGegevens);
+            //return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Admin/Details/5

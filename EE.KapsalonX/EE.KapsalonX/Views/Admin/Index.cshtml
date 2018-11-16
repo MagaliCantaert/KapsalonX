@@ -1,4 +1,5 @@
-﻿@model IEnumerable<EE.KapsalonX.Domain.Boeken.Afspraak>
+﻿@*@model IEnumerable<EE.KapsalonX.Domain.Boeken.Afspraak>*@
+@model EE.KapsalonX.Web.Models.AdminModel
 
 @{
     ViewData["Title"] = "Index";
@@ -13,25 +14,37 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.KlantGegevens)
+                @Html.DisplayNameFor(model => model.Klanten.FirstOrDefault().Achternaam)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Datum)
+                @Html.DisplayNameFor(model => model.Klanten.FirstOrDefault().Voornaam)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Tijdstip)
+                @Html.DisplayNameFor(model => model.Afspraken.FirstOrDefault().Datum)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Opmerking)
+                @Html.DisplayNameFor(model => model.Afspraken.FirstOrDefault().Tijdstip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Behandenlingen.FirstOrDefault().Geslacht)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Behandenlingen.FirstOrDefault().GekozenBehandeling)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Afspraken.FirstOrDefault().Opmerking)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Afspraken) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.KlantGegevens.Achternaam)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KlantGegevens.Voornaam)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Datum)
@@ -40,12 +53,18 @@
                 @Html.DisplayFor(modelItem => item.Tijdstip)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.BehandelingGegevens.Geslacht)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BehandelingGegevens.GekozenBehandeling)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Opmerking)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.AfspraakId">Edit</a> |
+                <a asp-action="Edit" asp-route-id="@item.AfspraakId">Bewerk</a> |
                 <a asp-action="Details" asp-route-id="@item.AfspraakId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.AfspraakId">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.AfspraakId">Verwijder</a>
             </td>
         </tr>
 }
