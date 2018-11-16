@@ -15,4 +15,8 @@
     <PackageReference Include="vue" Version="2.5.17" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EE.KapsalonX.Domain\EE.KapsalonX.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

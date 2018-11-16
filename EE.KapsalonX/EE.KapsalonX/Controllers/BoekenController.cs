@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using EE.KapsalonX.Domain.Boeken;
 using EE.KapsalonX.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -48,7 +49,7 @@ namespace EE.KapsalonX.Web.Controllers
             BoekenModel boekenModel = new BoekenModel(stapId.GetValueOrDefault(1));
             boekenModel.BehandelingenDames = BehandelingenDames;
             boekenModel.BehandelingenHeren = BehandelingenHeren;
-            boekenModel.BehandelingenKinderen = BehandelingenKinderen;        
+            boekenModel.BehandelingenKinderen = BehandelingenKinderen;
             WaardenNaarViewModel(boekenModel);
             return View(boekenModel);
         }
@@ -59,37 +60,78 @@ namespace EE.KapsalonX.Web.Controllers
         {
             if (boekenModel.Stap == 4)
             {
-                boekenModel.Stap++;
-                return RedirectToAction("Overzicht", boekenModel);
+                if (ModelState.IsValid)
+                {
+                    boekenModel.Stap++;
+                    return RedirectToAction("Overzicht", boekenModel);
+                }
+                else
+                {
+                    boekenModel.BehandelingenDames = BehandelingenDames;
+                    boekenModel.BehandelingenHeren = BehandelingenHeren;
+                    boekenModel.BehandelingenKinderen = BehandelingenKinderen;
+                    return View(boekenModel);
+                }
             }
             else
             {
                 boekenModel.Stap++;
             }
             WaardenNaarTempData(boekenModel);
-            return RedirectToAction("Index", new { stapId = boekenModel.Stap });
+            return RedirectToAction("Index", new { stapId = boekenModel.Stap, boekenModel });
         }
 
         [HttpGet]
-        public IActionResult Overzicht(BoekenModel boekenModel)
+        public IActionResult Overzicht(int? stapId, BoekenModel boekenModel)
         {
-            if (ModelState.IsValid)
-            {   
-                // Hier opvullen nieuwe klant, nieuwe afspraak, enz...
-                return new RedirectToActionResult("Bevestigen", "Boeken", null);
-            }
-            else
-            {
-                return View(boekenModel);
-            }
+            return View(boekenModel);
         }
 
         [HttpPost]
-        public IActionResult Bevestigen()
+        [ValidateAntiForgeryToken]
+        public IActionResult Overzicht(BoekenModel boekenModel)
         {
+            var nieuweKlant = new Klant
+            {
+                Voornaam = boekenModel.Voornaam,
+                Achternaam = boekenModel.Achternaam,
+                Telefoonnummer = boekenModel.Telefoonnummer,
+                Emailadres = boekenModel.Emailadres,
+                Opmerking = boekenModel.Opmerkingen
+            };
+            //ONDERSTAAND TOEVOEGEN BIJ AANMAAK DATABASE
+            //_context.Add(nieuweKlant);
+            //_context.SaveChanges();
 
-            return View();
+            var nieuweBehandeling = new Behandeling
+            {
+                Geslacht = boekenModel.Geslacht,
+                GekozenBehandeling = boekenModel.Behandeling
+            };
+            //ONDERSTAAND TOEVOEGEN BIJ AANMAAK DATABASE
+            //_context.Add(nieuweBehandeling);
+            //_context.SaveChanges();
+
+            var nieuweAfspraak = new Afspraak();
+            nieuweAfspraak.KlantGegevens = nieuweKlant;
+            nieuweAfspraak.BehandelingGegevens = nieuweBehandeling;
+            nieuweAfspraak.Datum = boekenModel.Datum;
+            nieuweAfspraak.Tijdstip = boekenModel.Tijdstip;
+            //ONDERSTAAND TOEVOEGEN BIJ AANMAAK DATABASE
+            //_context.Add(nieuweAfspraak);
+            //_context.SaveChanges();
+
+            //HIER LATER VERSTUREN VAN MAIL NAAR KLANT MET GEGEVENS AFSPRAAK
+            return new RedirectToActionResult("Bevestiging", "Boeken", boekenModel);
         }
+
+        
+        public IActionResult Bevestiging (BoekenModel boekenModel)
+        {
+            return View(boekenModel);
+        }
+
+
 
         private void WaardenNaarViewModel(BoekenModel boekenModel)
         {
@@ -108,7 +150,7 @@ namespace EE.KapsalonX.Web.Controllers
         private void WaardenNaarTempData(BoekenModel boekenModel)
         {
             TempData["Geslacht"] = boekenModel.Geslacht;
-            TempData["Behandeling"] = boekenModel.Behandelingen?.SingleOrDefault(o => o.Selected);
+            TempData["Behandeling"] = boekenModel.Behandeling?.ToString();
             TempData["Datum"] = boekenModel.Date.ToShortDateString();
             TempData["Tijdstip"] = boekenModel.Time.ToShortTimeString();
 
