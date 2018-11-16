@@ -37,6 +37,7 @@
             {
                 foreach (var item in Model.BehandelingenHeren)
                 {
+                    <img src="https://picsum.photos/80/80" />
                     <input asp-for="Behandeling" type="submit" name="Behandeling" id="BehandelingHeren" value="@item.Behandeling (@item.Tijdsduur)" /><br />
                 }
             }
@@ -44,6 +45,7 @@
             {
                 foreach (var item in Model.BehandelingenKinderen)
                 {
+                    <img src="https://picsum.photos/80/80" />
                     <input asp-for="Behandeling" type="submit" name="Behandeling" id="BehandelingKinderen" value="@item.Behandeling (@item.Tijdsduur)" /><br />
                 }
             }
