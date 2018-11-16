@@ -11,7 +11,7 @@ namespace EE.KapsalonX.Domain.Boeken
         public string Achternaam { get; set; }
         public string Emailadres { get; set; }
         public string Telefoonnummer { get; set; }
-        public string Opmerking { get; set; }
+
         public ICollection<Afspraak> Afspraken { get; set; }
     }
 }

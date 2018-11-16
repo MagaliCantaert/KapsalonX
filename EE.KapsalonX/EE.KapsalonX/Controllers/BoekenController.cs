@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using EE.KapsalonX.Data;
 using EE.KapsalonX.Domain.Boeken;
 using EE.KapsalonX.Web.Models;
 using Microsoft.AspNetCore.Http;
@@ -15,6 +16,12 @@ namespace EE.KapsalonX.Web.Controllers
 {
     public class BoekenController : Controller
     {
+        private ApplicationDbContext _context;
+        public BoekenController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         #region Opvullen van behandelinglijst
         List<BehandelingModel> BehandelingenDames = new List<BehandelingModel>
         {
@@ -96,30 +103,27 @@ namespace EE.KapsalonX.Web.Controllers
                 Voornaam = boekenModel.Voornaam,
                 Achternaam = boekenModel.Achternaam,
                 Telefoonnummer = boekenModel.Telefoonnummer,
-                Emailadres = boekenModel.Emailadres,
-                Opmerking = boekenModel.Opmerkingen
+                Emailadres = boekenModel.Emailadres
             };
-            //ONDERSTAAND TOEVOEGEN BIJ AANMAAK DATABASE
-            //_context.Add(nieuweKlant);
-            //_context.SaveChanges();
+            _context.Add(nieuweKlant);
+            _context.SaveChanges();
 
             var nieuweBehandeling = new Behandeling
             {
                 Geslacht = boekenModel.Geslacht,
                 GekozenBehandeling = boekenModel.Behandeling
             };
-            //ONDERSTAAND TOEVOEGEN BIJ AANMAAK DATABASE
-            //_context.Add(nieuweBehandeling);
-            //_context.SaveChanges();
+            _context.Add(nieuweBehandeling);
+            _context.SaveChanges();
 
             var nieuweAfspraak = new Afspraak();
             nieuweAfspraak.KlantGegevens = nieuweKlant;
             nieuweAfspraak.BehandelingGegevens = nieuweBehandeling;
             nieuweAfspraak.Datum = boekenModel.Datum;
             nieuweAfspraak.Tijdstip = boekenModel.Tijdstip;
-            //ONDERSTAAND TOEVOEGEN BIJ AANMAAK DATABASE
-            //_context.Add(nieuweAfspraak);
-            //_context.SaveChanges();
+            nieuweAfspraak.Opmerking = boekenModel.Opmerkingen;
+            _context.Add(nieuweAfspraak);
+            _context.SaveChanges();
 
             //HIER LATER VERSTUREN VAN MAIL NAAR KLANT MET GEGEVENS AFSPRAAK
             return new RedirectToActionResult("Bevestiging", "Boeken", boekenModel);

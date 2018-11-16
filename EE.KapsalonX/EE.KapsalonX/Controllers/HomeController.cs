@@ -5,9 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EE.KapsalonX.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EE.KapsalonX.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         public IActionResult Index()
@@ -15,6 +17,7 @@ namespace EE.KapsalonX.Controllers
             return View();
         }
 
+        //[Authorize] // Om te illusteren dat je moet ingelogd zijn om deze pagina te bezoeken
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -38,6 +41,12 @@ namespace EE.KapsalonX.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public IActionResult Administrator()
+        {
+            return View();
         }
     }
 }
