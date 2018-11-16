@@ -11,5 +11,6 @@ namespace EE.KapsalonX.Domain.Boeken
         public Behandeling BehandelingGegevens { get; set; }
         public string Datum { get; set; }
         public string Tijdstip { get; set; }
+        public string Opmerking { get; set; }
     }
 }
