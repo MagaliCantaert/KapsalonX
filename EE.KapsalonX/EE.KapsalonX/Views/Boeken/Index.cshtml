@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Index";
 }
-@*<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>*@
 <h1>Stap @Model.Stap van 5</h1>
 
 <div asp-validation-summary="ModelOnly"></div>
@@ -20,6 +19,10 @@
             <input asp-for="Geslacht" type="submit" name="Geslacht" id="GeslachtHeren" value="Heren" /><br />
             <img src="https://picsum.photos/80/80" />
             <input asp-for="Geslacht" type="submit" name="Geslacht" id="GeslachtKinderen" value="Kinderen" /><br />
+            <template>
+                <v-calendar :attributes='attrs'>
+                </v-calendar>
+            </template>
             break;
         case 2:
             <p>Ik wens de volgende behandeling</p>
@@ -103,3 +106,23 @@
             break;
     }
 </form>
+@section scripts {
+<script>
+    export default {
+        data() {
+            return {
+                attrs: [
+                    {
+                        key: 'today',
+                        highlight: {
+                            backgroundColor: '#ff8080',
+                            // Other properties are available too, like `height` & `borderRadius`
+                        },
+                        dates: new Date(2018, 0, 1)
+                    }
+                ],
+            };
+        },
+    };
+</script>
+}
