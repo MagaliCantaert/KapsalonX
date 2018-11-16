@@ -1,0 +1,54 @@
+﻿@model EE.KapsalonX.Domain.Boeken.Afspraak
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Afspraak</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.KlantGegevens)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KlantGegevens.Achternaam)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Datum)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Datum)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Tijdstip)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Tijdstip)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Opmerking)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Opmerking)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BehandelingGegevens.Geslacht)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BehandelingGegevens.Geslacht)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BehandelingGegevens.GekozenBehandeling)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BehandelingGegevens.GekozenBehandeling)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.AfspraakId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

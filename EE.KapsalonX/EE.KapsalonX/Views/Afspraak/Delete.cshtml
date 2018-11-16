@@ -1,0 +1,45 @@
+﻿@model EE.KapsalonX.Domain.Boeken.Afspraak
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Afspraak</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.KlantGegevens)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KlantGegevens.Achternaam)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Datum)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Datum)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Tijdstip)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Tijdstip)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Opmerking)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Opmerking)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="AfspraakId" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
