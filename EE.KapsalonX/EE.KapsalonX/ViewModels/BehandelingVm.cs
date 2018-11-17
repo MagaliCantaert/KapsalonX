@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EE.KapsalonX.Web.Models
+namespace EE.KapsalonX.Web.ViewModels
 {
-    public class BehandelingModel
+    public class BehandelingVm
     {
         public int Id { get; set; }
         public string Behandeling { get; set; }
         public TimeSpan Tijdsduur { get; set; }
 
-        public BehandelingModel()
+        public BehandelingVm()
         {
 
         }

@@ -12,10 +12,28 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.KlantGegevens)
+            @Html.DisplayNameFor(model => model.KlantGegevens.Achternaam)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.KlantGegevens.Achternaam)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.KlantGegevens.Voornaam)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KlantGegevens.Voornaam)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.KlantGegevens.Emailadres)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KlantGegevens.Emailadres)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.KlantGegevens.Telefoonnummer)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.KlantGegevens.Telefoonnummer)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Datum)
@@ -28,6 +46,18 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Tijdstip)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BehandelingGegevens.Geslacht)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BehandelingGegevens.Geslacht)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BehandelingGegevens.GekozenBehandeling)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BehandelingGegevens.GekozenBehandeling)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Opmerking)

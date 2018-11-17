@@ -1,5 +1,5 @@
 ﻿@*@model IEnumerable<EE.KapsalonX.Domain.Boeken.Afspraak>*@
-@model EE.KapsalonX.Web.Models.AdminModel
+@model EE.KapsalonX.Web.ViewModels.AdminIndexVm
 
 @{
     ViewData["Title"] = "Index";
@@ -26,13 +26,7 @@
                 @Html.DisplayNameFor(model => model.Afspraken.FirstOrDefault().Tijdstip)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Behandenlingen.FirstOrDefault().Geslacht)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Behandenlingen.FirstOrDefault().GekozenBehandeling)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Afspraken.FirstOrDefault().Opmerking)
             </th>
             <th></th>
         </tr>
@@ -53,13 +47,7 @@
                 @Html.DisplayFor(modelItem => item.Tijdstip)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BehandelingGegevens.Geslacht)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.BehandelingGegevens.GekozenBehandeling)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Opmerking)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.AfspraakId">Bewerk</a> |

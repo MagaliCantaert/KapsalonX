@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EE.KapsalonX.Data;
 using EE.KapsalonX.Domain.Boeken;
-using EE.KapsalonX.Web.Models;
+using EE.KapsalonX.Web.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -23,95 +23,95 @@ namespace EE.KapsalonX.Web.Controllers
         }
 
         #region Opvullen van behandelinglijst
-        List<BehandelingModel> BehandelingenDames = new List<BehandelingModel>
+        List<BehandelingVm> BehandelingenDames = new List<BehandelingVm>
         {
-            new BehandelingModel { Behandeling = "KORT HAAR - Knippen", Tijdsduur = new TimeSpan(00,30,00)},
-            new BehandelingModel { Behandeling = "KORT HAAR - Kleuren", Tijdsduur = new TimeSpan(00,45,00)},
-            new BehandelingModel { Behandeling = "KORT HAAR - Brushing", Tijdsduur = new TimeSpan(00,30,00)},
-            new BehandelingModel { Behandeling = "KORT HAAR - Knippen + kleuren", Tijdsduur = new TimeSpan(01,15,00)},
-            new BehandelingModel { Behandeling = "KORT HAAR - Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(01,45,00)},
+            new BehandelingVm { Behandeling = "KORT HAAR - Knippen", Tijdsduur = new TimeSpan(00,30,00)},
+            new BehandelingVm { Behandeling = "KORT HAAR - Kleuren", Tijdsduur = new TimeSpan(00,45,00)},
+            new BehandelingVm { Behandeling = "KORT HAAR - Brushing", Tijdsduur = new TimeSpan(00,30,00)},
+            new BehandelingVm { Behandeling = "KORT HAAR - Knippen + kleuren", Tijdsduur = new TimeSpan(01,15,00)},
+            new BehandelingVm { Behandeling = "KORT HAAR - Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(01,45,00)},
 
-            new BehandelingModel { Behandeling = "LANG HAAR - Knippen", Tijdsduur = new TimeSpan(00,40,00)},
-            new BehandelingModel { Behandeling = "LANG HAAR - Kleuren", Tijdsduur = new TimeSpan(01,00,00)},
-            new BehandelingModel { Behandeling = "LANG HAAR - Brushing", Tijdsduur = new TimeSpan(00,40,00)},
-            new BehandelingModel { Behandeling = "LANG HAAR - Knippen + kleuren", Tijdsduur = new TimeSpan(01,40,00)},
-            new BehandelingModel { Behandeling = "LANG HAAR - Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(02,20,00)}
+            new BehandelingVm { Behandeling = "LANG HAAR - Knippen", Tijdsduur = new TimeSpan(00,40,00)},
+            new BehandelingVm { Behandeling = "LANG HAAR - Kleuren", Tijdsduur = new TimeSpan(01,00,00)},
+            new BehandelingVm { Behandeling = "LANG HAAR - Brushing", Tijdsduur = new TimeSpan(00,40,00)},
+            new BehandelingVm { Behandeling = "LANG HAAR - Knippen + kleuren", Tijdsduur = new TimeSpan(01,40,00)},
+            new BehandelingVm { Behandeling = "LANG HAAR - Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(02,20,00)}
         };
-        List<BehandelingModel> BehandelingenHeren = new List<BehandelingModel>
+        List<BehandelingVm> BehandelingenHeren = new List<BehandelingVm>
         {
-            new BehandelingModel { Behandeling = "Snit", Tijdsduur = new TimeSpan(00,30,00) },
-            new BehandelingModel { Behandeling = "Tondeuse", Tijdsduur = new TimeSpan(00,30,00) },
-            new BehandelingModel { Behandeling = "Knippen + kleuren", Tijdsduur = new TimeSpan(01,00,00)}
+            new BehandelingVm { Behandeling = "Snit", Tijdsduur = new TimeSpan(00,30,00) },
+            new BehandelingVm { Behandeling = "Tondeuse", Tijdsduur = new TimeSpan(00,30,00) },
+            new BehandelingVm { Behandeling = "Knippen + kleuren", Tijdsduur = new TimeSpan(01,00,00)}
         };
-        List<BehandelingModel> BehandelingenKinderen = new List<BehandelingModel>
+        List<BehandelingVm> BehandelingenKinderen = new List<BehandelingVm>
         {
-            new BehandelingModel { Behandeling = "Snit meisjes", Tijdsduur = new TimeSpan(00,30,00)},
-            new BehandelingModel { Behandeling = "Snit jongens", Tijdsduur = new TimeSpan(00,30,00)}
+            new BehandelingVm { Behandeling = "Snit meisjes", Tijdsduur = new TimeSpan(00,30,00)},
+            new BehandelingVm { Behandeling = "Snit jongens", Tijdsduur = new TimeSpan(00,30,00)}
         };
         #endregion
 
         [HttpGet]
         public IActionResult Index(int? stapId)
         {
-            AfspraakModel boekenModel = new AfspraakModel(stapId.GetValueOrDefault(1));
-            boekenModel.BehandelingenDames = BehandelingenDames;
-            boekenModel.BehandelingenHeren = BehandelingenHeren;
-            boekenModel.BehandelingenKinderen = BehandelingenKinderen;
-            WaardenNaarViewModel(boekenModel);
-            return View(boekenModel);
+            AfspraakVm viewModel = new AfspraakVm(stapId.GetValueOrDefault(1));
+            viewModel.BehandelingenDames = BehandelingenDames;
+            viewModel.BehandelingenHeren = BehandelingenHeren;
+            viewModel.BehandelingenKinderen = BehandelingenKinderen;
+            WaardenNaarViewModel(viewModel);
+            return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(AfspraakModel boekenModel)
+        public IActionResult Index(AfspraakVm viewModel)
         {
-            if (boekenModel.Stap == 4)
+            if (viewModel.Stap == 4)
             {
                 if (ModelState.IsValid)
                 {
-                    boekenModel.Stap++;
-                    return RedirectToAction("Overzicht", boekenModel);
+                    viewModel.Stap++;
+                    return RedirectToAction("Overzicht", viewModel);
                 }
                 else
                 {
-                    boekenModel.BehandelingenDames = BehandelingenDames;
-                    boekenModel.BehandelingenHeren = BehandelingenHeren;
-                    boekenModel.BehandelingenKinderen = BehandelingenKinderen;
-                    return View(boekenModel);
+                    viewModel.BehandelingenDames = BehandelingenDames;
+                    viewModel.BehandelingenHeren = BehandelingenHeren;
+                    viewModel.BehandelingenKinderen = BehandelingenKinderen;
+                    return View(viewModel);
                 }
             }
             else
             {
-                boekenModel.Stap++;
+                viewModel.Stap++;
             }
-            WaardenNaarTempData(boekenModel);
-            return RedirectToAction("Index", new { stapId = boekenModel.Stap, boekenModel });
+            WaardenNaarTempData(viewModel);
+            return RedirectToAction("Index", new { stapId = viewModel.Stap, viewModel });
         }
 
         [HttpGet]
-        public IActionResult Overzicht(int? stapId, AfspraakModel boekenModel)
+        public IActionResult Overzicht(int? stapId, AfspraakVm viewModel)
         {
-            return View(boekenModel);
+            return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Overzicht(AfspraakModel boekenModel)
+        public IActionResult Overzicht(AfspraakVm viewModel)
         {
             var nieuweKlant = new Klant
             {
-                Voornaam = boekenModel.Voornaam,
-                Achternaam = boekenModel.Achternaam,
-                Telefoonnummer = boekenModel.Telefoonnummer,
-                Emailadres = boekenModel.Emailadres
+                Voornaam = viewModel.Voornaam,
+                Achternaam = viewModel.Achternaam,
+                Telefoonnummer = viewModel.Telefoonnummer,
+                Emailadres = viewModel.Emailadres
             };
             _context.Add(nieuweKlant);
             _context.SaveChanges();
 
             var nieuweBehandeling = new Behandeling
             {
-                Geslacht = boekenModel.Geslacht,
-                GekozenBehandeling = boekenModel.Behandeling
+                Geslacht = viewModel.Geslacht,
+                GekozenBehandeling = viewModel.Behandeling
             };
             _context.Add(nieuweBehandeling);
             _context.SaveChanges();
@@ -119,50 +119,50 @@ namespace EE.KapsalonX.Web.Controllers
             var nieuweAfspraak = new Afspraak();
             nieuweAfspraak.KlantGegevens = nieuweKlant;
             nieuweAfspraak.BehandelingGegevens = nieuweBehandeling;
-            nieuweAfspraak.Datum = boekenModel.Datum;
-            nieuweAfspraak.Tijdstip = boekenModel.Tijdstip;
-            nieuweAfspraak.Opmerking = boekenModel.Opmerkingen;
+            nieuweAfspraak.Datum = viewModel.Datum;
+            nieuweAfspraak.Tijdstip = viewModel.Tijdstip;
+            nieuweAfspraak.Opmerking = viewModel.Opmerkingen;
             _context.Add(nieuweAfspraak);
             _context.SaveChanges();
 
             //HIER LATER VERSTUREN VAN MAIL NAAR KLANT MET GEGEVENS AFSPRAAK
-            return new RedirectToActionResult("Bevestiging", "Afspraak", boekenModel);
+            return new RedirectToActionResult("Bevestiging", "Afspraak", viewModel);
         }
 
         
-        public IActionResult Bevestiging (AfspraakModel boekenModel)
+        public IActionResult Bevestiging (AfspraakVm viewModel)
         {
-            return View(boekenModel);
+            return View(viewModel);
         }
 
 
 
-        private void WaardenNaarViewModel(AfspraakModel boekenModel)
+        private void WaardenNaarViewModel(AfspraakVm viewModel)
         {
-            boekenModel.Geslacht = TempData["Geslacht"]?.ToString();
-            boekenModel.Behandeling = TempData["Behandeling"]?.ToString();
-            boekenModel.Datum = TempData["Datum"]?.ToString();
-            boekenModel.Tijdstip = TempData["Tijdstip"]?.ToString();
+            viewModel.Geslacht = TempData["Geslacht"]?.ToString();
+            viewModel.Behandeling = TempData["Behandeling"]?.ToString();
+            viewModel.Datum = TempData["Datum"]?.ToString();
+            viewModel.Tijdstip = TempData["Tijdstip"]?.ToString();
 
-            boekenModel.Voornaam = TempData["Voornaam"]?.ToString();
-            boekenModel.Achternaam = TempData["Achternaam"]?.ToString();
-            boekenModel.Telefoonnummer = TempData["Telefoonnummer"]?.ToString();
-            boekenModel.Emailadres = TempData["Emailadres"]?.ToString();
-            boekenModel.Opmerkingen = TempData["Opmerkingen"]?.ToString();
+            viewModel.Voornaam = TempData["Voornaam"]?.ToString();
+            viewModel.Achternaam = TempData["Achternaam"]?.ToString();
+            viewModel.Telefoonnummer = TempData["Telefoonnummer"]?.ToString();
+            viewModel.Emailadres = TempData["Emailadres"]?.ToString();
+            viewModel.Opmerkingen = TempData["Opmerkingen"]?.ToString();
         }
 
-        private void WaardenNaarTempData(AfspraakModel boekenModel)
+        private void WaardenNaarTempData(AfspraakVm viewModel)
         {
-            TempData["Geslacht"] = boekenModel.Geslacht;
-            TempData["Behandeling"] = boekenModel.Behandeling?.ToString();
-            TempData["Datum"] = boekenModel.Date.ToShortDateString();
-            TempData["Tijdstip"] = boekenModel.Time.ToShortTimeString();
+            TempData["Geslacht"] = viewModel.Geslacht;
+            TempData["Behandeling"] = viewModel.Behandeling?.ToString();
+            TempData["Datum"] = viewModel.Date.ToShortDateString();
+            TempData["Tijdstip"] = viewModel.Time.ToShortTimeString();
 
-            TempData["Voornaam"] = boekenModel.Voornaam;
-            TempData["Achternaam"] = boekenModel.Achternaam;
-            TempData["Telefoonnummer"] = boekenModel.Telefoonnummer;
-            TempData["Emailadres"] = boekenModel.Emailadres;
-            TempData["Opmerkingen"] = boekenModel.Opmerkingen;
+            TempData["Voornaam"] = viewModel.Voornaam;
+            TempData["Achternaam"] = viewModel.Achternaam;
+            TempData["Telefoonnummer"] = viewModel.Telefoonnummer;
+            TempData["Emailadres"] = viewModel.Emailadres;
+            TempData["Opmerkingen"] = viewModel.Opmerkingen;
 
         }
     }

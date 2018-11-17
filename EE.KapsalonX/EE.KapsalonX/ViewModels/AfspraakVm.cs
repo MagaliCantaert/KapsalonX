@@ -1,13 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using EE.KapsalonX.Web.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EE.KapsalonX.Web.Models
+namespace EE.KapsalonX.Web.ViewModels
 {
-    public class AfspraakModel
+    public class AfspraakVm
     {
         public int Stap { get; set; }
 
@@ -18,9 +19,9 @@ namespace EE.KapsalonX.Web.Models
         public string Tijdstip { get; set; }
 
         public List<SelectListItem> Behandelingen { get; set; }
-        public List<BehandelingModel> BehandelingenDames { get; set; }
-        public List<BehandelingModel> BehandelingenHeren { get; set; }
-        public List<BehandelingModel> BehandelingenKinderen { get; set; }
+        public List<BehandelingVm> BehandelingenDames { get; set; }
+        public List<BehandelingVm> BehandelingenHeren { get; set; }
+        public List<BehandelingVm> BehandelingenKinderen { get; set; }
 
         [Display(Name = "Datum")]
         [DataType(DataType.Date)]
@@ -47,11 +48,11 @@ namespace EE.KapsalonX.Web.Models
         public string Opmerkingen { get; set; }
 
 
-        public AfspraakModel()
+        public AfspraakVm()
         {
         }
 
-        public AfspraakModel(int stap)
+        public AfspraakVm(int stap)
         {
             Stap = stap;
         }

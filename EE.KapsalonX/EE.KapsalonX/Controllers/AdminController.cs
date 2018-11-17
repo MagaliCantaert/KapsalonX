@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EE.KapsalonX.Data;
 using EE.KapsalonX.Domain.Boeken;
-using EE.KapsalonX.Web.Models;
+using EE.KapsalonX.Web.ViewModels;
 
 namespace EE.KapsalonX.Web.Controllers
 {
@@ -23,7 +23,7 @@ namespace EE.KapsalonX.Web.Controllers
         // GET: Admin
         public async Task<IActionResult> Index()
         {
-            var viewModel = new AdminModel
+            var viewModel = new AdminIndexVm
             {
                 Klanten = await _context.Klanten.ToListAsync(),
                 Behandenlingen = await _context.Behandelingen.ToListAsync(),
@@ -44,6 +44,7 @@ namespace EE.KapsalonX.Web.Controllers
 
             var afspraak = await _context.Afspraken
                 .Include(a => a.KlantGegevens)
+                .Include(b => b.BehandelingGegevens)
                 .FirstOrDefaultAsync(m => m.AfspraakId == id);
             if (afspraak == null)
             {
@@ -87,12 +88,23 @@ namespace EE.KapsalonX.Web.Controllers
             }
 
             var afspraak = await _context.Afspraken.FindAsync(id);
+            var klant = await _context.Klanten.ToListAsync();
+            var behandeling = await _context.Behandelingen.ToListAsync();
             if (afspraak == null)
             {
                 return NotFound();
             }
-            ViewData["AfspraakId"] = new SelectList(_context.Klanten, "KlantId", "Achternaam", afspraak.AfspraakId);
-            return View(afspraak);
+
+            var viewModel = new AdminEditVm
+            {
+                Id = afspraak.AfspraakId,
+                Klant = afspraak.KlantGegevens,
+                Behandeling = afspraak.BehandelingGegevens,
+                Datum = afspraak.Datum,
+                Tijdstip = afspraak.Tijdstip,
+                Opmerking = afspraak.Opmerking
+            };
+            return View(viewModel);
         }
 
         // POST: Admin/Edit/5
@@ -100,9 +112,9 @@ namespace EE.KapsalonX.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("AfspraakId,Datum,Tijdstip,Opmerking")] Afspraak afspraak)
+        public async Task<IActionResult> Edit(Guid id, AdminEditVm editVm)
         {
-            if (id != afspraak.AfspraakId)
+            if (id != editVm.Id)
             {
                 return NotFound();
             }
@@ -111,12 +123,22 @@ namespace EE.KapsalonX.Web.Controllers
             {
                 try
                 {
-                    _context.Update(afspraak);
+                    Afspraak updateAfspraak = new Afspraak
+                    {
+                        //AfspraakId = editVm.Id,
+                        KlantGegevens = editVm.Klant,
+                        BehandelingGegevens = editVm.Behandeling,
+                        Datum = editVm.Datum,
+                        Tijdstip = editVm.Tijdstip,
+                        Opmerking = editVm.Opmerking
+                    };
+                    _context.Update(updateAfspraak);
+                    //HIER NOG TEMPDATA SUCCESSMESSAGE
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AfspraakExists(afspraak.AfspraakId))
+                    if (!AfspraakExists(editVm.Id))
                     {
                         return NotFound();
                     }
@@ -127,8 +149,7 @@ namespace EE.KapsalonX.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AfspraakId"] = new SelectList(_context.Klanten, "KlantId", "Achternaam", afspraak.AfspraakId);
-            return View(afspraak);
+            return View(editVm);
         }
 
         // GET: Admin/Delete/5
@@ -141,6 +162,7 @@ namespace EE.KapsalonX.Web.Controllers
 
             var afspraak = await _context.Afspraken
                 .Include(a => a.KlantGegevens)
+                .Include(b => b.BehandelingGegevens)
                 .FirstOrDefaultAsync(m => m.AfspraakId == id);
             if (afspraak == null)
             {
@@ -155,9 +177,12 @@ namespace EE.KapsalonX.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var afspraak = await _context.Afspraken.FindAsync(id);
+            var afspraak = await _context.Afspraken
+                                        .Include(a => a.KlantGegevens)
+                                        .Include(b => b.BehandelingGegevens).SingleOrDefaultAsync(c => c.AfspraakId == id);
             _context.Afspraken.Remove(afspraak);
             await _context.SaveChangesAsync();
+            //HIER NOG TEMPDATA SUCCESSMESSAGE
             return RedirectToAction(nameof(Index));
         }
 

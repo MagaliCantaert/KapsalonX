@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EE.KapsalonX.Web.Models
+namespace EE.KapsalonX.Web.ViewModels
 {
-    public class AdminModel
+    public class AdminIndexVm
     {
         public IEnumerable<Klant> Klanten { get; set; }
         public IEnumerable<Behandeling> Behandenlingen { get; set; }
