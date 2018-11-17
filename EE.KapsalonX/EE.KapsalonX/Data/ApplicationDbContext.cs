@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using EE.KapsalonX.Domain.Afspraken;
+using EE.KapsalonX.Domain.Kalender;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,8 @@ namespace EE.KapsalonX.Data
             : base(options)
         {
         }
+
+        public DbSet<Event> Events { get; set; }
 
         public DbSet<Klant> Klanten { get; set; }
         public DbSet<Behandeling> Behandelingen { get; set; }
