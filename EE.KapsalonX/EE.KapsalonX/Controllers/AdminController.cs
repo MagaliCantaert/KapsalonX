@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using EE.KapsalonX.Data;
 using EE.KapsalonX.Domain.Afspraken;
 using EE.KapsalonX.Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EE.KapsalonX.Web.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;

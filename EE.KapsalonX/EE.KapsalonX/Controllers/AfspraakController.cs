@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EE.KapsalonX.Data;
 using EE.KapsalonX.Domain.Afspraken;
 using EE.KapsalonX.Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
