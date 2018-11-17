@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -48,7 +47,6 @@
                             @if (User.IsInRole("Administrator"))
                             {
                                 @await Component.InvokeAsync("MainNavigationAdmin")
-                                //<a asp-area="" asp-controller="Admin" asp-action="Index">Dashboard</a>
                             }
                         }
                         else
@@ -67,10 +65,8 @@
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - EE.KapsalonX</p>
-        </footer>
+        
+        <partial name="PublicFooter" />
     </div>
 
     <environment include="Development">
