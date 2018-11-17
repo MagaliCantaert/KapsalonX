@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EE.KapsalonX.Domain.Boeken
+namespace EE.KapsalonX.Domain.Afspraken
 {
     public class Klant
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
-namespace EE.KapsalonX.Domain.Boeken
+namespace EE.KapsalonX.Domain.Afspraken
 {
     public class Afspraak
     {

@@ -1,4 +1,4 @@
-﻿@model EE.KapsalonX.Domain.Boeken.Afspraak
+﻿@model EE.KapsalonX.Web.ViewModels.AdminCreateVm
 
 @{
     ViewData["Title"] = "Create";
@@ -12,9 +12,29 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+            <label asp-for="AfspraakId" class="control-label"></label>
+            <select asp-for="AfspraakId" class ="form-control" asp-items="ViewBag.AfspraakId"></select>
+        </div>*@
             <div class="form-group">
-                <label asp-for="AfspraakId" class="control-label"></label>
-                <select asp-for="AfspraakId" class ="form-control" asp-items="ViewBag.AfspraakId"></select>
+                <label asp-for="Klant.Achternaam" class="control-label"></label>
+                <input asp-for="Klant.Achternaam" class="form-control" />
+                <span asp-validation-for="Klant.Achternaam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Klant.Voornaam" control-label"></label>
+                <input asp-for="Klant.Voornaam" class="form-control" />
+                <span asp-validation-for="Klant.Voornaam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Klant.Emailadres" class="control-label"></label>
+                <input asp-for="Klant.Emailadres" class="form-control" />
+                <span asp-validation-for="Klant.Emailadres" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Klant.Telefoonnummer" class="control-label"></label>
+                <input asp-for="Klant.Telefoonnummer" class="form-control" />
+                <span asp-validation-for="Klant.Telefoonnummer" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Datum" class="control-label"></label>
@@ -25,6 +45,16 @@
                 <label asp-for="Tijdstip" class="control-label"></label>
                 <input asp-for="Tijdstip" class="form-control" />
                 <span asp-validation-for="Tijdstip" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Behandeling.Geslacht" class="control-label"></label>
+                <input asp-for="Behandeling.Geslacht" class="form-control" />
+                <span asp-validation-for="Behandeling.Geslacht" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Behandeling.GekozenBehandeling" class="control-label"></label>
+                <input asp-for="Behandeling.GekozenBehandeling" class="form-control" />
+                <span asp-validation-for="Behandeling.GekozenBehandeling" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Opmerking" class="control-label"></label>

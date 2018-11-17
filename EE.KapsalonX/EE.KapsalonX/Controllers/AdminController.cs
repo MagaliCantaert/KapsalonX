@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EE.KapsalonX.Data;
-using EE.KapsalonX.Domain.Boeken;
+using EE.KapsalonX.Domain.Afspraken;
 using EE.KapsalonX.Web.ViewModels;
 
 namespace EE.KapsalonX.Web.Controllers
@@ -57,8 +57,10 @@ namespace EE.KapsalonX.Web.Controllers
         // GET: Admin/Create
         public IActionResult Create()
         {
-            ViewData["AfspraakId"] = new SelectList(_context.Klanten, "KlantId", "Achternaam");
-            return View();
+            var viewModel = new AdminCreateVm();
+            return View(viewModel);
+            //ViewData["AfspraakId"] = new SelectList(_context.Klanten, "KlantId", "Achternaam");
+            //return View();
         }
 
         // POST: Admin/Create
@@ -66,17 +68,27 @@ namespace EE.KapsalonX.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AfspraakId,Datum,Tijdstip,Opmerking")] Afspraak afspraak)
+        public async Task<IActionResult> Create(AdminCreateVm createVm)
         {
             if (ModelState.IsValid)
             {
-                afspraak.AfspraakId = Guid.NewGuid();
-                _context.Add(afspraak);
+                Afspraak createdReservatie = new Afspraak
+                {
+                    AfspraakId = Guid.NewGuid(),
+                    KlantGegevens = createVm.Klant,
+                    BehandelingGegevens = createVm.Behandeling,
+                    Datum = createVm.Datum,
+                    Tijdstip = createVm.Tijdstip,
+                    Opmerking = createVm.Opmerking
+                };
+                //afspraak.AfspraakId = Guid.NewGuid();
+                _context.Add(createdReservatie);
                 await _context.SaveChangesAsync();
+                //HIER NOG TEMPDATA SUCCESSMESSAGE
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AfspraakId"] = new SelectList(_context.Klanten, "KlantId", "Achternaam", afspraak.AfspraakId);
-            return View(afspraak);
+            //ViewData["AfspraakId"] = new SelectList(_context.Klanten, "KlantId", "Achternaam", afspraak.AfspraakId);
+            return View(createVm);
         }
 
         // GET: Admin/Edit/5

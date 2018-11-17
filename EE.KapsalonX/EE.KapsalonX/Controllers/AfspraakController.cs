@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using EE.KapsalonX.Data;
-using EE.KapsalonX.Domain.Boeken;
+using EE.KapsalonX.Domain.Afspraken;
 using EE.KapsalonX.Web.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
