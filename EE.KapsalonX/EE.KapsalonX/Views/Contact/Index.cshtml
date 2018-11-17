@@ -1,0 +1,43 @@
+﻿@model EE.KapsalonX.Web.ViewModels.ContactIndexVm
+@{
+    ViewData["Title"] = "Contact";
+}
+
+<div class="container">
+    <header>
+        <h2>Contacteer ons</h2>
+    </header>
+</div>
+<div class="container">
+    <div class="col-md-6">
+        <div asp-validation-summary="ModelOnly"></div>
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Achternaam"></label>
+                <input asp-for="Achternaam" class="form-control" />
+                <span asp-validation-for="Achternaam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Voornaam"></label>
+                <input asp-for="Voornaam" class="form-control" />
+                <span asp-validation-for="Voornaam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Emailadres"></label>
+                <input asp-for="Emailadres" class="form-control" />
+                <span asp-validation-for="Emailadres" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefoonnummer"></label>
+                <input asp-for="Telefoonnummer" class="form-control" />
+                <span asp-validation-for="Telefoonnummer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bericht"></label>
+                <input asp-for="Bericht" class="form-control" />
+                <span asp-validation-for="Bericht" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-default">Verstuur bericht</button>
+        </form>
+    </div>
+</div>
