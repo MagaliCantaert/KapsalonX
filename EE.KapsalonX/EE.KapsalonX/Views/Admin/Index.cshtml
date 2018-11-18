@@ -1,5 +1,4 @@
-﻿@*@model IEnumerable<EE.KapsalonX.Domain.Boeken.Afspraak>*@
-@model EE.KapsalonX.Web.ViewModels.AdminIndexVm
+﻿@model EE.KapsalonX.Web.ViewModels.AdminIndexVm
 
 @{
     ViewData["Title"] = "Index";
@@ -34,6 +33,8 @@
     <tbody>
         @foreach (var item in Model.Afspraken)
         {
+            var tijdstipFormat = item.Tijdstip;
+            DateTime.Parse(tijdstipFormat).ToShortTimeString();
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.KlantGegevens.Achternaam)
@@ -45,7 +46,7 @@
                     @Html.DisplayFor(modelItem => item.Datum)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Tijdstip)
+                    @Html.DisplayFor(modelItem => tijdstipFormat)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.BehandelingGegevens.GekozenBehandeling)

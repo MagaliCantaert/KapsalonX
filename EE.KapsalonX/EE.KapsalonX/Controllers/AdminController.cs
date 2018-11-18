@@ -30,7 +30,7 @@ namespace EE.KapsalonX.Web.Controllers
             {
                 Klanten = await _context.Klanten.ToListAsync(),
                 Behandenlingen = await _context.Behandelingen.ToListAsync(),
-                Afspraken = await _context.Afspraken.Include(a => a.KlantGegevens).ToListAsync()
+                Afspraken = await _context.Afspraken.Include(a => a.KlantGegevens).OrderBy(b => b.Datum).ThenBy(c => c.Tijdstip).ToListAsync()
             };
             ViewBag.Afspraken = GetData();
             return View(viewModel);
@@ -44,30 +44,20 @@ namespace EE.KapsalonX.Web.Controllers
                 Behandenlingen = _context.Behandelingen.ToList(),
                 Afspraken = _context.Afspraken.Include(a => a.KlantGegevens).ToList()
             };
-            
-            List<Event> appData = new List<Event>();
-            appData.Add(new Event
-            {
-                Id = 1,
-                Subject = vm.Afspraken.FirstOrDefault().BehandelingGegevens.GekozenBehandeling,
-                StartTime = DateTime.Parse(vm.Afspraken.FirstOrDefault().Datum + " " + vm.Afspraken.FirstOrDefault().Tijdstip),
-                EndTime = new DateTime(2018, 11, 18, 12, 30, 0),
 
-            });
-            appData.Add(new Event
+            List<Event> appData = new List<Event>();
+            foreach (var item in vm.Afspraken)
             {
-                Id = 2,
-                Subject = "Paris",
-                StartTime = new DateTime(2018, 2, 15, 10, 0, 0),
-                EndTime = new DateTime(2018, 2, 15, 12, 30, 0),
-                IsAllDay = false,
-                Location = "London",
-                Description = "Summer vacation planned for outstation."
-            });
+                appData.Add(new Event
+                {
+                    Id = item.AfspraakId,
+                    Subject = item.BehandelingGegevens.GekozenBehandeling,
+                    StartTime = DateTime.Parse(item.Datum + " " + item.Tijdstip),
+                    EndTime = DateTime.Parse(item.Datum + " " + item.Tijdstip) + new TimeSpan(1, 0, 0)
+                });
+            }
             return appData;
         }
-
-
 
         // GET: Admin/Details/5
         public async Task<IActionResult> Details(Guid? id)
@@ -170,14 +160,23 @@ namespace EE.KapsalonX.Web.Controllers
             {
                 try
                 {
+                    Klant updateKlant = new Klant
+                    {
+                        KlantId = editVm.Id,
+                        Achternaam = editVm.Klant.Achternaam,
+                        Voornaam = editVm.Klant.Voornaam,
+                        Emailadres = editVm.Klant.Emailadres,
+                        Telefoonnummer = editVm.Klant.Telefoonnummer
+                    };
+                    _context.Update(updateKlant);
+
                     Afspraak updateAfspraak = new Afspraak
                     {
-                        //AfspraakId = editVm.Id,
-                        KlantGegevens = editVm.Klant,
+                        AfspraakId = editVm.Id,
                         BehandelingGegevens = editVm.Behandeling,
                         Datum = editVm.Datum,
                         Tijdstip = editVm.Tijdstip,
-                        Opmerking = editVm.Opmerking
+                        Opmerking = editVm.Opmerking,
                     };
                     _context.Update(updateAfspraak);
                     TempData[Constants.SuccessMessage] = $"De afspraak voor {updateAfspraak.KlantGegevens.Achternaam} {updateAfspraak.KlantGegevens.Voornaam} werd succesvol gewijzigd.";
