@@ -32,6 +32,18 @@ namespace EE.KapsalonX.Web.Controllers
                 Behandenlingen = await _context.Behandelingen.ToListAsync(),
                 Afspraken = await _context.Afspraken.Include(a => a.KlantGegevens).OrderBy(b => b.Datum).ThenBy(c => c.Tijdstip).ToListAsync()
             };
+            //ViewBag.Afspraken = GetData();
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> Kalender()
+        {
+            var viewModel = new AdminIndexVm
+            {
+                Klanten = await _context.Klanten.ToListAsync(),
+                Behandenlingen = await _context.Behandelingen.ToListAsync(),
+                Afspraken = await _context.Afspraken.Include(a => a.KlantGegevens).OrderBy(b => b.Datum).ThenBy(c => c.Tijdstip).ToListAsync()
+            };
             ViewBag.Afspraken = GetData();
             return View(viewModel);
         }

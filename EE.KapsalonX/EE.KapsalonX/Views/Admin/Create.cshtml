@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h2>Create</h2>
+<h2>Maak nieuwe afspraak</h2>
 
 <h4>Afspraak</h4>
 <hr />
@@ -12,10 +12,6 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @*<div class="form-group">
-            <label asp-for="AfspraakId" class="control-label"></label>
-            <select asp-for="AfspraakId" class ="form-control" asp-items="ViewBag.AfspraakId"></select>
-        </div>*@
             <div class="form-group">
                 <label asp-for="Klant.Achternaam" class="control-label"></label>
                 <input asp-for="Klant.Achternaam" class="form-control" />
@@ -67,13 +63,13 @@
                 <span asp-validation-for="Opmerking" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Maak afspraak" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Keer terug</a>
 </div>
 
