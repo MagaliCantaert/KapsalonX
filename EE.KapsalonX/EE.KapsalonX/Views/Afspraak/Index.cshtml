@@ -69,11 +69,12 @@
 
 
 
-            <label asp-for="Date"></label>         
-            <ejs-datepicker id="datepicker" name="Date" ejs-for="Date" format="d/M/yyyy" min="DateTime.Now" placeholder="Enter a date"></ejs-datepicker>                       
+            <label asp-for="Date"></label>
+            <ejs-datepicker id="datepicker" name="Date" ejs-for="Date" format="d/M/yyyy" min="DateTime.Now" placeholder="Enter a date"></ejs-datepicker>
 
             <label asp-for="Time"></label>
-            <input asp-for="Time" class="form-control" />
+            <ejs-timepicker id="timepicker" name="Time" ejs-for="Time" format="HH:mm" step="30"></ejs-timepicker>
+            @*<input asp-for="Time" class="form-control" />*@
             <br />
 
 
