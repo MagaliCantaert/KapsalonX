@@ -48,27 +48,29 @@ namespace EE.KapsalonX.Web.Controllers
             return View(viewModel);
         }
 
-        public List<Event> GetData()
+        public List<Event> ToonAlleAfspraken()
         {
-            var vm = new AdminIndexVm()
+            var viewModel = new AdminIndexVm()
             {
                 Klanten = _context.Klanten.ToList(),
                 Behandenlingen = _context.Behandelingen.ToList(),
                 Afspraken = _context.Afspraken.Include(a => a.KlantGegevens).ToList()
             };
 
-            List<Event> appData = new List<Event>();
-            foreach (var item in vm.Afspraken)
+            List<Event> afspraakData = new List<Event>();
+
+            foreach (var item in viewModel.Afspraken)
             {
-                appData.Add(new Event
+                afspraakData.Add(new Event
                 {
                     Id = item.AfspraakId,
-                    Subject = item.BehandelingGegevens.GekozenBehandeling,
-                    StartTime = DateTime.Parse(item.Datum + " " + item.Tijdstip),
-                    EndTime = DateTime.Parse(item.Datum + " " + item.Tijdstip) + new TimeSpan(1, 0, 0)
+                    Behandeling = $"Behandeling: {item.BehandelingGegevens.GekozenBehandeling}",
+                    StartTijd = DateTime.Parse(item.Datum + " " + item.Tijdstip),
+                    EindTijd = DateTime.Parse(item.Datum + " " + item.Tijdstip) + new TimeSpan(1, 0, 0),
+                    Klant = $"Klant: {item.KlantGegevens.Voornaam} {item.KlantGegevens.Achternaam}"
                 });
             }
-            return appData;
+            return afspraakData;
         }
 
         // GET: Admin/Details/5

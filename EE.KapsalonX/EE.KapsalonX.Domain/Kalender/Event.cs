@@ -7,12 +7,10 @@ namespace EE.KapsalonX.Domain.Kalender
     public class Event
     {
         public Guid Id { get; set; }
-        public string Subject { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
-        public bool IsAllDay { get; set; }
-        public string Location { get; set; }
-        public string Description { get; set; }
+        public string Behandeling { get; set; }
+        public DateTime StartTijd { get; set; }
+        public DateTime EindTijd { get; set; }
+        public string Klant { get; set; }
 
     }
 }
