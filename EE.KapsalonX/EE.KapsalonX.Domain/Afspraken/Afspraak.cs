@@ -15,5 +15,6 @@ namespace EE.KapsalonX.Domain.Afspraken
         public string Datum { get; set; }
         public string Tijdstip { get; set; }
         public string Opmerking { get; set; }
+
     }
 }

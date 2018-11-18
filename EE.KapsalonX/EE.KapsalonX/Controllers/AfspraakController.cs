@@ -17,6 +17,8 @@ namespace EE.KapsalonX.Web.Controllers
 {
     public class AfspraakController : Controller
     {
+
+
         private ApplicationDbContext _context;
         public AfspraakController(ApplicationDbContext context)
         {
@@ -59,6 +61,11 @@ namespace EE.KapsalonX.Web.Controllers
             viewModel.BehandelingenHeren = BehandelingenHeren;
             viewModel.BehandelingenKinderen = BehandelingenKinderen;
             WaardenNaarViewModel(viewModel);
+
+            //ViewBag.value = DateTime.Now;
+            //ViewBag.minDate = DateTime.Now;
+            //ViewBag.maxDate = new DateTime(DateTime.Now.Year, 12, 31);
+
             return View(viewModel);
         }
 
@@ -99,6 +106,7 @@ namespace EE.KapsalonX.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Overzicht(AfspraakVm viewModel)
         {
+
             var nieuweKlant = new Klant
             {
                 Voornaam = viewModel.Voornaam,
@@ -119,7 +127,7 @@ namespace EE.KapsalonX.Web.Controllers
 
             var nieuweAfspraak = new Afspraak();
             nieuweAfspraak.KlantGegevens = nieuweKlant;
-            nieuweAfspraak.BehandelingGegevens = nieuweBehandeling;
+            nieuweAfspraak.BehandelingGegevens = nieuweBehandeling;           
             nieuweAfspraak.Datum = viewModel.Datum;
             nieuweAfspraak.Tijdstip = viewModel.Tijdstip;
             nieuweAfspraak.Opmerking = viewModel.Opmerkingen;

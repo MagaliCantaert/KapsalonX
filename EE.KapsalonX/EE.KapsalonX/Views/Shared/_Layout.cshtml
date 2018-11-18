@@ -62,6 +62,32 @@
 
         @RenderBody()
 
+
+
+        <div class="e-content sb-sample-content-area">
+            <div>
+                <div class='sb-demo-section'>
+                    <div class="control-fluid">
+                        <div class="container-fluid">
+                            <div id="control-content">
+                                @if (IsSectionDefined("ControlsSection"))
+                                {
+                                    @RenderSection("ControlsSection", required: false)
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class='sb-source-section'>
+                    <div id='sb-source-tab' class="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <hr />
         <footer>
             <p>&copy; 2018 - EE.KapsalonX</p>
