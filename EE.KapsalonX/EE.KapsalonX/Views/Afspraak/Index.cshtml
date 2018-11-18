@@ -70,11 +70,10 @@
 
 
             <label asp-for="Date"></label>
-            <ejs-datepicker id="datepicker" name="Date" ejs-for="Date" format="d/M/yyyy" min="DateTime.Now" placeholder="Enter a date"></ejs-datepicker>
+            <ejs-datepicker id="datepicker" name="Date" ejs-for="Date" format="d/M/yyyy" value="@ViewBag.valueDate" min="@ViewBag.minDate" max="@ViewBag.maxDate" placeholder="Enter a date" strictMode="true"></ejs-datepicker>
 
             <label asp-for="Time"></label>
-            <ejs-timepicker id="timepicker" name="Time" ejs-for="Time" format="HH:mm" step="30"></ejs-timepicker>
-            @*<input asp-for="Time" class="form-control" />*@
+            <ejs-timepicker id="timepicker" name="Time" ejs-for="Time" format="HH:mm" step="30" value="@ViewBag.valueTime" min="@ViewBag.minTime" max="@ViewBag.maxTime" strictMode="true"></ejs-timepicker>
             <br />
 
 
@@ -156,6 +155,8 @@
     }
 
 </script>
+
+
 
 <style>
     #date_label {

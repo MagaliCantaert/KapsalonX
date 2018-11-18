@@ -62,9 +62,13 @@ namespace EE.KapsalonX.Web.Controllers
             viewModel.BehandelingenKinderen = BehandelingenKinderen;
             WaardenNaarViewModel(viewModel);
 
-            //ViewBag.value = DateTime.Now;
-            //ViewBag.minDate = DateTime.Now;
-            //ViewBag.maxDate = new DateTime(DateTime.Now.Year, 12, 31);
+            ViewBag.valueDate = DateTime.Now;
+            ViewBag.minDate = DateTime.Now;
+            ViewBag.maxDate = new DateTime(DateTime.Now.Year, 12, 31);
+
+            ViewBag.minTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 09, 00, 00);
+            ViewBag.maxTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 17, 00, 00);
+            ViewBag.valueTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 09, 00, 00);
 
             return View(viewModel);
         }
