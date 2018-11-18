@@ -1,8 +1,17 @@
-﻿@model EE.KapsalonX.Web.ViewModels.AfspraakVm
+﻿@using Syncfusion.EJ2
+
+@model EE.KapsalonX.Web.ViewModels.AfspraakVm
+
+
+@addTagHelper "*, Syncfusion.EJ"
+@addTagHelper "*, Syncfusion.EJ2"
 
 @{
     ViewData["Title"] = "Index";
 }
+
+
+
 <h1>Stap @Model.Stap van 5</h1>
 
 <div asp-validation-summary="ModelOnly"></div>
@@ -58,12 +67,17 @@
             <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
             <input asp-for="Behandeling" value="@Model.Behandeling" hidden />
 
-            <label asp-for="Date"></label>
-            <input asp-for="Date" class="form-control" /><br />
+
+
+            <label asp-for="Date"></label>         
+            <ejs-datepicker id="datepicker" name="Date" ejs-for="Date" format="d/M/yyyy" min="DateTime.Now" placeholder="Enter a date"></ejs-datepicker>                       
 
             <label asp-for="Time"></label>
             <input asp-for="Time" class="form-control" />
             <br />
+
+
+
             <button type="submit">Volgende</button>
 
             break;
@@ -106,23 +120,68 @@
             break;
     }
 </form>
-@section scripts {
+
+
+
+@*<div id='app'>
+        <v-date-picker :mode="single" v-model='selectedDate' format="ddMMMyyyy"></v-date-picker>
+    </div>
+    <!--2. Link Vue Javascript-->
+    <script src='https://unpkg.com/vue/dist/vue.js'></script>
+    <!--3. Link VCalendar Javascript (Plugin automatically installed)-->
+    <script src='https://unpkg.com/v-calendar'></script>
+    <!--4. Create the Vue instance-->
+    <script>
+
+        new Vue({
+            el: '#app',
+            data: {
+                // Data used by the date picker
+                mode: 'single',
+                selectedDate: null,
+            })
+    </script>*@
+
+
 <script>
-    export default {
-        data() {
-            return {
-                attrs: [
-                    {
-                        key: 'today',
-                        highlight: {
-                            backgroundColor: '#ff8080',
-                            // Other properties are available too, like `height` & `borderRadius`
-                        },
-                        dates: new Date(2018, 0, 1)
-                    }
-                ],
-            };
-        },
-    };
+    function disableDate(args) {
+        if (args.date.getDay() === 0 || args.date.getDay() === 6) {
+            args.isDisabled = true;
+        }
+    }
+    function valueChange(args) {
+        /*Displays selected date in the label*/
+        document.getElementById('date_label').textContent = 'Selected Value: ' + args.value.toLocaleDateString();
+    }
+
 </script>
-}
+
+<style>
+    #date_label {
+        display: block;
+        width: 248px;
+        color: rgba(0, 0, 0, 0.58);
+        margin-left: 5px;
+    }
+
+    #datepicker-control {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    #wrapper {
+        max-width: 246px;
+        margin: 30px auto;
+        padding-top: 20px;
+    }
+
+    #submitbutton {
+        margin: 10px auto;
+        text-align: center;
+    }
+
+    #errorMessage {
+        color: red;
+        text-align: center
+    }
+</style>

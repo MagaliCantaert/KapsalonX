@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EE.KapsalonX.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EE.KapsalonX.Web.Controllers
@@ -13,6 +12,5 @@ namespace EE.KapsalonX.Web.Controllers
         {
             return View();
         }
-
     }
 }

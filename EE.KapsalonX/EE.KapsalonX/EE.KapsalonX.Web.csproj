@@ -11,13 +11,18 @@
     <PackageReference Include="jQuery.Fullcalendar" Version="3.9.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.5" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.6" PrivateAssets="All" />
     <PackageReference Include="SendGrid" Version="9.10.0" />
+    <PackageReference Include="Syncfusion.EJ2" Version="16.2.0.43" />
     <PackageReference Include="vue" Version="2.5.17" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EE.KapsalonX.Domain\EE.KapsalonX.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\scripts\" />
   </ItemGroup>
 
 </Project>

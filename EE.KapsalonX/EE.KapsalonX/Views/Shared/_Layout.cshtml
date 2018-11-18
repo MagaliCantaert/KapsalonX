@@ -15,17 +15,12 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
-   
-        <script type="text/javascript" src="/scripts/jquery.min.js"></script>
-        <script type="text/javascript" src="/scripts/moment.min.js"></script>
-        <script type="text/javascript" src="/scripts/bootstrap.min.js"></script>
-        <script type="text/javascript" src="/scripts/bootstrap-datetimepicker.*js"></script>
-        <!-- include your less or built css files  -->
-       
-        <link rel="stylesheet" href="/Content/bootstrap-datetimepicker.css" />
-        
-   
 
+    <!-- Syncfusion Essential JS 2 Styles -->
+    <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/material.css" />
+
+    <!-- Syncfusion Essential JS 2 Scripts -->
+    <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -41,6 +36,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Afspraak" asp-action="Index">Boek online</a></li>
                     <li>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -55,7 +54,7 @@
                         }
 
                     </li>
-                    </ul>
+                </ul>
                 <partial name="_LoginPartial" />
             </div>
         </div>
@@ -67,9 +66,41 @@
         <partial name="NotificationPartial" />
 
         @RenderBody()
-        
-        <partial name="PublicFooter" />
+
+
+
+        <div class="e-content sb-sample-content-area">
+            <div>
+                <div class='sb-demo-section'>
+                    <div class="control-fluid">
+                        <div class="container-fluid">
+                            <div id="control-content">
+                                @if (IsSectionDefined("ControlsSection"))
+                                {
+                                    @RenderSection("ControlsSection", required: false)
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class='sb-source-section'>
+                    <div id='sb-source-tab' class="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <hr />
+        <footer>
+            <p>&copy; 2018 - EE.KapsalonX</p>
+        </footer>
     </div>
+
+
+
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -93,6 +124,11 @@
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 
+
+
+
+
     @RenderSection("Scripts", required: false)
+    <ejs-scripts></ejs-scripts>
 </body>
 </html>
