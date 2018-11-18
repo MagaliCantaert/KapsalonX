@@ -22,7 +22,7 @@ namespace EE.KapsalonX.Web.Controllers
             if (ModelState.IsValid)
             {
                 TempData[Constants.SuccessMessage] = $@"<p>Bedankt voor uw bericht, heer/mevrouw {viewModel.Achternaam}.<br /><br />
-                                                      We trachten zo snel mogelijk een antwoord terug te sturen.<br /><br />
+                                                      We trachten u zo snel mogelijk een antwoord terug te sturen.<br /><br />
                                                       Het KapsalonX-team";
                 return new RedirectToActionResult("Index", "Contact", null);
             }

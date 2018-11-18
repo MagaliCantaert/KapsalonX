@@ -36,10 +36,6 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li><a asp-area="" asp-controller="Afspraak" asp-action="Index">Boek online</a></li>
                     <li>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -67,8 +63,6 @@
 
         @RenderBody()
 
-
-
         <div class="e-content sb-sample-content-area">
             <div>
                 <div class='sb-demo-section'>
@@ -92,14 +86,8 @@
             </div>
         </div>
 
-
-        <hr />
-        <footer>
-            <p>&copy; 2018 - EE.KapsalonX</p>
-        </footer>
+        <partial name="PublicFooter" />
     </div>
-
-
 
 
     <environment include="Development">
