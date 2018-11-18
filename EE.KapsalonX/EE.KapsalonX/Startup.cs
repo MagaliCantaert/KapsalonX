@@ -97,6 +97,8 @@ namespace EE.KapsalonX
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
         IServiceProvider serviceProvider)
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NDM1NDJAMzEzNjJlMzMyZTMwT3UvOW5yWjJ2NkwwUWNZV3ZQck5pV25nQjNZOFBUakwySDdkdGZ4MjRQST0=");
+
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 

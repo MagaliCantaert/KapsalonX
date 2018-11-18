@@ -1,8 +1,17 @@
-﻿@model EE.KapsalonX.Web.ViewModels.AfspraakVm
+﻿@using Syncfusion.EJ2
+
+@model EE.KapsalonX.Web.ViewModels.AfspraakVm
+
+
+@addTagHelper "*, Syncfusion.EJ"
+@addTagHelper "*, Syncfusion.EJ2"
 
 @{
     ViewData["Title"] = "Index";
 }
+
+
+
 <h1>Stap @Model.Stap van 5</h1>
 
 <div asp-validation-summary="ModelOnly"></div>
@@ -106,23 +115,26 @@
             break;
     }
 </form>
-@section scripts {
-<script>
-    export default {
-        data() {
-            return {
-                attrs: [
-                    {
-                        key: 'today',
-                        highlight: {
-                            backgroundColor: '#ff8080',
-                            // Other properties are available too, like `height` & `borderRadius`
-                        },
-                        dates: new Date(2018, 0, 1)
-                    }
-                ],
-            };
-        },
-    };
-</script>
-}
+
+
+
+<ejs-schedule id="schedule"></ejs-schedule>
+
+@*<div id='app'>
+        <v-date-picker :mode="single" v-model='selectedDate' format="ddMMMyyyy"></v-date-picker>
+    </div>
+    <!--2. Link Vue Javascript-->
+    <script src='https://unpkg.com/vue/dist/vue.js'></script>
+    <!--3. Link VCalendar Javascript (Plugin automatically installed)-->
+    <script src='https://unpkg.com/v-calendar'></script>
+    <!--4. Create the Vue instance-->
+    <script>
+
+        new Vue({
+            el: '#app',
+            data: {
+                // Data used by the date picker
+                mode: 'single',
+                selectedDate: null,
+            })
+    </script>*@
