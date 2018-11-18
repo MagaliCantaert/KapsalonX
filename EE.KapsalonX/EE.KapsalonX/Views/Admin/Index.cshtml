@@ -32,31 +32,52 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Afspraken) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.KlantGegevens.Achternaam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KlantGegevens.Voornaam)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Datum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tijdstip)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BehandelingGegevens.GekozenBehandeling)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.AfspraakId">Bewerk</a> |
-                <a asp-action="Details" asp-route-id="@item.AfspraakId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.AfspraakId">Verwijder</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Afspraken)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KlantGegevens.Achternaam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KlantGegevens.Voornaam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Datum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tijdstip)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BehandelingGegevens.GekozenBehandeling)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.AfspraakId">Bewerk</a> |
+                    <a asp-action="Details" asp-route-id="@item.AfspraakId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.AfspraakId">Verwijder</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
-<ejs-schedule id="schedule"></ejs-schedule>
+<br />
+
+
+@section ControlsSection{
+    <div class="control-section">
+        <div class="control_wrapper schedule-control-section">
+            <ejs-schedule id="schedule" height="550" selectedDate="new DateTime(2018, 2, 15)">
+                <e-schedule-eventsettings dataSource="@ViewBag.Afspraken">
+                    <e-eventsettings-fields id="Id">
+                        <e-field-subject name="Subject"></e-field-subject>
+                        <e-field-location name="Location"></e-field-location>
+                        <e-field-description name="Description"></e-field-description>
+                        <e-field-isallday name="IsAllDay"></e-field-isallday>
+                        <e-field-starttime name="StartTime"></e-field-starttime>
+                        <e-field-endtime name="EndTime"></e-field-endtime>
+                    </e-eventsettings-fields>
+                </e-schedule-eventsettings>
+            </ejs-schedule>
+        </div>
+    </div>
+}
