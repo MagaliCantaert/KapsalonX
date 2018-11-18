@@ -32,8 +32,6 @@ namespace EE.KapsalonX.Web.Controllers
                 Afspraken = await _context.Afspraken.Include(a => a.KlantGegevens).ToListAsync()
             };
             return View(viewModel);
-            //var applicationDbContext = _context.Afspraken.Include(a => a.KlantGegevens);
-            //return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Admin/Details/5
@@ -74,7 +72,7 @@ namespace EE.KapsalonX.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Afspraak createdReservatie = new Afspraak
+                Afspraak createdAfspraak = new Afspraak
                 {
                     AfspraakId = Guid.NewGuid(),
                     KlantGegevens = createVm.Klant,
@@ -84,9 +82,9 @@ namespace EE.KapsalonX.Web.Controllers
                     Opmerking = createVm.Opmerking
                 };
                 //afspraak.AfspraakId = Guid.NewGuid();
-                _context.Add(createdReservatie);
+                _context.Add(createdAfspraak);
                 await _context.SaveChangesAsync();
-                //HIER NOG TEMPDATA SUCCESSMESSAGE
+                TempData[Constants.SuccessMessage] = $"De afspraak voor {createdAfspraak.KlantGegevens.Achternaam} {createdAfspraak.KlantGegevens.Voornaam} werd succesvol toegevoegd.";
                 return RedirectToAction(nameof(Index));
             }
             //ViewData["AfspraakId"] = new SelectList(_context.Klanten, "KlantId", "Achternaam", afspraak.AfspraakId);
@@ -147,7 +145,7 @@ namespace EE.KapsalonX.Web.Controllers
                         Opmerking = editVm.Opmerking
                     };
                     _context.Update(updateAfspraak);
-                    //HIER NOG TEMPDATA SUCCESSMESSAGE
+                    TempData[Constants.SuccessMessage] = $"De afspraak voor {updateAfspraak.KlantGegevens.Achternaam} {updateAfspraak.KlantGegevens.Voornaam} werd succesvol gewijzigd.";
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -196,7 +194,7 @@ namespace EE.KapsalonX.Web.Controllers
                                         .Include(b => b.BehandelingGegevens).SingleOrDefaultAsync(c => c.AfspraakId == id);
             _context.Afspraken.Remove(afspraak);
             await _context.SaveChangesAsync();
-            //HIER NOG TEMPDATA SUCCESSMESSAGE
+            TempData[Constants.SuccessMessage] = $"De afspraak voor {afspraak.KlantGegevens.Achternaam} {afspraak.KlantGegevens.Voornaam} werd succesvol verwijderd.";
             return RedirectToAction(nameof(Index));
         }
 

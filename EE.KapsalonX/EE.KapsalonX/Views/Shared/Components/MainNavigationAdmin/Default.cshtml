@@ -1,0 +1,10 @@
+﻿@model IEnumerable<EE.KapsalonX.Web.ViewModels.Components.MainNavLinkVm>
+
+@foreach (var navlink in Model)
+{
+    <li class="nav-item @(Html.Raw(navlink.IsActive ? "active" : ""))">
+        <a asp-area="@navlink.Area"
+           asp-controller="@navlink.Controller"
+           asp-action="@navlink.Action">@navlink.Text</a>
+    </li>
+}
