@@ -32,39 +32,36 @@ namespace EE.KapsalonX.Web.Controllers
                 Behandenlingen = await _context.Behandelingen.ToListAsync(),
                 Afspraken = await _context.Afspraken.Include(a => a.KlantGegevens).ToListAsync()
             };
-            ViewBag.Afspraken = GetData();
+
+            ViewBag.startUur = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 9, 0, 0);
+
+            ViewBag.Afspraken = ToonAlleAfspraken();
             return View(viewModel);
         }
 
-        public List<Event> GetData()
+        public List<Event> ToonAlleAfspraken()
         {
-            var vm = new AdminIndexVm()
+            var viewModel = new AdminIndexVm()
             {
                 Klanten = _context.Klanten.ToList(),
                 Behandenlingen = _context.Behandelingen.ToList(),
                 Afspraken = _context.Afspraken.Include(a => a.KlantGegevens).ToList()
             };
-            
-            List<Event> appData = new List<Event>();
-            appData.Add(new Event
-            {
-                Id = 1,
-                Subject = vm.Afspraken.FirstOrDefault().BehandelingGegevens.GekozenBehandeling,
-                StartTime = DateTime.Parse(vm.Afspraken.FirstOrDefault().Datum + " " + vm.Afspraken.FirstOrDefault().Tijdstip),
-                EndTime = new DateTime(2018, 11, 18, 12, 30, 0),
 
-            });
-            appData.Add(new Event
+            List<Event> afspraakData = new List<Event>();
+
+            foreach (var item in viewModel.Afspraken)
             {
-                Id = 2,
-                Subject = "Paris",
-                StartTime = new DateTime(2018, 2, 15, 10, 0, 0),
-                EndTime = new DateTime(2018, 2, 15, 12, 30, 0),
-                IsAllDay = false,
-                Location = "London",
-                Description = "Summer vacation planned for outstation."
-            });
-            return appData;
+                afspraakData.Add(new Event
+                {
+                    Id = item.AfspraakId,
+                    Behandeling = $"Behandeling: {item.BehandelingGegevens.GekozenBehandeling}",
+                    StartTijd = DateTime.Parse(item.Datum + " " + item.Tijdstip),
+                    EindTijd = DateTime.Parse(item.Datum + " " + item.Tijdstip) + new TimeSpan(1, 0, 0),
+                    Klant = $"Klant: {item.KlantGegevens.Voornaam} {item.KlantGegevens.Achternaam}"
+                });
+            }
+            return afspraakData;
         }
 
 
