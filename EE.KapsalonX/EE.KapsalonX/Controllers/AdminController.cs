@@ -9,6 +9,7 @@ using EE.KapsalonX.Data;
 using EE.KapsalonX.Domain.Afspraken;
 using EE.KapsalonX.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using EE.KapsalonX.Domain.Kalender;
 
 namespace EE.KapsalonX.Web.Controllers
 {
@@ -31,8 +32,42 @@ namespace EE.KapsalonX.Web.Controllers
                 Behandenlingen = await _context.Behandelingen.ToListAsync(),
                 Afspraken = await _context.Afspraken.Include(a => a.KlantGegevens).ToListAsync()
             };
+            ViewBag.Afspraken = GetData();
             return View(viewModel);
         }
+
+        public List<Event> GetData()
+        {
+            var vm = new AdminIndexVm()
+            {
+                Klanten = _context.Klanten.ToList(),
+                Behandenlingen = _context.Behandelingen.ToList(),
+                Afspraken = _context.Afspraken.Include(a => a.KlantGegevens).ToList()
+            };
+            
+            List<Event> appData = new List<Event>();
+            appData.Add(new Event
+            {
+                Id = 1,
+                Subject = vm.Afspraken.FirstOrDefault().BehandelingGegevens.GekozenBehandeling,
+                StartTime = DateTime.Parse(vm.Afspraken.FirstOrDefault().Datum + " " + vm.Afspraken.FirstOrDefault().Tijdstip),
+                EndTime = new DateTime(2018, 11, 18, 12, 30, 0),
+
+            });
+            appData.Add(new Event
+            {
+                Id = 2,
+                Subject = "Paris",
+                StartTime = new DateTime(2018, 2, 15, 10, 0, 0),
+                EndTime = new DateTime(2018, 2, 15, 12, 30, 0),
+                IsAllDay = false,
+                Location = "London",
+                Description = "Summer vacation planned for outstation."
+            });
+            return appData;
+        }
+
+
 
         // GET: Admin/Details/5
         public async Task<IActionResult> Details(Guid? id)

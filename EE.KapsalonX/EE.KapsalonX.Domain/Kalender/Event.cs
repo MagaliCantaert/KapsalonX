@@ -7,8 +7,12 @@ namespace EE.KapsalonX.Domain.Kalender
     public class Event
     {
         public int Id { get; set; }
-        public string Tekst { get; set; }
-        public DateTime StartDatum { get; set; }
-        public DateTime EindDatum { get; set; }
+        public string Subject { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public bool IsAllDay { get; set; }
+        public string Location { get; set; }
+        public string Description { get; set; }
+
     }
 }

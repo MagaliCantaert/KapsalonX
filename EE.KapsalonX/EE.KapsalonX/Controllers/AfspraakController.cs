@@ -17,8 +17,6 @@ namespace EE.KapsalonX.Web.Controllers
 {
     public class AfspraakController : Controller
     {
-
-
         private ApplicationDbContext _context;
         public AfspraakController(ApplicationDbContext context)
         {
@@ -110,7 +108,6 @@ namespace EE.KapsalonX.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Overzicht(AfspraakVm viewModel)
         {
-
             var nieuweKlant = new Klant
             {
                 Voornaam = viewModel.Voornaam,
@@ -135,20 +132,18 @@ namespace EE.KapsalonX.Web.Controllers
             nieuweAfspraak.Datum = viewModel.Datum;
             nieuweAfspraak.Tijdstip = viewModel.Tijdstip;
             nieuweAfspraak.Opmerking = viewModel.Opmerkingen;
+            
             _context.Add(nieuweAfspraak);
             _context.SaveChanges();
 
             //HIER LATER VERSTUREN VAN MAIL NAAR KLANT MET GEGEVENS AFSPRAAK
             return new RedirectToActionResult("Bevestiging", "Afspraak", viewModel);
         }
-
-        
+       
         public IActionResult Bevestiging (AfspraakVm viewModel)
         {
             return View(viewModel);
         }
-
-
 
         private void WaardenNaarViewModel(AfspraakVm viewModel)
         {
