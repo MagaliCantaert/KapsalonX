@@ -31,6 +31,9 @@ namespace EE.KapsalonX.Web.Controllers
                 Behandenlingen = await _context.Behandelingen.ToListAsync(),
                 Afspraken = await _context.Afspraken.Include(a => a.KlantGegevens).OrderBy(b => b.Datum).ThenBy(c => c.Tijdstip).ToListAsync()
             };
+
+            
+
             return View(viewModel);
         }
 
@@ -97,6 +100,14 @@ namespace EE.KapsalonX.Web.Controllers
         public IActionResult Create()
         {
             var viewModel = new AdminCreateVm();
+            ViewBag.valueDate = DateTime.Now;
+            ViewBag.minDate = DateTime.Now;
+            ViewBag.maxDate = new DateTime(DateTime.Now.Year, 12, 31);
+
+            ViewBag.minTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 09, 00, 00);
+            ViewBag.maxTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 17, 00, 00);
+            ViewBag.valueTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 09, 00, 00);
+
             return View(viewModel);
             //ViewData["AfspraakId"] = new SelectList(_context.Klanten, "KlantId", "Achternaam");
             //return View();
