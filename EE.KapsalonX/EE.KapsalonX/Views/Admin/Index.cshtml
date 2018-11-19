@@ -66,9 +66,9 @@
 @section ControlsSection{
     <div class="control-section">
         <div class="control_wrapper schedule-control-section">
-            <ejs-schedule id="schedule" height="550" timezone="UTC +01:00" selectedDate="DateTime.Now" firstDayOfWeek="1" showQuickInfo="true" dateFormat="d/M/yyyy" startHour="09:00" endHour="20:00">
-                <e-schedule-eventsettings dataSource="@ViewBag.Afspraken">
-                    <e-eventsettings-fields id="Id" >
+            <ejs-schedule id="schedule" height="550" selectedDate="DateTime.Now" firstDayOfWeek="1" showQuickInfo="false" dateFormat="d/M/yyyy" startHour="09:00" endHour="20:00">
+                <e-schedule-eventsettings dataSource="@ViewBag.Afspraken" >
+                    <e-eventsettings-fields id="Id">
                         <e-field-subject name="Behandeling"></e-field-subject>
                         <e-field-starttime name="StartTijd"></e-field-starttime>
                         <e-field-endtime name="EindTijd"></e-field-endtime>
@@ -79,6 +79,5 @@
         </div>
     </div>
 }
-
 
 
