@@ -11,6 +11,8 @@
 <p>
     <a asp-action="Create">Maak nieuwe afspraak</a>
 </p>
+
+
 <table class="table">
     <thead>
         <tr>
@@ -33,55 +35,49 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Afspraken)
-        {
-            var tijdstipFormat = item.Tijdstip;
-            DateTime.Parse(tijdstipFormat).ToShortTimeString();
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.KlantGegevens.Achternaam)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.KlantGegevens.Voornaam)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Datum)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => tijdstipFormat)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BehandelingGegevens.GekozenBehandeling)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.AfspraakId">Bewerk</a> |
-                    <a asp-action="Details" asp-route-id="@item.AfspraakId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.AfspraakId">Verwijder</a>
-                </td>
-            </tr>
-        }
+        @{
+            foreach (var afspraak in Model.Afspraken)
+            {
+                if (DateTime.Parse(afspraak.Datum).Month == DateTime.Today.Month)
+                {
+                        var tijdstipFormat = afspraak.Tijdstip;
+                        DateTime.Parse(tijdstipFormat).ToShortTimeString();
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => afspraak.KlantGegevens.Achternaam)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => afspraak.KlantGegevens.Voornaam)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => afspraak.Datum)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => tijdstipFormat)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => afspraak.BehandelingGegevens.GekozenBehandeling)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@afspraak.AfspraakId">Bewerk</a> |
+                                <a asp-action="Details" asp-route-id="@afspraak.AfspraakId">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@afspraak.AfspraakId">Verwijder</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            }
     </tbody>
 </table>
+            
+   
+
+
 
 <br />
 
 
-@section ControlsSection{
-    <div class="control-section">
-        <div class="control_wrapper schedule-control-section">
-            <ejs-schedule id="schedule" height="550" timezone="UTC +01:00" selectedDate="DateTime.Now" firstDayOfWeek="1" showQuickInfo="true" dateFormat="d/M/yyyy" startHour="09:00" endHour="20:00">
-                <e-schedule-eventsettings dataSource="@ViewBag.Afspraken">
-                    <e-eventsettings-fields id="Id" >
-                        <e-field-subject name="Behandeling"></e-field-subject>
-                        <e-field-starttime name="StartTijd"></e-field-starttime>
-                        <e-field-endtime name="EindTijd"></e-field-endtime>
-                        <e-field-description name="Klant"></e-field-description>
-                    </e-eventsettings-fields>
-                </e-schedule-eventsettings>
-            </ejs-schedule>
-        </div>
-    </div>
-}
+
 
 
 

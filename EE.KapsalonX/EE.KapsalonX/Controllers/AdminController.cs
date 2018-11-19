@@ -32,7 +32,6 @@ namespace EE.KapsalonX.Web.Controllers
                 Behandenlingen = await _context.Behandelingen.ToListAsync(),
                 Afspraken = await _context.Afspraken.Include(a => a.KlantGegevens).OrderBy(b => b.Datum).ThenBy(c => c.Tijdstip).ToListAsync()
             };
-            //ViewBag.Afspraken = GetData();
             return View(viewModel);
         }
 
@@ -44,7 +43,7 @@ namespace EE.KapsalonX.Web.Controllers
                 Behandenlingen = await _context.Behandelingen.ToListAsync(),
                 Afspraken = await _context.Afspraken.Include(a => a.KlantGegevens).OrderBy(b => b.Datum).ThenBy(c => c.Tijdstip).ToListAsync()
             };
-            ViewBag.Afspraken = GetData();
+            ViewBag.Afspraken = ToonAlleAfspraken();
             return View(viewModel);
         }
 
