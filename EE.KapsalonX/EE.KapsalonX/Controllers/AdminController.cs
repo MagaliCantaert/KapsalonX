@@ -30,11 +30,19 @@ namespace EE.KapsalonX.Web.Controllers
             {
                 Klanten = await _context.Klanten.ToListAsync(),
                 Behandenlingen = await _context.Behandelingen.ToListAsync(),
-                Afspraken = await _context.Afspraken.Include(a => a.KlantGegevens).ToListAsync()
+                Afspraken = await _context.Afspraken.Include(a => a.KlantGegevens).OrderBy(b => b.Datum).ThenBy(c => c.Tijdstip).ToListAsync()
             };
+            return View(viewModel);
+        }
 
-            ViewBag.startUur = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 9, 0, 0);
-
+        public async Task<IActionResult> Kalender()
+        {
+            var viewModel = new AdminIndexVm
+            {
+                Klanten = await _context.Klanten.ToListAsync(),
+                Behandenlingen = await _context.Behandelingen.ToListAsync(),
+                Afspraken = await _context.Afspraken.Include(a => a.KlantGegevens).OrderBy(b => b.Datum).ThenBy(c => c.Tijdstip).ToListAsync()
+            };
             ViewBag.Afspraken = ToonAlleAfspraken();
             return View(viewModel);
         }
@@ -63,8 +71,6 @@ namespace EE.KapsalonX.Web.Controllers
             }
             return afspraakData;
         }
-
-
 
         // GET: Admin/Details/5
         public async Task<IActionResult> Details(Guid? id)
@@ -167,14 +173,23 @@ namespace EE.KapsalonX.Web.Controllers
             {
                 try
                 {
+                    Klant updateKlant = new Klant
+                    {
+                        KlantId = editVm.Id,
+                        Achternaam = editVm.Klant.Achternaam,
+                        Voornaam = editVm.Klant.Voornaam,
+                        Emailadres = editVm.Klant.Emailadres,
+                        Telefoonnummer = editVm.Klant.Telefoonnummer
+                    };
+                    _context.Update(updateKlant);
+
                     Afspraak updateAfspraak = new Afspraak
                     {
-                        //AfspraakId = editVm.Id,
-                        KlantGegevens = editVm.Klant,
+                        AfspraakId = editVm.Id,
                         BehandelingGegevens = editVm.Behandeling,
                         Datum = editVm.Datum,
                         Tijdstip = editVm.Tijdstip,
-                        Opmerking = editVm.Opmerking
+                        Opmerking = editVm.Opmerking,
                     };
                     _context.Update(updateAfspraak);
                     TempData[Constants.SuccessMessage] = $"De afspraak voor {updateAfspraak.KlantGegevens.Achternaam} {updateAfspraak.KlantGegevens.Voornaam} werd succesvol gewijzigd.";
