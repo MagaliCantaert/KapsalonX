@@ -84,14 +84,20 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <label asp-for="Date"></label>
-                        <ejs-datepicker id="datepicker" name="Date" ejs-for="Date" format="d/M/yyyy" value="@ViewBag.valueDate" min="@ViewBag.minDate" max="@ViewBag.maxDate" placeholder="Enter a date" strictMode="true"></ejs-datepicker>
+                        <ejs-datepicker id="datepicker" name="Date" ejs-for="Date" format="d/M/yyyy" value="@ViewBag.valueDate" min="@ViewBag.minDate"
+                                        max="@ViewBag.maxDate" placeholder="Geef een datum in" strictMode="true" firstDayOfWeek="1"></ejs-datepicker>
+                        @*<label asp-for="Date"></label>
+                        <ejs-datepicker id="datepicker" name="Date" ejs-for="Date" format="d/M/yyyy" value="@ViewBag.valueDate" min="@ViewBag.minDate" max="@ViewBag.maxDate" placeholder="Enter a date" strictMode="true"></ejs-datepicker>*@
                     </div>
                 </div>
                 <br />
                 <div class="row">
                     <div class="col-sm-4">
                         <label asp-for="Time"></label>
-                        <ejs-timepicker id="timepicker" name="Time" ejs-for="Time" format="HH:mm" step="30" value="@ViewBag.valueTime" min="@ViewBag.minTime" max="@ViewBag.maxTime" strictMode="true"></ejs-timepicker>
+                        <ejs-timepicker id="timepicker" name="Time" ejs-for="Time" format="HH:mm" step="30" value="@ViewBag.valueTime" min="@ViewBag.minTime"
+                                        max="@ViewBag.maxTime" strictMode="true"></ejs-timepicker>
+                        @*<label asp-for="Time"></label>
+        <ejs-timepicker id="timepicker" name="Time" ejs-for="Time" format="HH:mm" step="30" value="@ViewBag.valueTime" min="@ViewBag.minTime" max="@ViewBag.maxTime" strictMode="true"></ejs-timepicker>*@
                     </div>
                 </div>
                 @ViewBag.Error
@@ -103,28 +109,6 @@
                     </div>
                 </div>
                 break;
-            case 4:
-                <p>Vul onderstaande gegevens in</p>
-                <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
-                <input asp-for="Behandeling" value="@Model.Behandeling" hidden />
-                <input asp-for="Datum" value="@Model.Datum" hidden />
-                <input asp-for="Tijdstip" value="@Model.Tijdstip" hidden />
-
-            <label asp-for="Date"></label>
-            <ejs-datepicker id="datepicker" name="Date" ejs-for="Date" format="d/M/yyyy" value="@ViewBag.valueDate" min="@ViewBag.minDate"
-                            max="@ViewBag.maxDate" placeholder="Geef een datum in" strictMode="true" firstDayOfWeek="1"></ejs-datepicker>
-
-            <label asp-for="Time"></label>
-            <ejs-timepicker id="timepicker" name="Time" ejs-for="Time" format="HH:mm" step="30" value="@ViewBag.valueTime" min="@ViewBag.minTime" 
-            max="@ViewBag.maxTime" strictMode="true"></ejs-timepicker>
-
-            <h2>@ViewBag.Error</h2>
-            <br />
-
-            <button type="submit">Volgende</button>
-
-            break;
-
         case 4:
             <p>Vul onderstaande gegevens in</p>
             <input asp-for="Geslacht" value="@Model.Geslacht" hidden />

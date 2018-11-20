@@ -5,8 +5,6 @@
 }
 
 <h2>Maak nieuwe afspraak</h2>
-
-<h4>Afspraak</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -38,7 +36,7 @@
                 @* ERROR AANGEZIEN DIT NOG IN DATETIME STAAT, MAAR EEN STRING-WAARDE VERWACHT *@
 
                 @*<ejs-datepicker id="datepicker" name="Date" ejs-for="Datum" format="dd/MM/yyyy" value="@ViewBag.valueDate" min="@ViewBag.minDate"
-                                max="@ViewBag.maxDate" placeholder="Geef een datum in" strictMode="true" firstDayOfWeek="1"></ejs-datepicker>*@
+                    max="@ViewBag.maxDate" placeholder="Geef een datum in" strictMode="true" firstDayOfWeek="1"></ejs-datepicker>*@
                 <input asp-for="Datum" class="form-control" />
                 <span asp-validation-for="Datum" class="text-danger"></span>
             </div>
