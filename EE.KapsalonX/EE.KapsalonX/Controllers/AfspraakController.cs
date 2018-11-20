@@ -89,7 +89,12 @@ namespace EE.KapsalonX.Web.Controllers
                 {
                     if (viewModel.Datum == item.Datum && viewModel.Tijdstip == item.Tijdstip)
                     {
-                        
+                        ViewBag.valueDate = DateTime.Now;
+                        ViewBag.minDate = DateTime.Now;
+                        ViewBag.maxDate = new DateTime(DateTime.Now.Year, 12, 31);                 
+                        ViewBag.minTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 09, 00, 00);
+                        ViewBag.maxTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 17, 00, 00);
+                        ViewBag.valueTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 09, 00, 00);
                         ViewBag.Error = "Kies een andere datum en/of tijdstip a.u.b.";
                         return View(viewModel);
                     }

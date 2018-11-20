@@ -17,16 +17,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Klanten.FirstOrDefault().Achternaam)
+                @Html.DisplayNameFor(model => model.Afspraken.FirstOrDefault().Datum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Afspraken.FirstOrDefault().Tijdstip)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Klanten.FirstOrDefault().Voornaam)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Afspraken.FirstOrDefault().Datum)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Afspraken.FirstOrDefault().Tijdstip)
+                @Html.DisplayNameFor(model => model.Klanten.FirstOrDefault().Achternaam)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Behandenlingen.FirstOrDefault().GekozenBehandeling)
@@ -44,16 +44,16 @@
                     DateTime.Parse(tijdstipFormat).ToShortTimeString();
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => afspraak.KlantGegevens.Achternaam)
+                            @Html.DisplayFor(modelItem => afspraak.Datum)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => tijdstipFormat)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => afspraak.KlantGegevens.Voornaam)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => afspraak.Datum)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => tijdstipFormat)
+                            @Html.DisplayFor(modelItem => afspraak.KlantGegevens.Achternaam)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => afspraak.BehandelingGegevens.GekozenBehandeling)
@@ -72,7 +72,7 @@
 
 
 
-   
+
 
 
 
