@@ -60,8 +60,6 @@ namespace EE.KapsalonX.Web.Controllers
 
             List<Event> afspraakData = new List<Event>();
 
-
-
             foreach (var item in viewModel.Afspraken)
             {
                 afspraakData.Add(new Event
@@ -120,6 +118,9 @@ namespace EE.KapsalonX.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AdminCreateVm createVm)
         {
+            WaardenNaarTempData(createVm);
+            WaardenNaarViewModel(createVm);
+
             if (ModelState.IsValid)
             {
                 Afspraak createdAfspraak = new Afspraak
@@ -129,8 +130,9 @@ namespace EE.KapsalonX.Web.Controllers
                     BehandelingGegevens = createVm.Behandeling,
                     Datum = createVm.Datum,
                     Tijdstip = createVm.Tijdstip,
-                    Opmerking = createVm.Opmerking
+                    Opmerking = createVm.Opmerkingen
                 };
+
                 //afspraak.AfspraakId = Guid.NewGuid();
                 _context.Add(createdAfspraak);
                 await _context.SaveChangesAsync();
@@ -164,7 +166,7 @@ namespace EE.KapsalonX.Web.Controllers
                 Behandeling = afspraak.BehandelingGegevens,
                 Datum = afspraak.Datum,
                 Tijdstip = afspraak.Tijdstip,
-                Opmerking = afspraak.Opmerking
+                Opmerkingen = afspraak.Opmerking
             };
             return View(viewModel);
         }
@@ -195,13 +197,14 @@ namespace EE.KapsalonX.Web.Controllers
                     };
                     _context.Update(updateKlant);
 
+
                     Afspraak updateAfspraak = new Afspraak
                     {
                         AfspraakId = editVm.Id,
                         BehandelingGegevens = editVm.Behandeling,
                         Datum = editVm.Datum,
                         Tijdstip = editVm.Tijdstip,
-                        Opmerking = editVm.Opmerking,
+                        Opmerking = editVm.Opmerkingen,
                     };
                     _context.Update(updateAfspraak);
                     TempData[Constants.SuccessMessage] = $"De afspraak voor {updateAfspraak.KlantGegevens.Achternaam} {updateAfspraak.KlantGegevens.Voornaam} werd succesvol gewijzigd.";
@@ -260,6 +263,36 @@ namespace EE.KapsalonX.Web.Controllers
         private bool AfspraakExists(Guid id)
         {
             return _context.Afspraken.Any(e => e.AfspraakId == id);
+        }
+
+        private void WaardenNaarViewModel(AdminCreateVm viewModel)
+        {
+            viewModel.Klant.Voornaam = TempData["Voornaam"]?.ToString();
+            viewModel.Klant.Achternaam = TempData["Achternaam"]?.ToString();
+            viewModel.Klant.Emailadres = TempData["Telefoonnummer"]?.ToString();
+            viewModel.Klant.Telefoonnummer = TempData["Emailadres"]?.ToString();
+
+            viewModel.Datum = TempData["Datum"]?.ToString();
+            viewModel.Tijdstip = TempData["Tijdstip"]?.ToString();
+
+            viewModel.Behandeling.Geslacht = TempData["Geslacht"]?.ToString();
+            viewModel.Behandeling.GekozenBehandeling = TempData["Behandeling"]?.ToString();
+            viewModel.Opmerkingen = TempData["Opmerkingen"]?.ToString();
+        }
+
+        private void WaardenNaarTempData(AdminCreateVm viewModel)
+        {
+            TempData["Voornaam"] = viewModel.Klant.Voornaam;
+            TempData["Achternaam"] = viewModel.Klant.Achternaam;
+            TempData["Telefoonnummer"] = viewModel.Klant.Telefoonnummer;
+            TempData["Emailadres"] = viewModel.Klant.Emailadres;
+
+            TempData["Datum"] = viewModel.Date.ToShortDateString();
+            TempData["Tijdstip"] = viewModel.Time.ToShortTimeString();
+
+            TempData["Geslacht"] = viewModel.Behandeling.Geslacht;
+            TempData["Behandeling"] = viewModel.Behandeling.GekozenBehandeling?.ToString();
+            TempData["Opmerkingen"] = viewModel.Opmerkingen;
         }
     }
 }
