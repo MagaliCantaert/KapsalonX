@@ -89,12 +89,11 @@ namespace EE.KapsalonX.Web.Controllers
                 {
                     if (viewModel.Datum == item.Datum && viewModel.Tijdstip == item.Tijdstip)
                     {
-                        
                         ViewBag.Error = "Kies een andere datum en/of tijdstip a.u.b.";
                         return View(viewModel);
                     }
-                }
 
+                }
             }
             if (viewModel.Stap == 4)
             {
