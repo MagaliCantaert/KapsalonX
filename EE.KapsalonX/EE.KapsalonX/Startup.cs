@@ -125,7 +125,7 @@ namespace EE.KapsalonX
             // REDIRECT ROUTE VAN ADMIN:
             app.Use(async (context, next) => {
                 var request = context.Request;
-                if (request.Path == "/Admin")
+                if (request.Path == "/Albertooo")
                 {
                     context.Response.Redirect("/Identity/Account/Login");
                 }
@@ -137,11 +137,6 @@ namespace EE.KapsalonX
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                    name: "admin",
-                    template: "AdminLogin",
-                    defaults: new { area = "Identity",controller = "Account", action = "Login" });
-
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
@@ -164,8 +159,8 @@ namespace EE.KapsalonX
                 CreateRole(serviceProvider, roleName);
             }
 
-            string adminUserEmail = "test@test.be";
-            string adminPwd = "Test123!";
+            string adminUserEmail = "admin@kapsalonx.knip";
+            string adminPwd = "Admin!";
             AddUserToRole(serviceProvider, adminUserEmail, adminPwd, adminRoleName);
         }
 

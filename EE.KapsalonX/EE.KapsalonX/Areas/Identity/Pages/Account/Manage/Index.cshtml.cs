@@ -44,7 +44,7 @@ namespace EE.KapsalonX.Web.Areas.Identity.Pages.Account.Manage
             public string Email { get; set; }
 
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Telefoonnummer")]
             public string PhoneNumber { get; set; }
         }
 
@@ -53,7 +53,7 @@ namespace EE.KapsalonX.Web.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Onmogelijk om gebruiker te laden met ID '{_userManager.GetUserId(User)}'.");
             }
 
             var userName = await _userManager.GetUserNameAsync(user);
@@ -83,7 +83,7 @@ namespace EE.KapsalonX.Web.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Onmogelijk om gebruiker te laden met ID '{_userManager.GetUserId(User)}'.");
             }
 
             var email = await _userManager.GetEmailAsync(user);
@@ -93,7 +93,7 @@ namespace EE.KapsalonX.Web.Areas.Identity.Pages.Account.Manage
                 if (!setEmailResult.Succeeded)
                 {
                     var userId = await _userManager.GetUserIdAsync(user);
-                    throw new InvalidOperationException($"Unexpected error occurred setting email for user with ID '{userId}'.");
+                    throw new InvalidOperationException($" Unexpected error occurred setting email for user with ID '{userId}'.");
                 }
             }
 
@@ -109,7 +109,7 @@ namespace EE.KapsalonX.Web.Areas.Identity.Pages.Account.Manage
             }
 
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "Je profiel is geüpdate.";
             return RedirectToPage();
         }
 
@@ -123,7 +123,7 @@ namespace EE.KapsalonX.Web.Areas.Identity.Pages.Account.Manage
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return NotFound($"Onmogelijk om gebruiker te laden met ID '{_userManager.GetUserId(User)}'.");
             }
 
 
@@ -137,10 +137,10 @@ namespace EE.KapsalonX.Web.Areas.Identity.Pages.Account.Manage
                 protocol: Request.Scheme);
             await _emailSender.SendEmailAsync(
                 email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                "Bevestig je e-mailadres",
+                $"Bevestig je e-mailadres door <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>hier te klikken</a>.");
 
-            StatusMessage = "Verification email sent. Please check your email.";
+            StatusMessage = "Verificatie e-mail werd verzonden. Hou je inbox in de gaten.";
             return RedirectToPage();
         }
     }
