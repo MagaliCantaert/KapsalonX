@@ -60,7 +60,9 @@ namespace EE.KapsalonX
                 options.Password.RequireUppercase = false;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5); // 5 min locken bij teveel verkeerd wachtwoord ingegeven
                 options.Lockout.MaxFailedAccessAttempts = 8;
+
             });
+
 
             services.AddSession(options =>
             {
@@ -120,8 +122,26 @@ namespace EE.KapsalonX
 
             app.UseAuthentication();
 
+            // REDIRECT ROUTE VAN ADMIN:
+            app.Use(async (context, next) => {
+                var request = context.Request;
+                if (request.Path == "/Admin")
+                {
+                    context.Response.Redirect("/Identity/Account/Login");
+                }
+                else
+                {
+                    await next.Invoke();
+                }
+            });
+
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                    name: "admin",
+                    template: "AdminLogin",
+                    defaults: new { area = "Identity",controller = "Account", action = "Login" });
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
@@ -137,7 +157,7 @@ namespace EE.KapsalonX
         private static void CreateRolesAndAdminUser(IServiceProvider serviceProvider)
         {
             const string adminRoleName = "Administrator";
-            string[] roleNames = { adminRoleName, "User"};
+            string[] roleNames = { adminRoleName, "User" };
 
             foreach (string roleName in roleNames)
             {
