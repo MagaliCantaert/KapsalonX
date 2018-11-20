@@ -97,13 +97,9 @@ namespace EE.KapsalonX.Web.Controllers
         {
             var viewModel = new AdminCreateVm();
             return View(viewModel);
-            //ViewData["AfspraakId"] = new SelectList(_context.Klanten, "KlantId", "Achternaam");
-            //return View();
         }
 
         // POST: Admin/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AdminCreateVm createVm)
@@ -119,7 +115,6 @@ namespace EE.KapsalonX.Web.Controllers
                     Tijdstip = createVm.Tijdstip,
                     Opmerking = createVm.Opmerking
                 };
-                //afspraak.AfspraakId = Guid.NewGuid();
                 _context.Add(createdAfspraak);
                 await _context.SaveChangesAsync();
                 TempData[Constants.SuccessMessage] = $"De afspraak voor {createdAfspraak.KlantGegevens.Achternaam} {createdAfspraak.KlantGegevens.Voornaam} werd succesvol toegevoegd.";
@@ -158,8 +153,6 @@ namespace EE.KapsalonX.Web.Controllers
         }
 
         // POST: Admin/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, AdminEditVm editVm)
