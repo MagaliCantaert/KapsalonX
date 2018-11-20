@@ -93,8 +93,7 @@ namespace EE.KapsalonX.Web.Areas.Identity.Pages.Account.Manage
             await _signInManager.RefreshSignInAsync(user);
             _logger.LogInformation("Wachtwoord succesvol gewijzigd.");
             StatusMessage = "Je wachtwoord is gewijzigd.";
-            
-            // Hier nieuwe pagina als wachtwoord is gewijzigd?
+               
             return RedirectToPage();
         }
     }
