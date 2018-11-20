@@ -17,7 +17,6 @@ namespace EE.KapsalonX.Web.Controllers
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;
-
         public AdminController(ApplicationDbContext context)
         {
             _context = context;
@@ -32,6 +31,9 @@ namespace EE.KapsalonX.Web.Controllers
                 Behandenlingen = await _context.Behandelingen.ToListAsync(),
                 Afspraken = await _context.Afspraken.Include(a => a.KlantGegevens).OrderBy(b => b.Datum).ThenBy(c => c.Tijdstip).ToListAsync()
             };
+
+            
+
             return View(viewModel);
         }
 
@@ -58,14 +60,16 @@ namespace EE.KapsalonX.Web.Controllers
 
             List<Event> afspraakData = new List<Event>();
 
+
+
             foreach (var item in viewModel.Afspraken)
             {
                 afspraakData.Add(new Event
                 {
                     Id = item.AfspraakId,
-                    Behandeling = $"Behandeling: {item.BehandelingGegevens.GekozenBehandeling}",
+                    Behandeling = $"{item.BehandelingGegevens.GekozenBehandeling} - {item.KlantGegevens.Voornaam} {item.KlantGegevens.Achternaam}",
                     StartTijd = DateTime.Parse(item.Datum + " " + item.Tijdstip),
-                    EindTijd = DateTime.Parse(item.Datum + " " + item.Tijdstip) + new TimeSpan(1, 0, 0),
+                    EindTijd = DateTime.Parse(item.Datum + " " + item.Tijdstip) + new TimeSpan(1, 30, 0),
                     Klant = $"Klant: {item.KlantGegevens.Voornaam} {item.KlantGegevens.Achternaam}"
                 });
             }
@@ -96,6 +100,14 @@ namespace EE.KapsalonX.Web.Controllers
         public IActionResult Create()
         {
             var viewModel = new AdminCreateVm();
+            ViewBag.valueDate = DateTime.Now;
+            ViewBag.minDate = DateTime.Now;
+            ViewBag.maxDate = new DateTime(DateTime.Now.Year, 12, 31);
+
+            ViewBag.minTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 09, 00, 00);
+            ViewBag.maxTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 17, 00, 00);
+            ViewBag.valueTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 09, 00, 00);
+
             return View(viewModel);
         }
 

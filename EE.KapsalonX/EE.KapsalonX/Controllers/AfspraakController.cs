@@ -75,6 +75,27 @@ namespace EE.KapsalonX.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Index(AfspraakVm viewModel)
         {
+            if (viewModel.Stap == 3)
+            {
+                AdminIndexVm adminVm = new AdminIndexVm
+                {
+                    Klanten = _context.Klanten.ToList(),
+                    Behandenlingen = _context.Behandelingen.ToList(),
+                    Afspraken = _context.Afspraken.ToList()
+                };
+                WaardenNaarTempData(viewModel);
+                WaardenNaarViewModel(viewModel);
+                foreach (var item in adminVm.Afspraken)
+                {
+                    if (viewModel.Datum == item.Datum && viewModel.Tijdstip == item.Tijdstip)
+                    {
+                        
+                        ViewBag.Error = "Kies een andere datum en/of tijdstip a.u.b.";
+                        return View(viewModel);
+                    }
+                }
+
+            }
             if (viewModel.Stap == 4)
             {
                 if (ModelState.IsValid)

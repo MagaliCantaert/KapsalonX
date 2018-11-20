@@ -40,33 +40,33 @@
             {
                 if (DateTime.Parse(afspraak.Datum).Month == DateTime.Today.Month)
                 {
-                        var tijdstipFormat = afspraak.Tijdstip;
-                        DateTime.Parse(tijdstipFormat).ToShortTimeString();
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => afspraak.KlantGegevens.Achternaam)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => afspraak.KlantGegevens.Voornaam)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => afspraak.Datum)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => tijdstipFormat)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => afspraak.BehandelingGegevens.GekozenBehandeling)
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@afspraak.AfspraakId">Bewerk</a> |
-                                <a asp-action="Details" asp-route-id="@afspraak.AfspraakId">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@afspraak.AfspraakId">Verwijder</a>
-                            </td>
-                        </tr>
-                    }
+                    var tijdstipFormat = afspraak.Tijdstip;
+                    DateTime.Parse(tijdstipFormat).ToShortTimeString();
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => afspraak.KlantGegevens.Achternaam)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => afspraak.KlantGegevens.Voornaam)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => afspraak.Datum)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => tijdstipFormat)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => afspraak.BehandelingGegevens.GekozenBehandeling)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@afspraak.AfspraakId">Bewerk</a> |
+                            <a asp-action="Details" asp-route-id="@afspraak.AfspraakId">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@afspraak.AfspraakId">Verwijder</a>
+                        </td>
+                    </tr>
                 }
             }
+        }
     </tbody>
 </table>
 <br />
