@@ -99,7 +99,6 @@ namespace EE.KapsalonX.Web.Controllers
                         return View(viewModel);
                     }
                 }
-
             }
             if (viewModel.Stap == 4)
             {
