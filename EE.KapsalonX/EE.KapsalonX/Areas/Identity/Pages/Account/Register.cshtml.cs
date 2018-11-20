@@ -42,20 +42,25 @@ namespace EE.KapsalonX.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
+            //[Required]
+            //[DataType(DataType.Text)]
+            //[Display(Name = "Voornaam")]
+            //public string Voornaam { get; set; }
+
             [Required]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "E-mailadres")]
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "Het {0} moet minstens {2} en maximaal {1} karakters bevatten.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Wachtwoord")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Bevestig wachtwoord")]
+            [Compare("Password", ErrorMessage = "Beide wachtwoorden moeten identiek zijn.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -73,7 +78,7 @@ namespace EE.KapsalonX.Web.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("User created a new account with password.");
+                    _logger.LogInformation("Gebruiker creëerde een nieuw account met wachtwoord.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.Page(
@@ -82,8 +87,8 @@ namespace EE.KapsalonX.Web.Areas.Identity.Pages.Account
                         values: new { userId = user.Id, code = code },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    await _emailSender.SendEmailAsync(Input.Email, "Bevestig je e-mailadres",
+                        $"Confirmeer je account door <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>hier te klikken</a>.");
 
                     // Uitzetten om automatisch inloggen na registratie te voorkomen:
                     //await _signInManager.SignInAsync(user, isPersistent: false);

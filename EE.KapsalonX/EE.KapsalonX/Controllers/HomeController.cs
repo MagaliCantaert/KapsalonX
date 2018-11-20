@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace EE.KapsalonX.Controllers
 {
+    [AllowAnonymous]
     [RequireHttps]
     public class HomeController : Controller
     {
