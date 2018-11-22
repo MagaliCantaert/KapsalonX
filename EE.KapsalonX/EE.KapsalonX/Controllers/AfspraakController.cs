@@ -79,7 +79,7 @@ namespace EE.KapsalonX.Web.Controllers
             {
                 AdminIndexVm adminVm = new AdminIndexVm
                 {
-                    Klanten = _context.Klanten.ToList(),
+                    //Klanten = _context.Klanten.ToList(),
                     Behandenlingen = _context.Behandelingen.ToList(),
                     Afspraken = _context.Afspraken.ToList()
                 };
@@ -91,7 +91,7 @@ namespace EE.KapsalonX.Web.Controllers
                     {
                         ViewBag.valueDate = DateTime.Now;
                         ViewBag.minDate = DateTime.Now;
-                        ViewBag.maxDate = new DateTime(DateTime.Now.Year, 12, 31);                 
+                        ViewBag.maxDate = new DateTime(DateTime.Now.Year, 12, 31);
                         ViewBag.minTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 09, 00, 00);
                         ViewBag.maxTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 17, 00, 00);
                         ViewBag.valueTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 09, 00, 00);
@@ -134,39 +134,44 @@ namespace EE.KapsalonX.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Overzicht(AfspraakVm viewModel)
         {
-            var nieuweKlant = new Klant
-            {
-                Voornaam = viewModel.Voornaam,
-                Achternaam = viewModel.Achternaam,
-                Telefoonnummer = viewModel.Telefoonnummer,
-                Emailadres = viewModel.Emailadres
-            };
-            _context.Add(nieuweKlant);
-            _context.SaveChanges();
-
-            var nieuweBehandeling = new Behandeling
-            {
-                Geslacht = viewModel.Geslacht,
-                GekozenBehandeling = viewModel.Behandeling
-            };
-            _context.Add(nieuweBehandeling);
-            _context.SaveChanges();
-
+            var nieuweKlant = new Klant();
+            var nieuweBehandeling = new Behandeling();
             var nieuweAfspraak = new Afspraak();
-            nieuweAfspraak.KlantGegevens = nieuweKlant;
-            nieuweAfspraak.BehandelingGegevens = nieuweBehandeling;           
+
+            if (viewModel.Emailadres == _context.Klanten.FirstOrDefault().Emailadres)
+            {
+                Debug.WriteLine("gekend");
+                nieuweAfspraak.KlantGegevens = _context.Klanten.FirstOrDefault();
+            }
+            else
+            {
+                nieuweKlant.Voornaam = viewModel.Voornaam;
+                nieuweKlant.Achternaam = viewModel.Achternaam;
+                nieuweKlant.Telefoonnummer = viewModel.Telefoonnummer;
+                nieuweKlant.Emailadres = viewModel.Emailadres;
+                nieuweAfspraak.KlantGegevens = nieuweKlant;
+  
+                _context.Add(nieuweKlant);
+            }
+         
+            nieuweBehandeling.Geslacht = viewModel.Geslacht;
+            nieuweBehandeling.GekozenBehandeling = viewModel.Behandeling;
+            _context.Add(nieuweBehandeling);
+
+            nieuweAfspraak.BehandelingGegevens = nieuweBehandeling;
             nieuweAfspraak.Datum = viewModel.Datum;
             nieuweAfspraak.Tijdstip = viewModel.Tijdstip;
             nieuweAfspraak.Opmerking = viewModel.Opmerkingen;
-            
             _context.Add(nieuweAfspraak);
+
             _context.SaveChanges();
 
             //HIER LATER VERSTUREN VAN MAIL NAAR KLANT MET GEGEVENS AFSPRAAK
             return new RedirectToActionResult("Bevestiging", "Afspraak", viewModel);
         }
-       
-        public IActionResult Bevestiging (AfspraakVm viewModel)
+
+
+        public IActionResult Bevestiging(AfspraakVm viewModel)
         {
             return View(viewModel);
         }
@@ -199,5 +204,54 @@ namespace EE.KapsalonX.Web.Controllers
             TempData["Opmerkingen"] = viewModel.Opmerkingen;
 
         }
+
+
+
+
+
+
+        // INDIEN KLANT AL GEKEND IS:
+        // FOUT BIJ DUBBELE PRIMARY KEY TUSSEN KLANTID EN AFSPRAAKID
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult Overzicht(AfspraakVm viewModel)
+        //{
+        //    var nieuweKlant = new Klant();
+        //    var nieuweBehandeling = new Behandeling();
+        //    var nieuweAfspraak = new Afspraak();
+
+        //    if (viewModel.Emailadres == _context.Klanten.FirstOrDefault().Emailadres)
+        //    {
+        //        Debug.WriteLine("gekend");
+        //        nieuweAfspraak.KlantGegevens = _context.Klanten.FirstOrDefault();
+        //    }
+        //    else
+        //    {
+        //        nieuweKlant.Voornaam = viewModel.Voornaam;
+        //        nieuweKlant.Achternaam = viewModel.Achternaam;
+        //        nieuweKlant.Telefoonnummer = viewModel.Telefoonnummer;
+        //        nieuweKlant.Emailadres = viewModel.Emailadres;
+        //        nieuweAfspraak.KlantGegevens = nieuweKlant;
+
+        //        _context.Add(nieuweKlant);
+        //    }
+
+        //    nieuweBehandeling.Geslacht = viewModel.Geslacht;
+        //    nieuweBehandeling.GekozenBehandeling = viewModel.Behandeling;
+        //    _context.Add(nieuweBehandeling);
+
+        //    nieuweAfspraak.BehandelingGegevens = nieuweBehandeling;
+        //    nieuweAfspraak.Datum = viewModel.Datum;
+        //    nieuweAfspraak.Tijdstip = viewModel.Tijdstip;
+        //    nieuweAfspraak.Opmerking = viewModel.Opmerkingen;
+        //    _context.Add(nieuweAfspraak);
+
+        //    _context.SaveChanges();
+
+        //    //HIER LATER VERSTUREN VAN MAIL NAAR KLANT MET GEGEVENS AFSPRAAK
+        //    return new RedirectToActionResult("Bevestiging", "Afspraak", viewModel);
+        //}
     }
 }
+
