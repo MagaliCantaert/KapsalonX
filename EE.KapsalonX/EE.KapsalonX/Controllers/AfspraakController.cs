@@ -145,7 +145,10 @@ namespace EE.KapsalonX.Web.Controllers
             nieuweAfspraak.Datum = viewModel.Datum;
             nieuweAfspraak.Tijdstip = viewModel.Tijdstip;
             nieuweAfspraak.Opmerking = viewModel.Opmerkingen;
-            
+
+            var StartDateTime = Convert.ToDateTime(viewModel.Datum + " " + viewModel.Tijdstip);
+            var EndDateTime = StartDateTime.Add(BehandelingenDames.FirstOrDefault(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+            viewModel.TimeSpan = EndDateTime.ToString();
             _context.Add(nieuweAfspraak);
             _context.SaveChanges();
 
