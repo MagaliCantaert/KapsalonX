@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EE.KapsalonX.Web.Migrations
 {
-    public partial class een : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -211,23 +211,28 @@ namespace EE.KapsalonX.Web.Migrations
                 {
                     table.PrimaryKey("PK_Afspraken", x => x.AfspraakId);
                     table.ForeignKey(
-                        name: "FK_Afspraken_Klanten_AfspraakId",
-                        column: x => x.AfspraakId,
-                        principalTable: "Klanten",
-                        principalColumn: "KlantId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Afspraken_Behandelingen_BehandelingGegevensBehandelingId",
                         column: x => x.BehandelingGegevensBehandelingId,
                         principalTable: "Behandelingen",
                         principalColumn: "BehandelingId",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Afspraken_Klanten_KlantGegevensId",
+                        column: x => x.KlantGegevensId,
+                        principalTable: "Klanten",
+                        principalColumn: "KlantId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Afspraken_BehandelingGegevensBehandelingId",
                 table: "Afspraken",
                 column: "BehandelingGegevensBehandelingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Afspraken_KlantGegevensId",
+                table: "Afspraken",
+                column: "KlantGegevensId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -293,10 +298,10 @@ namespace EE.KapsalonX.Web.Migrations
                 name: "Events");
 
             migrationBuilder.DropTable(
-                name: "Klanten");
+                name: "Behandelingen");
 
             migrationBuilder.DropTable(
-                name: "Behandelingen");
+                name: "Klanten");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

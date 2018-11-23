@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EE.KapsalonX.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181123100911_een")]
-    partial class een
+    [Migration("20181123135321_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,8 @@ namespace EE.KapsalonX.Web.Migrations
 
             modelBuilder.Entity("EE.KapsalonX.Domain.Afspraken.Afspraak", b =>
                 {
-                    b.Property<Guid>("AfspraakId");
+                    b.Property<Guid>("AfspraakId")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<Guid?>("BehandelingGegevensBehandelingId");
 
@@ -41,6 +42,8 @@ namespace EE.KapsalonX.Web.Migrations
                     b.HasKey("AfspraakId");
 
                     b.HasIndex("BehandelingGegevensBehandelingId");
+
+                    b.HasIndex("KlantGegevensId");
 
                     b.ToTable("Afspraken");
                 });
@@ -264,14 +267,14 @@ namespace EE.KapsalonX.Web.Migrations
 
             modelBuilder.Entity("EE.KapsalonX.Domain.Afspraken.Afspraak", b =>
                 {
-                    b.HasOne("EE.KapsalonX.Domain.Afspraken.Klant", "KlantGegevens")
-                        .WithMany("Afspraken")
-                        .HasForeignKey("AfspraakId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("EE.KapsalonX.Domain.Afspraken.Behandeling", "BehandelingGegevens")
                         .WithMany()
                         .HasForeignKey("BehandelingGegevensBehandelingId");
+
+                    b.HasOne("EE.KapsalonX.Domain.Afspraken.Klant", "KlantGegevens")
+                        .WithMany("Afspraken")
+                        .HasForeignKey("KlantGegevensId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
