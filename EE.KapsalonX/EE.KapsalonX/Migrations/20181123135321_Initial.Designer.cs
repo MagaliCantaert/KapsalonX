@@ -10,25 +10,28 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EE.KapsalonX.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181116130808_Initial")]
+    [Migration("20181123135321_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("EE.KapsalonX.Domain.Boeken.Afspraak", b =>
+            modelBuilder.Entity("EE.KapsalonX.Domain.Afspraken.Afspraak", b =>
                 {
-                    b.Property<Guid>("AfspraakId");
+                    b.Property<Guid>("AfspraakId")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<Guid?>("BehandelingGegevensBehandelingId");
 
                     b.Property<string>("Datum")
                         .IsRequired();
+
+                    b.Property<Guid>("KlantGegevensId");
 
                     b.Property<string>("Opmerking")
                         .HasMaxLength(300);
@@ -40,10 +43,12 @@ namespace EE.KapsalonX.Web.Migrations
 
                     b.HasIndex("BehandelingGegevensBehandelingId");
 
+                    b.HasIndex("KlantGegevensId");
+
                     b.ToTable("Afspraken");
                 });
 
-            modelBuilder.Entity("EE.KapsalonX.Domain.Boeken.Behandeling", b =>
+            modelBuilder.Entity("EE.KapsalonX.Domain.Afspraken.Behandeling", b =>
                 {
                     b.Property<Guid>("BehandelingId")
                         .ValueGeneratedOnAdd();
@@ -57,7 +62,7 @@ namespace EE.KapsalonX.Web.Migrations
                     b.ToTable("Behandelingen");
                 });
 
-            modelBuilder.Entity("EE.KapsalonX.Domain.Boeken.Klant", b =>
+            modelBuilder.Entity("EE.KapsalonX.Domain.Afspraken.Klant", b =>
                 {
                     b.Property<Guid>("KlantId")
                         .ValueGeneratedOnAdd();
@@ -79,6 +84,24 @@ namespace EE.KapsalonX.Web.Migrations
                     b.HasKey("KlantId");
 
                     b.ToTable("Klanten");
+                });
+
+            modelBuilder.Entity("EE.KapsalonX.Domain.Kalender.Event", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Behandeling");
+
+                    b.Property<DateTime>("EindTijd");
+
+                    b.Property<string>("Klant");
+
+                    b.Property<DateTime>("StartTijd");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -242,16 +265,16 @@ namespace EE.KapsalonX.Web.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("EE.KapsalonX.Domain.Boeken.Afspraak", b =>
+            modelBuilder.Entity("EE.KapsalonX.Domain.Afspraken.Afspraak", b =>
                 {
-                    b.HasOne("EE.KapsalonX.Domain.Boeken.Klant", "KlantGegevens")
-                        .WithMany("Afspraken")
-                        .HasForeignKey("AfspraakId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("EE.KapsalonX.Domain.Boeken.Behandeling", "BehandelingGegevens")
+                    b.HasOne("EE.KapsalonX.Domain.Afspraken.Behandeling", "BehandelingGegevens")
                         .WithMany()
                         .HasForeignKey("BehandelingGegevensBehandelingId");
+
+                    b.HasOne("EE.KapsalonX.Domain.Afspraken.Klant", "KlantGegevens")
+                        .WithMany("Afspraken")
+                        .HasForeignKey("KlantGegevensId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

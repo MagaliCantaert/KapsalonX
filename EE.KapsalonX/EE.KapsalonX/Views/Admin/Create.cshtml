@@ -11,14 +11,14 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Klant.Achternaam" class="control-label"></label>
-                <input asp-for="Klant.Achternaam" class="form-control" />
-                <span asp-validation-for="Klant.Achternaam" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Klant.Voornaam" control-label"></label>
                 <input asp-for="Klant.Voornaam" class="form-control" />
                 <span asp-validation-for="Klant.Voornaam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Klant.Achternaam" class="control-label"></label>
+                <input asp-for="Klant.Achternaam" class="form-control" />
+                <span asp-validation-for="Klant.Achternaam" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Klant.Emailadres" class="control-label"></label>
@@ -32,18 +32,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="Datum" class="control-label"></label>
-
-                @* ERROR AANGEZIEN DIT NOG IN DATETIME STAAT, MAAR EEN STRING-WAARDE VERWACHT *@
-
-                @*<ejs-datepicker id="datepicker" name="Date" ejs-for="Datum" format="dd/MM/yyyy" value="@ViewBag.valueDate" min="@ViewBag.minDate"
-                    max="@ViewBag.maxDate" placeholder="Geef een datum in" strictMode="true" firstDayOfWeek="1"></ejs-datepicker>*@
-                <input asp-for="Datum" class="form-control" />
+                <ejs-datepicker id="datepicker" name="Date" ejs-for="Datum" format="dd/MM/yyyy" value="@ViewBag.valueDate" min="@ViewBag.minDate"
+                                max="@ViewBag.maxDate" placeholder="Geef een datum in" strictMode="true" firstDayOfWeek="1"></ejs-datepicker>
                 <span asp-validation-for="Datum" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Tijdstip" class="control-label"></label>
-                @*<ejs-timepicker id="timepicker" name="Time" ejs-for="Tijdstip" format="HH:mm" step="30" value="@ViewBag.valueTime" min="@ViewBag.minTime" max="@ViewBag.maxTime" strictMode="true"></ejs-timepicker>*@
-                <input asp-for="Tijdstip" class="form-control" />
+                <ejs-timepicker id="timepicker" name="Time" ejs-for="Tijdstip" format="HH:mm" step="30" value="@ViewBag.valueTime"
+                                min="@ViewBag.minTime" max="@ViewBag.maxTime" strictMode="true"></ejs-timepicker>
                 <span asp-validation-for="Tijdstip" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -56,15 +52,16 @@
                 <label>Kinderen</label><br />
                 <span asp-validation-for="Behandeling.Geslacht" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Behandeling.GekozenBehandeling" class="control-label"></label>
                 <input asp-for="Behandeling.GekozenBehandeling" class="form-control" />
                 <span asp-validation-for="Behandeling.GekozenBehandeling" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Opmerking" class="control-label"></label>
-                <input asp-for="Opmerking" class="form-control" />
-                <span asp-validation-for="Opmerking" class="text-danger"></span>
+                <label asp-for="Opmerkingen" class="control-label"></label>
+                <input asp-for="Opmerkingen" class="form-control" />
+                <span asp-validation-for="Opmerkingen" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Maak afspraak" class="btn btn-default" />

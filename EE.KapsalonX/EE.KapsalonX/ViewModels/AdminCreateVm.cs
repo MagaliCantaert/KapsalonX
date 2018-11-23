@@ -10,6 +10,9 @@ namespace EE.KapsalonX.Web.ViewModels
 {
     public class AdminCreateVm
     {
+        public string Datum { get; set; }
+        public string Tijdstip { get; set; }
+
         public Klant Klant { get; set; }
         public Behandeling Behandeling { get; set; }
 
@@ -19,13 +22,15 @@ namespace EE.KapsalonX.Web.ViewModels
         public List<BehandelingVm> BehandelingenKinderen { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public string Datum { get; set; }
+        public DateTime Date { get; set; }
 
-        [Required]
-        public string Tijdstip { get; set; }
+        [Display(Name = "Tijdstip")]
+        [DataType(DataType.Time)]
+        public DateTime Time { get; set; }
 
-        public string Opmerking { get; set; }
+        public string Opmerkingen { get; set; }
 
         public AdminCreateVm()
         {

@@ -61,6 +61,21 @@ namespace EE.KapsalonX.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Events",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Behandeling = table.Column<string>(nullable: true),
+                    StartTijd = table.Column<DateTime>(nullable: false),
+                    EindTijd = table.Column<DateTime>(nullable: false),
+                    Klant = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Events", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Klanten",
                 columns: table => new
                 {
@@ -186,6 +201,7 @@ namespace EE.KapsalonX.Web.Migrations
                 columns: table => new
                 {
                     AfspraakId = table.Column<Guid>(nullable: false),
+                    KlantGegevensId = table.Column<Guid>(nullable: false),
                     BehandelingGegevensBehandelingId = table.Column<Guid>(nullable: true),
                     Datum = table.Column<string>(nullable: false),
                     Tijdstip = table.Column<string>(nullable: false),
@@ -195,23 +211,28 @@ namespace EE.KapsalonX.Web.Migrations
                 {
                     table.PrimaryKey("PK_Afspraken", x => x.AfspraakId);
                     table.ForeignKey(
-                        name: "FK_Afspraken_Klanten_AfspraakId",
-                        column: x => x.AfspraakId,
-                        principalTable: "Klanten",
-                        principalColumn: "KlantId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Afspraken_Behandelingen_BehandelingGegevensBehandelingId",
                         column: x => x.BehandelingGegevensBehandelingId,
                         principalTable: "Behandelingen",
                         principalColumn: "BehandelingId",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Afspraken_Klanten_KlantGegevensId",
+                        column: x => x.KlantGegevensId,
+                        principalTable: "Klanten",
+                        principalColumn: "KlantId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Afspraken_BehandelingGegevensBehandelingId",
                 table: "Afspraken",
                 column: "BehandelingGegevensBehandelingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Afspraken_KlantGegevensId",
+                table: "Afspraken",
+                column: "KlantGegevensId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -274,10 +295,13 @@ namespace EE.KapsalonX.Web.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Klanten");
+                name: "Events");
 
             migrationBuilder.DropTable(
                 name: "Behandelingen");
+
+            migrationBuilder.DropTable(
+                name: "Klanten");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

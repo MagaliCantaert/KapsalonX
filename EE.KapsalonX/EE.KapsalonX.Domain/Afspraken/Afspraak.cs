@@ -8,6 +8,8 @@ namespace EE.KapsalonX.Domain.Afspraken
     public class Afspraak
     {
         public Guid AfspraakId { get; set; }
+
+        public Guid KlantGegevensId { get; set; }
         public Klant KlantGegevens { get; set; }
         public Behandeling BehandelingGegevens { get; set; }
 
@@ -16,7 +18,8 @@ namespace EE.KapsalonX.Domain.Afspraken
         public string Tijdstip { get; set; }
         public string Opmerking { get; set; }
 
-
+        //public DateTime StartTijd { get; set; }
+        //public DateTime EindTijd { get; set; }
 
     }
 }

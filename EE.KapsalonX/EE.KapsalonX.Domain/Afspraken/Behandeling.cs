@@ -12,5 +12,7 @@ namespace EE.KapsalonX.Domain.Afspraken
 
         [Display(Name = "Behandeling")]
         public string GekozenBehandeling { get; set; }
+
+        //public DateTime DuurTijd { get; set; }
     }
 }

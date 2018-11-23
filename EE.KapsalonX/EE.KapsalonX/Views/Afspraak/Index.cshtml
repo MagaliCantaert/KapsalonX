@@ -7,18 +7,33 @@
     ViewData["Title"] = "Index";
 }
 
-
-
-<h1>Stap @Model.Stap van 5</h1>
-
+<h1>Maak een afspraak</h1>
 <div class="container">
     <div asp-validation-summary="ModelOnly"></div>
     <form asp-controller="Afspraak" asp-action="Index" method="post" class="well form-horizontal">
         <input asp-for="Stap" hidden />
-
         @switch (Model.Stap)
         {
             case 1:
+                <div class="stepwizard">
+                    <div class="stepwizard-row setup-panel">
+                        <div class="stepwizard-step">
+                            <div class="btn btn-primary btn-circle">1</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">2</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">3</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">4</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">5</div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <p>Ik wens een behandeling voor</p>
                     <div class="col-sm-4">
@@ -36,9 +51,27 @@
                 </div>
                 break;
             case 2:
+                <div class="stepwizard">
+                    <div class="stepwizard-row setup-panel">
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">1</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-primary btn-circle">2</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">3</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">4</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">5</div>
+                        </div>
+                    </div>
+                </div>
                 <p>Ik wens de volgende behandeling</p>
                 <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
-
                 if (Model.Geslacht == "Dames")
                 {
                     <div class="row">
@@ -77,6 +110,25 @@
                 }
                 break;
             case 3:
+                <div class="stepwizard">
+                    <div class="stepwizard-row setup-panel">
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">1</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">2</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-primary btn-circle">3</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">4</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">5</div>
+                        </div>
+                    </div>
+                </div>
                 <p>Kies gewenste datum en tijdstip</p>
                 <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
                 <input asp-for="Behandeling" value="@Model.Behandeling" hidden />
@@ -106,6 +158,25 @@
                 </div>
                 break;
             case 4:
+                <div class="stepwizard">
+                    <div class="stepwizard-row setup-panel">
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">1</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">2</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">3</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-primary btn-circle">4</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">5</div>
+                        </div>
+                    </div>
+                </div>
                 <p>Vul onderstaande gegevens in</p>
                 <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
                 <input asp-for="Behandeling" value="@Model.Behandeling" hidden />
