@@ -7,18 +7,33 @@
     ViewData["Title"] = "Index";
 }
 
-
-
-<h1>Stap @Model.Stap van 5</h1>
-
+<h1>Maak een afspraak</h1>
 <div class="container">
     <div asp-validation-summary="ModelOnly"></div>
     <form asp-controller="Afspraak" asp-action="Index" method="post" class="well form-horizontal">
         <input asp-for="Stap" hidden />
-
         @switch (Model.Stap)
         {
             case 1:
+                <div class="stepwizard">
+                    <div class="stepwizard-row setup-panel">
+                        <div class="stepwizard-step">
+                            <div class="btn btn-primary btn-circle">1</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">2</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">3</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">4</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">5</div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <p>Ik wens een behandeling voor</p>
                     <div class="col-sm-4">
@@ -36,9 +51,27 @@
                 </div>
                 break;
             case 2:
+                <div class="stepwizard">
+                    <div class="stepwizard-row setup-panel">
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">1</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-primary btn-circle">2</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">3</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">4</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">5</div>
+                        </div>
+                    </div>
+                </div>
                 <p>Ik wens de volgende behandeling</p>
                 <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
-
                 if (Model.Geslacht == "Dames")
                 {
                     <div class="row">
@@ -77,6 +110,25 @@
                 }
                 break;
             case 3:
+                <div class="stepwizard">
+                    <div class="stepwizard-row setup-panel">
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">1</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">2</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-primary btn-circle">3</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">4</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">5</div>
+                        </div>
+                    </div>
+                </div>
                 <p>Kies gewenste datum en tijdstip</p>
                 <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
                 <input asp-for="Behandeling" value="@Model.Behandeling" hidden />
@@ -86,8 +138,6 @@
                         <label asp-for="Date"></label>
                         <ejs-datepicker id="datepicker" name="Date" ejs-for="Date" format="d/M/yyyy" value="@ViewBag.valueDate" min="@ViewBag.minDate"
                                         max="@ViewBag.maxDate" placeholder="Geef een datum in" strictMode="true" firstDayOfWeek="1"></ejs-datepicker>
-                        @*<label asp-for="Date"></label>
-                        <ejs-datepicker id="datepicker" name="Date" ejs-for="Date" format="d/M/yyyy" value="@ViewBag.valueDate" min="@ViewBag.minDate" max="@ViewBag.maxDate" placeholder="Enter a date" strictMode="true"></ejs-datepicker>*@
                     </div>
                 </div>
                 <br />
@@ -96,8 +146,6 @@
                         <label asp-for="Time"></label>
                         <ejs-timepicker id="timepicker" name="Time" ejs-for="Time" format="HH:mm" step="30" value="@ViewBag.valueTime" min="@ViewBag.minTime"
                                         max="@ViewBag.maxTime" strictMode="true"></ejs-timepicker>
-                        @*<label asp-for="Time"></label>
-        <ejs-timepicker id="timepicker" name="Time" ejs-for="Time" format="HH:mm" step="30" value="@ViewBag.valueTime" min="@ViewBag.minTime" max="@ViewBag.maxTime" strictMode="true"></ejs-timepicker>*@
                     </div>
                 </div>
                 @ViewBag.Error
@@ -109,12 +157,31 @@
                     </div>
                 </div>
                 break;
-        case 4:
-            <p>Vul onderstaande gegevens in</p>
-            <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
-            <input asp-for="Behandeling" value="@Model.Behandeling" hidden />
-            <input asp-for="Datum" value="@Model.Datum" hidden />
-            <input asp-for="Tijdstip" value="@Model.Tijdstip" hidden />
+            case 4:
+                <div class="stepwizard">
+                    <div class="stepwizard-row setup-panel">
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">1</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">2</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">3</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-primary btn-circle">4</div>
+                        </div>
+                        <div class="stepwizard-step">
+                            <div class="btn btn-default btn-circle">5</div>
+                        </div>
+                    </div>
+                </div>
+                <p>Vul onderstaande gegevens in</p>
+                <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
+                <input asp-for="Behandeling" value="@Model.Behandeling" hidden />
+                <input asp-for="Datum" value="@Model.Datum" hidden />
+                <input asp-for="Tijdstip" value="@Model.Tijdstip" hidden />
 
                 <div class="form-group">
                     <label asp-for="Voornaam" class="col-md-4 control-label">Voornaam</label>

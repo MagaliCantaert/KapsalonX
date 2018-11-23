@@ -1,10 +1,28 @@
 ﻿@model EE.KapsalonX.Web.ViewModels.AfspraakVm
 
-<h1>Stap @Model.Stap van 5</h1>
+<h1>Controleer gewenste afspraak</h1>
 
 
-<div>
-    <h4>Controleer boeking</h4>
+<div class="well form-horizontal">
+    <div class="stepwizard">
+    <div class="stepwizard-row setup-panel">
+        <div class="stepwizard-step">
+            <div class="btn btn-default btn-circle">1</div>
+        </div>
+        <div class="stepwizard-step">
+            <div class="btn btn-default btn-circle">2</div>
+        </div>
+        <div class="stepwizard-step">
+            <div class="btn btn-default btn-circle">3</div>
+        </div>
+        <div class="stepwizard-step">
+            <div class="btn btn-default btn-circle">4</div>
+        </div>
+        <div class="stepwizard-step">
+            <div class="btn btn-primary btn-circle">5</div>
+        </div>
+    </div>
+</div>
     <p>Indien onderstaande boeking klopt, klikt u op 'bevestigen' om de boeking te voltooien</p>
     <hr />
     <dl class="dl-horizontal">
@@ -65,9 +83,7 @@
 
     </dl>
     <hr />
-</div>
-
-<form method="post">
+    <form method="post">
     <div class="row">
         <div class="col-md-12">
             <div class="text-right">
@@ -76,4 +92,7 @@
         </div>
     </div>
 </form>
+</div>
+
+
 
