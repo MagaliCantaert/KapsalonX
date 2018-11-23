@@ -65,9 +65,7 @@ namespace EE.KapsalonX.Data
                 .Property(e => e.Opmerking)
                 .HasMaxLength(300);
             modelBuilder.Entity<Afspraak>()
-                .HasOne(e => e.KlantGegevens)
-                .WithMany(p => p.Afspraken)
-                .HasForeignKey(p => p.AfspraakId);
+                .HasOne(e => e.KlantGegevens);
             modelBuilder.Entity<Afspraak>()
                 .HasOne(e => e.BehandelingGegevens);
 

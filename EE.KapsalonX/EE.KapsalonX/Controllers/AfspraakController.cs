@@ -71,7 +71,7 @@ namespace EE.KapsalonX.Web.Controllers
             {
                 AdminIndexVm adminVm = new AdminIndexVm
                 {
-                    Klanten = _context.Klanten.ToList(),
+                    //Klanten = _context.Klanten.ToList(),
                     Behandenlingen = _context.Behandelingen.ToList(),
                     Afspraken = _context.Afspraken.ToList()
                 };
@@ -117,43 +117,49 @@ namespace EE.KapsalonX.Web.Controllers
             return View(viewModel);
         }
 
+
+        // INDIEN KLANT AL GEKEND IS:
+        // FOUT BIJ DUBBELE PRIMARY KEY TUSSEN KLANTID EN AFSPRAAKID
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Overzicht(AfspraakVm viewModel)
         {
-            var nieuweKlant = new Klant
-            {
-                Voornaam = viewModel.Voornaam,
-                Achternaam = viewModel.Achternaam,
-                Telefoonnummer = viewModel.Telefoonnummer,
-                Emailadres = viewModel.Emailadres
-            };
-            _context.Add(nieuweKlant);
-            _context.SaveChanges();
-
-            var nieuweBehandeling = new Behandeling
-            {
-                Geslacht = viewModel.Geslacht,
-                GekozenBehandeling = viewModel.Behandeling
-            };
-            _context.Add(nieuweBehandeling);
-            _context.SaveChanges();
-
+            var nieuweKlant = new Klant();
+            var nieuweBehandeling = new Behandeling();
             var nieuweAfspraak = new Afspraak();
-            nieuweAfspraak.KlantGegevens = nieuweKlant;
-            nieuweAfspraak.BehandelingGegevens = nieuweBehandeling;           
+
+            if (_context.Klanten.FirstOrDefault(k =>k.Emailadres == viewModel.Emailadres) != null)
+            {
+                Debug.WriteLine("gekend");
+                nieuweAfspraak.KlantGegevensId = _context.Klanten.FirstOrDefault(k => k.Emailadres == viewModel.Emailadres).KlantId;
+            }
+            else
+            {
+                nieuweKlant.Voornaam = viewModel.Voornaam;
+                nieuweKlant.Achternaam = viewModel.Achternaam;
+                nieuweKlant.Telefoonnummer = viewModel.Telefoonnummer;
+                nieuweKlant.Emailadres = viewModel.Emailadres;
+                nieuweAfspraak.KlantGegevens = nieuweKlant;
+                _context.Add(nieuweKlant);
+            }
+            nieuweBehandeling.Geslacht = viewModel.Geslacht;
+            nieuweBehandeling.GekozenBehandeling = viewModel.Behandeling;
+            _context.Add(nieuweBehandeling);
+
+            nieuweAfspraak.BehandelingGegevens = nieuweBehandeling;
             nieuweAfspraak.Datum = viewModel.Datum;
             nieuweAfspraak.Tijdstip = viewModel.Tijdstip;
             nieuweAfspraak.Opmerking = viewModel.Opmerkingen;
-            
             _context.Add(nieuweAfspraak);
+
             _context.SaveChanges();
 
             //HIER LATER VERSTUREN VAN MAIL NAAR KLANT MET GEGEVENS AFSPRAAK
             return new RedirectToActionResult("Bevestiging", "Afspraak", viewModel);
         }
-       
-        public IActionResult Bevestiging (AfspraakVm viewModel)
+
+
+        public IActionResult Bevestiging(AfspraakVm viewModel)
         {
             return View(viewModel);
         }
@@ -179,6 +185,9 @@ namespace EE.KapsalonX.Web.Controllers
             TempData["Datum"] = viewModel.Date.ToShortDateString();
             TempData["Tijdstip"] = viewModel.Time.ToShortTimeString();
 
+            //TempData["StartDateTime"] = viewModel.StartTijd;
+            //TempData["EndDateTime"] = viewModel.EindTijd;
+
             TempData["Voornaam"] = viewModel.Voornaam;
             TempData["Achternaam"] = viewModel.Achternaam;
             TempData["Telefoonnummer"] = viewModel.Telefoonnummer;
@@ -198,3 +207,4 @@ namespace EE.KapsalonX.Web.Controllers
         }
     }
 }
+
