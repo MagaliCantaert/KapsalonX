@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EE.KapsalonX.Web.Migrations
 {
-    public partial class Initial : Migration
+    public partial class een : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,6 +58,21 @@ namespace EE.KapsalonX.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Behandelingen", x => x.BehandelingId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Events",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Behandeling = table.Column<string>(nullable: true),
+                    StartTijd = table.Column<DateTime>(nullable: false),
+                    EindTijd = table.Column<DateTime>(nullable: false),
+                    Klant = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Events", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -186,6 +201,7 @@ namespace EE.KapsalonX.Web.Migrations
                 columns: table => new
                 {
                     AfspraakId = table.Column<Guid>(nullable: false),
+                    KlantGegevensId = table.Column<Guid>(nullable: false),
                     BehandelingGegevensBehandelingId = table.Column<Guid>(nullable: true),
                     Datum = table.Column<string>(nullable: false),
                     Tijdstip = table.Column<string>(nullable: false),
@@ -272,6 +288,9 @@ namespace EE.KapsalonX.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Events");
 
             migrationBuilder.DropTable(
                 name: "Klanten");

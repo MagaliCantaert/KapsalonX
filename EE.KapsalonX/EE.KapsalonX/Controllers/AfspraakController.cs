@@ -130,6 +130,9 @@ namespace EE.KapsalonX.Web.Controllers
             return View(viewModel);
         }
 
+
+        // INDIEN KLANT AL GEKEND IS:
+        // FOUT BIJ DUBBELE PRIMARY KEY TUSSEN KLANTID EN AFSPRAAKID
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Overzicht(AfspraakVm viewModel)
@@ -138,10 +141,10 @@ namespace EE.KapsalonX.Web.Controllers
             var nieuweBehandeling = new Behandeling();
             var nieuweAfspraak = new Afspraak();
 
-            if (viewModel.Emailadres == _context.Klanten.FirstOrDefault().Emailadres)
+            if (_context.Klanten.FirstOrDefault(k =>k.Emailadres == viewModel.Emailadres) != null)
             {
                 Debug.WriteLine("gekend");
-                nieuweAfspraak.KlantGegevens = _context.Klanten.FirstOrDefault();
+                nieuweAfspraak.KlantGegevensId = _context.Klanten.FirstOrDefault(k => k.Emailadres == viewModel.Emailadres).KlantId;
             }
             else
             {
@@ -150,10 +153,8 @@ namespace EE.KapsalonX.Web.Controllers
                 nieuweKlant.Telefoonnummer = viewModel.Telefoonnummer;
                 nieuweKlant.Emailadres = viewModel.Emailadres;
                 nieuweAfspraak.KlantGegevens = nieuweKlant;
-  
                 _context.Add(nieuweKlant);
             }
-         
             nieuweBehandeling.Geslacht = viewModel.Geslacht;
             nieuweBehandeling.GekozenBehandeling = viewModel.Behandeling;
             _context.Add(nieuweBehandeling);
@@ -197,6 +198,9 @@ namespace EE.KapsalonX.Web.Controllers
             TempData["Datum"] = viewModel.Date.ToShortDateString();
             TempData["Tijdstip"] = viewModel.Time.ToShortTimeString();
 
+            //TempData["StartDateTime"] = viewModel.StartTijd;
+            //TempData["EndDateTime"] = viewModel.EindTijd;
+
             TempData["Voornaam"] = viewModel.Voornaam;
             TempData["Achternaam"] = viewModel.Achternaam;
             TempData["Telefoonnummer"] = viewModel.Telefoonnummer;
@@ -210,48 +214,58 @@ namespace EE.KapsalonX.Web.Controllers
 
 
 
-        // INDIEN KLANT AL GEKEND IS:
-        // FOUT BIJ DUBBELE PRIMARY KEY TUSSEN KLANTID EN AFSPRAAKID
+
+
+
+
+
+
 
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public IActionResult Overzicht(AfspraakVm viewModel)
         //{
-        //    var nieuweKlant = new Klant();
-        //    var nieuweBehandeling = new Behandeling();
         //    var nieuweAfspraak = new Afspraak();
-
-        //    if (viewModel.Emailadres == _context.Klanten.FirstOrDefault().Emailadres)
+        //    var nieuweKlant = new Klant
         //    {
-        //        Debug.WriteLine("gekend");
-        //        nieuweAfspraak.KlantGegevens = _context.Klanten.FirstOrDefault();
-        //    }
-        //    else
+        //        Voornaam = viewModel.Voornaam,
+        //        Achternaam = viewModel.Achternaam,
+        //        Telefoonnummer = viewModel.Telefoonnummer,
+        //        Emailadres = viewModel.Emailadres
+        //    };
+        //    _context.Add(nieuweKlant);
+        //    _context.SaveChanges();
+
+        //    var nieuweBehandeling = new Behandeling
         //    {
-        //        nieuweKlant.Voornaam = viewModel.Voornaam;
-        //        nieuweKlant.Achternaam = viewModel.Achternaam;
-        //        nieuweKlant.Telefoonnummer = viewModel.Telefoonnummer;
-        //        nieuweKlant.Emailadres = viewModel.Emailadres;
-        //        nieuweAfspraak.KlantGegevens = nieuweKlant;
+        //        Geslacht = viewModel.Geslacht,
+        //        GekozenBehandeling = viewModel.Behandeling
 
-        //        _context.Add(nieuweKlant);
-        //    }
-
-        //    nieuweBehandeling.Geslacht = viewModel.Geslacht;
-        //    nieuweBehandeling.GekozenBehandeling = viewModel.Behandeling;
+        //    };
         //    _context.Add(nieuweBehandeling);
+        //    _context.SaveChanges();
 
+
+
+        //    //var StartDateTime = Convert.ToDateTime(viewModel.Datum + " " + viewModel.Tijdstip);
+        //    //var EndDateTime = StartDateTime.Add(BehandelingenDames.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+
+        //    nieuweAfspraak.KlantGegevens = nieuweKlant;
         //    nieuweAfspraak.BehandelingGegevens = nieuweBehandeling;
         //    nieuweAfspraak.Datum = viewModel.Datum;
         //    nieuweAfspraak.Tijdstip = viewModel.Tijdstip;
+        //    //nieuweAfspraak.StartTijd = StartDateTime;
+        //    //nieuweAfspraak.EindTijd = EndDateTime;
+        //    //nieuweAfspraak.DuurTijd = EndDateTime - StartDateTime;
         //    nieuweAfspraak.Opmerking = viewModel.Opmerkingen;
-        //    _context.Add(nieuweAfspraak);
 
+        //    _context.Add(nieuweAfspraak);
         //    _context.SaveChanges();
 
         //    //HIER LATER VERSTUREN VAN MAIL NAAR KLANT MET GEGEVENS AFSPRAAK
         //    return new RedirectToActionResult("Bevestiging", "Afspraak", viewModel);
         //}
+
     }
 }
 

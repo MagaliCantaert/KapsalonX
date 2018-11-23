@@ -18,6 +18,10 @@ namespace EE.KapsalonX.Web.ViewModels
         public string Datum { get; set; }
         public string Tijdstip { get; set; }
 
+        //public string StartTijd { get; set; }
+        //public string EindTijd { get; set; }
+
+
         public List<SelectListItem> Behandelingen { get; set; }
         public List<BehandelingVm> BehandelingenDames { get; set; }
         public List<BehandelingVm> BehandelingenHeren { get; set; }
