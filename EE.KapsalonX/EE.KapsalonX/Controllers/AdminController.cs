@@ -198,6 +198,7 @@ namespace EE.KapsalonX.Web.Controllers
                         Datum = editVm.Datum,
                         Tijdstip = editVm.Tijdstip,
                         Opmerking = editVm.Opmerkingen,
+                        KlantGegevens = editVm.Klant
                     };
                     _context.Update(updateAfspraak);
                     TempData[Constants.SuccessMessage] = $"De afspraak voor {updateAfspraak.KlantGegevens.Achternaam} {updateAfspraak.KlantGegevens.Voornaam} werd succesvol gewijzigd.";

@@ -10,6 +10,7 @@ namespace EE.KapsalonX.Web.ViewModels
         public int Id { get; set; }
         public string Behandeling { get; set; }
         public TimeSpan Tijdsduur { get; set; }
+        public string FotoPad { get; set; }
 
         public BehandelingVm()
         {

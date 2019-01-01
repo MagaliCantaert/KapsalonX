@@ -26,28 +26,28 @@ namespace EE.KapsalonX.Web.Controllers
         #region Opvullen van behandelinglijst
         List<BehandelingVm> BehandelingenDames = new List<BehandelingVm>
         {
-            new BehandelingVm { Behandeling = "KORT HAAR - Knippen", Tijdsduur = new TimeSpan(00,30,00)},
-            new BehandelingVm { Behandeling = "KORT HAAR - Kleuren", Tijdsduur = new TimeSpan(00,45,00)},
-            new BehandelingVm { Behandeling = "KORT HAAR - Brushing", Tijdsduur = new TimeSpan(00,30,00)},
-            new BehandelingVm { Behandeling = "KORT HAAR - Knippen + kleuren", Tijdsduur = new TimeSpan(01,15,00)},
-            new BehandelingVm { Behandeling = "KORT HAAR - Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(01,45,00)},
+            new BehandelingVm { Behandeling = "KORT HAAR - Knippen", Tijdsduur = new TimeSpan(00,30,00), FotoPad = "kort-haar.jpg"},
+            new BehandelingVm { Behandeling = "KORT HAAR - Kleuren", Tijdsduur = new TimeSpan(00,45,00), FotoPad = "kort-haar.jpg"},
+            new BehandelingVm { Behandeling = "KORT HAAR - Brushing", Tijdsduur = new TimeSpan(00,30,00), FotoPad = "kort-haar.jpg"},
+            new BehandelingVm { Behandeling = "KORT HAAR - Knippen + kleuren", Tijdsduur = new TimeSpan(01,15,00), FotoPad = "kort-haar.jpg"},
+            new BehandelingVm { Behandeling = "KORT HAAR - Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(01,45,00), FotoPad = "kort-haar.jpg"},
 
-            new BehandelingVm { Behandeling = "LANG HAAR - Knippen", Tijdsduur = new TimeSpan(00,40,00)},
-            new BehandelingVm { Behandeling = "LANG HAAR - Kleuren", Tijdsduur = new TimeSpan(01,00,00)},
-            new BehandelingVm { Behandeling = "LANG HAAR - Brushing", Tijdsduur = new TimeSpan(00,40,00)},
-            new BehandelingVm { Behandeling = "LANG HAAR - Knippen + kleuren", Tijdsduur = new TimeSpan(01,40,00)},
-            new BehandelingVm { Behandeling = "LANG HAAR - Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(02,20,00)}
+            new BehandelingVm { Behandeling = "LANG HAAR - Knippen", Tijdsduur = new TimeSpan(00,40,00), FotoPad = "women-hair.jpg"},
+            new BehandelingVm { Behandeling = "LANG HAAR - Kleuren", Tijdsduur = new TimeSpan(01,00,00), FotoPad = "women-hair.jpg"},
+            new BehandelingVm { Behandeling = "LANG HAAR - Brushing", Tijdsduur = new TimeSpan(00,40,00), FotoPad = "women-hair.jpg"},
+            new BehandelingVm { Behandeling = "LANG HAAR - Knippen + kleuren", Tijdsduur = new TimeSpan(01,40,00), FotoPad = "women-hair.jpg"},
+            new BehandelingVm { Behandeling = "LANG HAAR - Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(02,20,00), FotoPad = "women-hair.jpg"}
         };
         List<BehandelingVm> BehandelingenHeren = new List<BehandelingVm>
         {
-            new BehandelingVm { Behandeling = "Snit", Tijdsduur = new TimeSpan(00,30,00) },
-            new BehandelingVm { Behandeling = "Tondeuse", Tijdsduur = new TimeSpan(00,30,00) },
-            new BehandelingVm { Behandeling = "Knippen + kleuren", Tijdsduur = new TimeSpan(01,00,00)}
+            new BehandelingVm { Behandeling = "Snit", Tijdsduur = new TimeSpan(00,30,00), FotoPad = "heren-knippen.jpg" },
+            new BehandelingVm { Behandeling = "Tondeuse", Tijdsduur = new TimeSpan(00,30,00), FotoPad = "mannen-tondeuse.jpg" },
+            new BehandelingVm { Behandeling = "Knippen + kleuren", Tijdsduur = new TimeSpan(01,00,00), FotoPad = "mannen-knipkleur.jpg"}
         };
         List<BehandelingVm> BehandelingenKinderen = new List<BehandelingVm>
         {
-            new BehandelingVm { Behandeling = "Snit meisjes", Tijdsduur = new TimeSpan(00,30,00)},
-            new BehandelingVm { Behandeling = "Snit jongens", Tijdsduur = new TimeSpan(00,30,00)}
+            new BehandelingVm { Behandeling = "Snit meisjes", Tijdsduur = new TimeSpan(00,30,00), FotoPad = "meisjes-snit.jpg" },
+            new BehandelingVm { Behandeling = "Snit jongens", Tijdsduur = new TimeSpan(00,30,00), FotoPad = "kids-hair.jpg" }
         };
         #endregion
 
@@ -151,9 +151,9 @@ namespace EE.KapsalonX.Web.Controllers
             nieuweAfspraak.Tijdstip = viewModel.Tijdstip;
             nieuweAfspraak.Opmerking = viewModel.Opmerkingen;
 
-            var StartDateTime = Convert.ToDateTime(viewModel.Datum + " " + viewModel.Tijdstip);
-            var EndDateTime = StartDateTime.Add(BehandelingenDames.FirstOrDefault(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
-            viewModel.TimeSpan = EndDateTime.ToString();
+            //var StartDateTime = Convert.ToDateTime(viewModel.Datum + " " + viewModel.Tijdstip);
+            //var EndDateTime = StartDateTime.Add(BehandelingenDames.FirstOrDefault(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+            //viewModel.TimeSpan = EndDateTime.ToString();
             _context.Add(nieuweAfspraak);
             _context.SaveChanges();
 

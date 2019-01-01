@@ -12,6 +12,20 @@ body {
     padding-right: 15px;
 }
 
+h1{
+    font-family: 'Beautiful People Personal Use';
+}
+
+h3{
+    margin-top: 40px; 
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+#publicFooter {
+    margin-top: 50px;
+}
+
 /* Carousel */
 .carousel-caption p {
     font-size: 20px;
@@ -72,42 +86,17 @@ body {
     text-align: center
 }
 
-
-.stepwizard-row {
-    display: table-row;
-}
-
-.stepwizard {
-    display: table;
-    width: 100%;
-    position: relative;
+input[type=submit]{
+    margin-top: 5px;
     margin-bottom: 30px;
 }
 
-
-.stepwizard-row:before {
-    top: 14px;
-    bottom: 0;
-    position: absolute;
-    content: " ";
-    width: 100%;
-    height: 1px;
-    background-color: #ccc;
-    z-order: 0;
+#btnNext{
+    margin-top: 25px;
 }
 
-.stepwizard-step {
-    display: table-cell;
-    text-align: center;
-    position: relative;
-}
-
-.btn-circle {
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    padding: 6px 0;
-    font-size: 12px;
-    line-height: 1.428571429;
-    border-radius: 15px;
+#dlOverzicht{
+    margin: 0 auto;
+    width: 500px;
+    display:block;
 }
