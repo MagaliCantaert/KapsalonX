@@ -2,16 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using EE.KapsalonX.Data;
 using EE.KapsalonX.Domain.Afspraken;
 using EE.KapsalonX.Web.ViewModels;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Caching.Memory;
-using Newtonsoft.Json;
 
 namespace EE.KapsalonX.Web.Controllers
 {
@@ -67,24 +61,41 @@ namespace EE.KapsalonX.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Index(AfspraakVm viewModel)
         {
+
             if (viewModel.Stap == 3)
             {
                 AdminIndexVm adminVm = new AdminIndexVm
                 {
-                    //Klanten = _context.Klanten.ToList(),
                     Behandenlingen = _context.Behandelingen.ToList(),
                     Afspraken = _context.Afspraken.ToList()
                 };
                 WaardenNaarTempData(viewModel);
                 WaardenNaarViewModel(viewModel);
+
+                var nieuweBehandeling = new Behandeling();
+                nieuweBehandeling.Geslacht = viewModel.Geslacht;
+                nieuweBehandeling.GekozenBehandeling = viewModel.Behandeling;
+                var StartDateTime = Convert.ToDateTime(viewModel.Datum + " " + viewModel.Tijdstip);
+                var EndDateTime = StartDateTime.Add(BehandelingenDames.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                TimeSpan timeSpan = EndDateTime - StartDateTime;
+
                 foreach (var item in adminVm.Afspraken)
                 {
+                    var test = Convert.ToDateTime(item.Datum + " " + item.Tijdstip);
+
                     if (viewModel.Datum == item.Datum && viewModel.Tijdstip == item.Tijdstip)
                     {
+
                         BasisDatumTijd();
                         ViewBag.Error = "Kies een andere datum en/of tijdstip a.u.b.";
                         return View(viewModel);
                     }
+                    if (test >= StartDateTime && test <= EndDateTime)
+                    {
+                        
+                        Debug.WriteLine("Datum zit ertussen");
+                    }
+
 
                 }
             }
@@ -124,11 +135,15 @@ namespace EE.KapsalonX.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Overzicht(AfspraakVm viewModel)
         {
+            //Vervolgens heb je het gekozen tijdstip, gelinkt met de gekozen behandeling, waar uiteraard de duurtijd uit kan afgeleid worden, 
+            // maar het is misschien makkelijker om dit meteen op te nemen in de Afspraak zelf.Dit zou je kunnen doen door eventueel te opteren 
+            // voor een StartDateTime en een EndDateTime.Dit maakt het controleren op vrije momenten in de agenda misschien iets makkelijker(zie bovenstaande bemerking).
+
             var nieuweKlant = new Klant();
             var nieuweBehandeling = new Behandeling();
             var nieuweAfspraak = new Afspraak();
 
-            if (_context.Klanten.FirstOrDefault(k =>k.Emailadres == viewModel.Emailadres) != null)
+            if (_context.Klanten.FirstOrDefault(k => k.Emailadres == viewModel.Emailadres) != null)
             {
                 Debug.WriteLine("gekend");
                 nieuweAfspraak.KlantGegevensId = _context.Klanten.FirstOrDefault(k => k.Emailadres == viewModel.Emailadres).KlantId;
@@ -142,8 +157,12 @@ namespace EE.KapsalonX.Web.Controllers
                 nieuweAfspraak.KlantGegevens = nieuweKlant;
                 _context.Add(nieuweKlant);
             }
+
             nieuweBehandeling.Geslacht = viewModel.Geslacht;
             nieuweBehandeling.GekozenBehandeling = viewModel.Behandeling;
+            var StartDateTime = Convert.ToDateTime(viewModel.Datum + " " + viewModel.Tijdstip);
+            var EndDateTime = StartDateTime.Add(BehandelingenDames.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+            nieuweBehandeling.DuurTijd = EndDateTime;
             _context.Add(nieuweBehandeling);
 
             nieuweAfspraak.BehandelingGegevens = nieuweBehandeling;

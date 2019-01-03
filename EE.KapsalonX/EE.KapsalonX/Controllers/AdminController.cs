@@ -180,27 +180,34 @@ namespace EE.KapsalonX.Web.Controllers
             {
                 try
                 {
+
                     Klant updateKlant = new Klant
                     {
                         KlantId = editVm.Id,
                         Achternaam = editVm.Klant.Achternaam,
                         Voornaam = editVm.Klant.Voornaam,
                         Emailadres = editVm.Klant.Emailadres,
-                        Telefoonnummer = editVm.Klant.Telefoonnummer
+                        Telefoonnummer = editVm.Klant.Telefoonnummer,
+                        Afspraken = editVm.Klant.Afspraken,
                     };
-                    _context.Update(updateKlant);
 
+                    //_context.Update(updateKlant);
+                    _context.Entry(updateKlant).State = EntityState.Modified;
 
                     Afspraak updateAfspraak = new Afspraak
                     {
                         AfspraakId = editVm.Id,
                         BehandelingGegevens = editVm.Behandeling,
+                        KlantGegevens = editVm.Klant,
+                        KlantGegevensId = editVm.Klant.KlantId,
                         Datum = editVm.Datum,
                         Tijdstip = editVm.Tijdstip,
                         Opmerking = editVm.Opmerkingen,
                     };
-                    _context.Update(updateAfspraak);
-                    TempData[Constants.SuccessMessage] = $"De afspraak voor {updateAfspraak.KlantGegevens.Achternaam} {updateAfspraak.KlantGegevens.Voornaam} werd succesvol gewijzigd.";
+                    //_context.Update(updateAfspraak);
+                    _context.Entry(updateAfspraak).State = EntityState.Modified;
+
+                    TempData[Constants.SuccessMessage] = $"De afspraak voor {updateKlant.Achternaam} {updateKlant.Voornaam} werd succesvol gewijzigd.";
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

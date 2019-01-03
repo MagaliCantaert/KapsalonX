@@ -15,6 +15,7 @@ namespace EE.KapsalonX.Web.ViewModels
 
         public Klant Klant { get; set; }
         public Behandeling Behandeling { get; set; }
+        public Afspraak Afspraak { get; set; }
 
         public List<SelectListItem> Behandelingen { get; set; }
         public List<BehandelingVm> BehandelingenDames { get; set; }
