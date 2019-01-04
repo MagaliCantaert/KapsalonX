@@ -61,7 +61,6 @@ namespace EE.KapsalonX.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Index(AfspraakVm viewModel)
         {
-
             if (viewModel.Stap == 3)
             {
                 AdminIndexVm adminVm = new AdminIndexVm
@@ -90,9 +89,9 @@ namespace EE.KapsalonX.Web.Controllers
                         if (StartDateTimeNieuweAfspraak <= StartDateTimeInAfspraken && StartDateTimeNieuweAfspraak >= EndDateTimeInAfspraken
                             || EndDateTimeNieuweAfspraak >= StartDateTimeInAfspraken && EndDateTimeNieuweAfspraak <= EndDateTimeInAfspraken)                           
                         {
-                            Debug.WriteLine("Datum zit ertussen");
+                            // TIJDSTIP IN TIMEPICKER INDEX.CSHTML LATEN BLOKKEREN ?
                             BasisDatumTijd();
-                            ViewBag.Error = "Kies een andere datum en/of tijdstip a.u.b.";
+                            ViewBag.Error = "Het gekozen tijdstip is reeds ingevuld. Kies een andere datum en/of tijdstip a.u.b.";
                             return View(viewModel);
                         }
                     }
@@ -135,9 +134,8 @@ namespace EE.KapsalonX.Web.Controllers
                         }
                     }
                 }
-
-
             }
+
             if (viewModel.Stap == 4)
             {
                 if (ModelState.IsValid)
@@ -167,9 +165,6 @@ namespace EE.KapsalonX.Web.Controllers
             return View(viewModel);
         }
 
-
-        // INDIEN KLANT AL GEKEND IS:
-        // FOUT BIJ DUBBELE PRIMARY KEY TUSSEN KLANTID EN AFSPRAAKID
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Overzicht(AfspraakVm viewModel)
@@ -254,7 +249,6 @@ namespace EE.KapsalonX.Web.Controllers
 
         private void WaardenNaarTempData(AfspraakVm viewModel)
         {
-            var test = viewModel.Duur;
             TempData["Geslacht"] = viewModel.Geslacht;
             TempData["Behandeling"] = viewModel.Behandeling?.ToString();
             TempData["Datum"] = viewModel.Date.ToShortDateString();
@@ -264,7 +258,6 @@ namespace EE.KapsalonX.Web.Controllers
             TempData["Telefoonnummer"] = viewModel.Telefoonnummer;
             TempData["Emailadres"] = viewModel.Emailadres;
             TempData["Opmerkingen"] = viewModel.Opmerkingen;
-
         }
 
         void BasisDatumTijd()

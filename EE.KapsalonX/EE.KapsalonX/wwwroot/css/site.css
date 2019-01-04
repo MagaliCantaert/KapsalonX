@@ -123,16 +123,17 @@ body {
 }
 
 .carousel {
-    background-color: #ddd; height: 100vh; position: relative;
+    background-color: #ddd; 
+    position: relative;
 }
 
 & > div {
     background-color: #000;
     color: #fff;
     width: 10vw;
-    height: 10vw;
+    /*height: 10vw;*/
     position: absolute;
-    top: 50%;
+    /*top: 50%;*/
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
@@ -150,4 +151,114 @@ body {
 
 .dot {
     background-color: #000;
+}
+
+.img-banner{
+    width:100%!important;
+}
+.service-box{
+    text-align:center;
+}
+
+
+.portfolio-imgs {
+    clear: both;
+    display: block;
+}
+
+    .portfolio-imgs img {
+        position: relative;
+        margin: 1em 0;
+        padding: 0;
+        z-index: 1;
+        display: block;
+        width: 99%;
+    }
+
+.portfolio-imgs {
+    margin: 0 auto;
+}
+
+    .portfolio-imgs a {
+        position: relative;
+        margin: 0;
+        padding: 0;
+        display: block;
+        float: left;
+        text-decoration: none;
+        overflow: hidden;
+        vertical-align: middle;
+        width: 100%;
+    }
+
+.gallery-text {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    text-align: center;
+    background-color: rgba(215, 81, 107, .5);
+    opacity: 0;
+    -webkit-transition: opacity 0.3s;
+    -moz-transition: opacity 0.3s;
+    transition: opacity 0.3s;
+    vertical-align: middle;
+    line-height: 200px;
+}
+
+    .gallery-text:hover {
+        opacity: 1;
+    }
+
+    .gallery-text h3 {
+        color: white;
+        font-family: 'Lato', arial, helvetica, sans-serif;
+        display: inline-table;
+        vertical-align: middle;
+        line-height: 100%;
+    }
+
+.portfolio-imgs h3:hover {
+    opacity: 1;
+    transition: .25s ease-in-out;
+}
+
+@media (min-width: 500px) {
+    .portfolio-imgs a {
+        width: 50%;
+        display: block;
+    }
+
+    .portfolio-imgs img {
+        margin: .25em .5em;
+    }
+}
+
+@media (min-width: 800px) {
+    .portfolio-imgs a {
+        width: 33.33333333%;
+    }
+
+    .portfolio-imgs img {
+        margin: .7em 1.5em;
+    }
+
+    .portfolio-imgs {
+        margin: 0 auto;
+        max-width: 90%;
+    }
+
+        .portfolio-imgs h3 {
+            top: 40%;
+        }
+}
+
+@media (min-width: 1020px) {
+
+
+    .portfolio-imgs {
+        max-width: 80%;
+    }
 }

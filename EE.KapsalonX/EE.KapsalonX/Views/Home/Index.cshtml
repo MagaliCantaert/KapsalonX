@@ -3,233 +3,74 @@
 
 }
 
-<div id="app">
-    <carousel>
-        <!-- Numbers 1-10 in divs -->
-        <div v-for="i in [...Array(10).keys()]">{{i+1}}</div>
-    </carousel>
+<div class="container-fluid">
+<img src="~/images/banner2.jpg" alt="banner" class="img-responsive" />
+</div>
+
+<br />
+
+<h1>ONZE BEHANDELINGEN: </h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <img class="img-responsive" src="~/images/knippen.jpg" />
+        </div>
+        <div class="col-md-6">
+            <h2>KNIPPEN</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>BRUSHEN</h2>
+        </div>
+        <div class="col-md-6">
+            <img class="img-responsive" src="~/images/brushing.jpg" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <img class="img-responsive" src="~/images/colors.jpg" />
+        </div>
+        <div class="col-md-6">
+            <h2>KLEUREN</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>TONDEUZE</h2>
+        </div>
+        <div class="col-md-6">
+            <img class="img-responsive" src="~/images/tondeuze.jpg" />
+        </div>
+    </div>
 </div>
 
 
-<script>
-    import Vue from 'vue';
-
-    Vue.component('carousel-dot', {
-        template: '<div class="dot" v-bind:style="style"></div>',
-        data: () => ({ selected: false }),
-        computed: {
-            style: () => ({
-                opacity: this.selected ? 1 : 0.5,
-            }),
-        },
-    });
-
-    Vue.component('carousel-dots', {
-        props: ['numDots'],
-        template: '<div class="dots"><carousel-dot v-for="i in numDots"></carousel-dot></div>',
-    });
-
-    // Items displayed in the carousel
-    Vue.component('carousel-item', {
-        template: '<div class="carousel-item" v-bind:style="style" v-on:click="centerSelf"><slot></slot></div>',
-        data: () => ({
-            zIndex: 0,
-            xtrans: 0,
-            ytrans: 0,
-            scale: 1,
-            opacity: 1,
-        }),
-
-        computed: {
-            style() {
-                return {
-                    transition: 'transform 0.5s, opacity 0.5s',
-                    transform: this.transform,
-                    'z-index': this.zIndex,
-                    opacity: this.opacity,
-                }
-            },
-
-            transform() {
-                return [
-                    `translate(${this.xtrans - 50}%, ${this.ytrans - 50}%)`,
-                    `scale(${this.scale})`,
-                ].join(' ');
-            }
-        },
-
-        methods: {
-            centerSelf() {
-                this.$parent.arrange(this.$parent.$children.indexOf(this));
-            },
-        },
-    });
-
-    // Carousel component
-    Vue.component('carousel', {
-        // Render function wraps all children in carousel-item components
-        render(createElement) {
-            return createElement(
-                'div',
-                {
-                    class: 'carousel',
-                    ref: 'carousel',
-                },
-                this.$slots.default.map(el => createElement('carousel-item', [el]))
-            );
-        },
-
-        data: () => ({}),
-
-        // Begin by centering the first element in the carousel
-        mounted() { this.arrange(0); },
-
-        methods: {
-            // http://stackoverflow.com/q/4467539
-            _mod: (n, m) => ((n % m) + m) % m,
-
-            // Distribute elements so that they align with the selected elemenent in the center
-            arrange(centerIndex) {
-                const center = this.$children[centerIndex];
-                const half = (this.$children.length - 1) / 2;
-
-                // Items that will be displayed to the left of the item at centerIndex
-                const before = [];
-                // Keep adding items before until half the non-centerIndex items have been added
-                for (let i = centerIndex - 1; before.length < half; i--) {
-                    // this._mod is used to emulate a toroidal array by mapping elements below index 0 or beyond
-                    // the max index to elements in the valid array range
-                    before.push(this.$children[this._mod(i, this.$children.length)]);
-                }
-
-                // Items that will be displayed to the right of the item at centerIndex
-                const after = [];
-                for (let i = centerIndex + 1; after.length < (this.$children.length - before.length - 1); i++) {
-                    after.push(this.$children[this._mod(i, this.$children.length)]);
-                }
 
 
-                // Position all elements
 
 
-                // Position center
-                center.xtrans = 0;
-                center.scale = 1;
-                center.opacity = 1;
-                center.zIndex = Math.max(before.length, after.length) + 1;
 
-                // Position elements to left and right
-                [before, after].forEach((list, listIndex) => {
-                    // Tracks the amount by which the parent was translated
-                    let parentTrans = 0;
 
-                    // Apply styles for each element in selected list
-                    list.forEach((item, i) => {
-                        // Set size
-                        item.scale = 0.8 ** (i + 1);
-                        // Set x offset. Negative for before, positive for after
-                        const absolute = (105 * item.scale * 1.125) + parentTrans;
-                        parentTrans = absolute; // Update how much parent was translated by
-                        item.xtrans = (listIndex == 0 ? -1 : 1) * absolute;
-                        // Set opacity
-                        item.opacity = Math.max(1 - (0.25 * (i / 2 + 1) ** 2), 0);
-                        // Set z-index
-                        item.zIndex = Math.max(before.length, after.length) - i;
-                    });
-                });
-            },
-        },
-    });
 
-    const app = new Vue({
-        el: '#app',
-    });
-</script>
 
-@*<div id="slider">
-        <transition-group tag="div" :name="transitionName" class="slides-group">
-            <div v-if="show" :key="current" :class="slides[current].className">
-                <p>I'm {{slides[current].className}}!</p>
+
+
+
+
+@*<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="4000">
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="~/images/banner2.jpg" alt="banner" class="img-responsive" />
+                <div class="carousel-caption" role="option"></div>
             </div>
-        </transition-group>
-        <div class="btn btn-prev" aria-label="Previous slide" v-on:click="slide(-1)">
-            &#10094;
-        </div>
-        <div class="btn btn-next" aria-label="Next slide" v-on:click="slide(1)">
-            &#10095
-        </div>
-    </div>
-
-    <script>
-        var slider = new Vue({
-            el: "#slider",
-            data: {
-                current: 0,
-                direction: 1,
-                transitionName: "fade",
-                show: false,
-                slides: [
-                    { className: "blue" },
-                    { className: "red" },
-                    { className: "yellow" }
-                ]
-            },
-            methods: {
-                slide(dir) {
-                    this.direction = dir;
-                    dir === 1
-                        ? (this.transitionName = "slide-next")
-                        : (this.transitionName = "slide-prev");
-                    var len = this.slides.length;
-                    this.current = (this.current + dir % len + len) % len;
-                }
-            },
-            mounted() {
-                this.show = true;
-            }
-        });
-
-    </script>*@
-
-
-<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
-    <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <img src="~/images/banner1.svg" alt="ASP.NET" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    Learn how to build ASP.NET apps that can run anywhere.
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="~/images/banner2.svg" alt="Visual Studio" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    There are powerful new features in Visual Studio for building modern web apps.
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525030&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
-            </div>
-        </div>
-        <div class="item">
-            <img src="~/images/banner3.svg" alt="Microsoft Azure" class="img-responsive" />
-            <div class="carousel-caption" role="option">
-                <p>
-                    Learn how Microsoft's Azure cloud platform allows you to build, deploy, and scale web apps.
-                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525027&clcid=0x409">
-                        Learn More
-                    </a>
-                </p>
+            <div class="item">
+                <img src="~/images/banner.jpg" alt="banner" class="img-responsive" />
+                <div class="carousel-caption" role="option"></div>
             </div>
         </div>
     </div>
@@ -240,50 +81,55 @@
     <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
-    </a>
-</div>
-
-<div class="row">
-    <div class="col-md-3">
-        <h2>Dit is een test</h2>
+    </a>*@
 
 
 
-        <ul>
-            <li>Sample pages using ASP.NET Core MVC</li>
-            <li>Theming using <a href="https://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>How to</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=398600">Add a Controller and View</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699315">Manage User Secrets using Secret Manager.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699316">Use logging to log a message.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699317">Add packages using NuGet.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699319">Target development, staging or production environment.</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>Overview</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=518008">Conceptual overview of what is ASP.NET Core</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=699320">Fundamentals of ASP.NET Core such as Startup and middleware.</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398602">Working with Data</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkId=398603">Security</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699321">Client side development</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699322">Develop on different platforms</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=699323">Read more on the documentation site</a></li>
-        </ul>
-    </div>
-    <div class="col-md-3">
-        <h2>Run &amp; Deploy</h2>
-        <ul>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=517851">Run your app</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=517853">Run tools such as EF migrations and more</a></li>
-            <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
-        </ul>
-    </div>
-</div>
+
+
+
+
+@*<div class="row">
+        <div class="col-md-3">
+            <h2>Dit is een test</h2>
+
+
+
+            <ul>
+                <li>Sample pages using ASP.NET Core MVC</li>
+                <li>Theming using <a href="https://go.microsoft.com/fwlink/?LinkID=398939">Bootstrap</a></li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h2>How to</h2>
+            <ul>
+                <li><a href="https://go.microsoft.com/fwlink/?LinkID=398600">Add a Controller and View</a></li>
+                <li><a href="https://go.microsoft.com/fwlink/?LinkId=699315">Manage User Secrets using Secret Manager.</a></li>
+                <li><a href="https://go.microsoft.com/fwlink/?LinkId=699316">Use logging to log a message.</a></li>
+                <li><a href="https://go.microsoft.com/fwlink/?LinkId=699317">Add packages using NuGet.</a></li>
+                <li><a href="https://go.microsoft.com/fwlink/?LinkId=699319">Target development, staging or production environment.</a></li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h2>Overview</h2>
+            <ul>
+                <li><a href="https://go.microsoft.com/fwlink/?LinkId=518008">Conceptual overview of what is ASP.NET Core</a></li>
+                <li><a href="https://go.microsoft.com/fwlink/?LinkId=699320">Fundamentals of ASP.NET Core such as Startup and middleware.</a></li>
+                <li><a href="https://go.microsoft.com/fwlink/?LinkId=398602">Working with Data</a></li>
+                <li><a href="https://go.microsoft.com/fwlink/?LinkId=398603">Security</a></li>
+                <li><a href="https://go.microsoft.com/fwlink/?LinkID=699321">Client side development</a></li>
+                <li><a href="https://go.microsoft.com/fwlink/?LinkID=699322">Develop on different platforms</a></li>
+                <li><a href="https://go.microsoft.com/fwlink/?LinkID=699323">Read more on the documentation site</a></li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h2>Run &amp; Deploy</h2>
+            <ul>
+                <li><a href="https://go.microsoft.com/fwlink/?LinkID=517851">Run your app</a></li>
+                <li><a href="https://go.microsoft.com/fwlink/?LinkID=517853">Run tools such as EF migrations and more</a></li>
+                <li><a href="https://go.microsoft.com/fwlink/?LinkID=398609">Publish to Microsoft Azure Web Apps</a></li>
+            </ul>
+        </div>
+    </div>*@
 
 
