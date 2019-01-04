@@ -75,34 +75,68 @@ namespace EE.KapsalonX.Web.Controllers
                 var nieuweBehandeling = new Behandeling();
                 nieuweBehandeling.Geslacht = viewModel.Geslacht;
                 nieuweBehandeling.GekozenBehandeling = viewModel.Behandeling;
-                var StartDateTime = Convert.ToDateTime(viewModel.Datum + " " + viewModel.Tijdstip);
-                DateTime EndDateTime;
+                var StartDateTimeNieuweAfspraak = Convert.ToDateTime(viewModel.Datum + " " + viewModel.Tijdstip);
+                DateTime EndDateTimeNieuweAfspraak;
 
                 if (nieuweBehandeling.Geslacht == "Dames")
                 {
-                    EndDateTime = StartDateTime.Add(BehandelingenDames.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                    EndDateTimeNieuweAfspraak = StartDateTimeNieuweAfspraak.Add(BehandelingenDames.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                    foreach (var item in adminVm.Afspraken)
+                    {
+                        var TimeBetweenInAfspraken = TimeSpan.Parse(item.BehandelingGegevens.Duur);
+                        var StartDateTimeInAfspraken = Convert.ToDateTime(item.Datum + " " + item.Tijdstip);
+                        var EndDateTimeInAfspraken = Convert.ToDateTime(item.Datum + " " + item.Tijdstip).Add(TimeBetweenInAfspraken);
+
+                        if (StartDateTimeNieuweAfspraak <= StartDateTimeInAfspraken && StartDateTimeNieuweAfspraak >= EndDateTimeInAfspraken
+                            || EndDateTimeNieuweAfspraak >= StartDateTimeInAfspraken && EndDateTimeNieuweAfspraak <= EndDateTimeInAfspraken)                           
+                        {
+                            Debug.WriteLine("Datum zit ertussen");
+                            BasisDatumTijd();
+                            ViewBag.Error = "Kies een andere datum en/of tijdstip a.u.b.";
+                            return View(viewModel);
+                        }
+                    }
                 }
                 else if (nieuweBehandeling.Geslacht == "Heren")
                 {
-                    EndDateTime = StartDateTime.Add(BehandelingenHeren.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                    EndDateTimeNieuweAfspraak = StartDateTimeNieuweAfspraak.Add(BehandelingenHeren.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                    foreach (var item in adminVm.Afspraken)
+                    {
+                        var TimeBetweenInAfspraken = TimeSpan.Parse(item.BehandelingGegevens.Duur);
+                        var StartDateTimeInAfspraken = Convert.ToDateTime(item.Datum + " " + item.Tijdstip);
+                        var EndDateTimeInAfspraken = Convert.ToDateTime(item.Datum + " " + item.Tijdstip).Add(TimeBetweenInAfspraken);
+
+                        if (StartDateTimeNieuweAfspraak <= StartDateTimeInAfspraken && StartDateTimeNieuweAfspraak >= EndDateTimeInAfspraken
+                            || EndDateTimeNieuweAfspraak >= StartDateTimeInAfspraken && EndDateTimeNieuweAfspraak <= EndDateTimeInAfspraken)
+                        {
+                            Debug.WriteLine("Datum zit ertussen");
+                            BasisDatumTijd();
+                            ViewBag.Error = "Kies een andere datum en/of tijdstip a.u.b.";
+                            return View(viewModel);
+                        }
+                    }
                 }
                 else if (nieuweBehandeling.Geslacht == "Kinderen")
                 {
-                    EndDateTime = StartDateTime.Add(BehandelingenKinderen.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
-                }
-
-                foreach (var item in adminVm.Afspraken)
-                {              
-                    var StartDateTimeInAfspraken = Convert.ToDateTime(item.Datum + " " + item.Tijdstip);
-
-                    if (StartDateTimeInAfspraken >= StartDateTime && StartDateTimeInAfspraken <= EndDateTime)
+                    EndDateTimeNieuweAfspraak = StartDateTimeNieuweAfspraak.Add(BehandelingenKinderen.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                    foreach (var item in adminVm.Afspraken)
                     {
-                        Debug.WriteLine("Datum zit ertussen");
-                        BasisDatumTijd();
-                        ViewBag.Error = "Kies een andere datum en/of tijdstip a.u.b.";
-                        return View(viewModel);
+                        var TimeBetweenInAfspraken = TimeSpan.Parse(item.BehandelingGegevens.Duur);
+                        var StartDateTimeInAfspraken = Convert.ToDateTime(item.Datum + " " + item.Tijdstip);
+                        var EndDateTimeInAfspraken = Convert.ToDateTime(item.Datum + " " + item.Tijdstip).Add(TimeBetweenInAfspraken);
+
+                        if (StartDateTimeNieuweAfspraak <= StartDateTimeInAfspraken && StartDateTimeNieuweAfspraak >= EndDateTimeInAfspraken
+                            || EndDateTimeNieuweAfspraak >= StartDateTimeInAfspraken && EndDateTimeNieuweAfspraak <= EndDateTimeInAfspraken)
+                        {
+                            Debug.WriteLine("Datum zit ertussen");
+                            BasisDatumTijd();
+                            ViewBag.Error = "Kies een andere datum en/of tijdstip a.u.b.";
+                            return View(viewModel);
+                        }
                     }
                 }
+
+
             }
             if (viewModel.Stap == 4)
             {
