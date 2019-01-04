@@ -3,18 +3,6 @@
     ViewData["Title"] = "Contact";
 }
 
-
-
-
-@*<head>
-
-
-        <script src="path/to/vue.js"></script>
-        <script src="path/to/vee-validate.js"></script>
-        <script>
-            Vue.use(VeeValidate); // good to go.
-        </script>
-    </head>*@
 @*<div class="container">
         <header>
             <h2>Contacteer ons</h2>
@@ -52,196 +40,101 @@
                 <button type="submit" class="btn btn-success">Verstuur bericht</button>
                 <button type="reset" class="btn btn-danger">Reset</button>
             </form>
-            <div id="contact">
-                <h2>Contacteer ons</h2>
-                <form class="form" @submit="contact" method="post">
-                    <label>Voornaam</label><br />
-                    <input required name="voornaam" v-model='contact.voornaam' placeholder="Geef uw voornaam in" type="text"><br />
-                    <label>Achternaam</label><br />
-                    <input required name="achternaam" v-model="contact.achternaam" placeholder="Geef uw achternaam in" type="text"><br />
-                    <label>E-mailadres</label><br />
-                    <input required name="email" v-model="contact.email" placeholder="Geef uw e-mailadres in" type="email"><br />
-                    <label>Telefoonnummer</label><br />
-                    <input required name="telefoon" v-model="contact.telefoon" placeholder="Geef uw telefoonnummer in" type="tel"><br />
-                    <label>Bericht</label><br />
-                    <textarea name="bericht" v-model="contact.bericht" rows="5" placeholder="Geef uw bericht in"></textarea>
-                    <button type="submit" class="btn btn-success">Send</button>
-                    <button type="reset" class="btn btn-danger">Reset</button>
-                </form>
-            </div>
         </div>
     </div>*@
-@*<div id="app">
-        <div class="container">
-            <div class="col-md-offset-4 col-md-4">
-                <h1 class="title text-center">
-                    {{title}}
-                </h1>
-
-                <form v-on:submit.prevent="onSubmit">
-                    <div class="form-group">
-                        <label for="formName">Full Name:</label>
-                        <input type="text" name="name" id="formName" v-model="model.name" v-validate="'required'" v-bind:class="{'form-control': true, 'error': errors.has('name') }">
-                        {{model.name}}
-                        <span v-show="errors.has('name')" class="text-danger">{{ errors.first('name') }}</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="formEmail">Email:</label>
-                        <input type="email" name="email" id="formEmail" v-model="model.email" v-validate="'required|email'" v-bind:class="{'form-control': true, 'error': errors.has('email') }">
-                        <span v-show="errors.has('email')" class="text-danger">{{ errors.first('email') }}</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="formBio">Bio:</label>
-                        <textarea name="bio" id="formBio" class="form-control" rows="3" v-model="model.bio" v-validate="'required|max:50'"></textarea>
-                        <span v-show="errors.has('bio')" class="text-danger">{{ errors.first('bio') }}</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="formCoupon">Coupon:</label>
-                        <input type="text" name="coupon" id="formCoupon" v-model="model.coupon" v-validate="'required|verify_coupon'" v-bind:class="{'form-control': true, 'error': errors.has('coupon') }">
-                        <span v-show="errors.has('coupon')" class="text-danger">{{ errors.first('coupon') }}</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="formGender">Gender:</label>
-                        <select v-model="model.gender" name="gender" v-validate="'required'" :class="{'form-control': true, 'error': errors.has('gender')}">
-                            <option>Female</option>
-                            <option>Male</option>
-                        </select>
-                        <span v-show="errors.has('gender')" class="text-danger">{{ errors.first('gender') }}</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="formGender">Frameworks:</label>
-                        <select v-model="model.frameworks" name="frameworks" v-validate="'required'" :class="{'form-control': true, 'error': errors.has('frameworks')}" multiple>
-                            <option>Vue</option>
-                            <option>Aurelia</option>
-                            <option>Preact</option>
-                            <option>Inferno</option>
-                        </select>
-                        {{model.frameworks}}
-                        <span v-show="errors.has('frameworks')" class="text-danger">{{ errors.first('frameworks') }}</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox" name="subscribe" v-validate="'required'"> Subscribe me, please!
-                            {{model.subscribe}}
-                        </label>
-                        <span v-show="errors.has('subscribe')" class="text-danger">{{ errors.first('subscribe') }}</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Languages</label>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="languages" value="English" v-model="model.languages"> English
-                            </label>
-                            <label>
-                                <input type="checkbox" name="languages" value="French" v-model="model.languages"> French
-                            </label>
-                            <label>
-                                <input type="checkbox" name="languages" value="Ibo" v-model="model.languages"> Ibo
-                            </label>
-                            <label>
-                                <input type="checkbox" name="languages" value="Hausa" v-model="model.languages"> Hausa
-                            </label>
-                            <label>
-                                <input type="checkbox" name="languages" value="Yoruba" v-model="model.languages"> Yoruba
-                            </label>
-                        </div>
-                        {{model.languages}}
-                        <span v-show="errors.has('languages')" class="text-danger">{{ errors.first('languages') }}</span>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Happy</label>
-                        <div class="checkbox">
-                            <label>
-                                <input type="radio" name="subscribe" v-validate="'required'" value="Yes" v-model="model.happy"> Yes
-                            </label>
-                            <label>
-                                <input type="radio" name="happy" v-validate="'required'" value="No" v-model="model.happy"> No
-                            </label>
-                        </div>
-                        {{model.happy}}
-                        <span v-show="errors.has('happy')" class="text-danger">{{ errors.first('happy') }}</span>
-                    </div>
-
-                    <div class="form-group">
-                        <button class="btn btn-success" :disabled="errors.any()">Submit {{errors.any()}}</button>
-                    </div>
-                </form>
+<div class="container">
+    <header>
+        <h2>Contacteer ons</h2>
+    </header>
+</div>
+<div id="app" class="container">
+    <form class="vue-form" @submit.prevent="submit">
+            <div>
+                <p>Voornaam</p>
+                <input type="text" name="voornaam" id="voornaam" required="" v-model="voornaam">
             </div>
-        </div>
-    </div>*@
+            <div>
+                <p>Achternaam</p>
+                <input type="text" name="achternaam" id="achternaam" required="" v-model="achternaam">
+            </div>
+            <div>
+                <p>E-mailadres</p>
+                <input type="email" name="email" id="email" required=""
+                       :class="{ email , error: !email.valid }"
+                       v-model="email.value">
+            </div>
+            <div>
+                <p>Telefoonnummer</p>
+                <input type="tel" name="telefoon" id="telefoon" required="" v-model="telefoon">
+            </div>
+            <div>
+                <p>Kies onderwerp</p>
+                <p class="select">
+                    <select class="budget" v-model="onderwerp.member" required="">
+                        <option value="0">Algemene vraag</option>
+                        <option value="1">Specifieke behandeling</option>
+                        <option value="2">Afspraak</option>
+                        <option value="3">Andere</option>
+                    </select>
+                </p>
+            </div>
+            <div>
+                <p>Uw bericht</p>
+                <textarea class="bericht" name="bericht" id="bericht" required=""
+                          v-model="bericht.text"
+                          ::maxlength="bericht.maxlength"></textarea>
+                <span class="counter">{{ bericht.text.length }} / {{ bericht.maxlength }}</span>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success">Verstuur bericht</button>
+                <button type="reset" class="btn btn-danger">Reset</button>
+            </div>
+    </form>
 
 
-@*<form>
-        <div class="form-group">
-            <label for="formName">Full Name:</label>
-            <input type="text" name="name" class="form-control" id="formName" v-model="model.name">
-            {{model.name}}
-        </div>
-    </form>*@
-
-@*@section scripts{
-        <script>
-            new Vue({
-                el: '#app',
-                data: function () {
-                    return {
-                        title: 'Vue Vee Validation',
-                        // model.name bound to
-                        // a form text control
-                        model: {
-                            name: 'test'
-                        }
+</div>
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: function () {
+                return {
+                    voornaam: "",
+                    achternaam: "",
+                    email: {
+                        value: ""
+                    },
+                    telefoon: "",
+                    onderwerp: {
+                        keuze: "0"
+                    },
+                    bericht: {
+                        text: "",
+                        maxlength: 500
+                    },
+                    submitted: false
+                };
+            },
+            methods: {
+                submit: function () {
+                    this.submitted = true;
+                },
+                validate: function (type, value) {
+                    if (type === "email") {
+                        this.email.valid = this.isEmail(value) ? true : false;
                     }
+                },
+                isEmail: function (value) {
+                    return emailRegExp.test(value);
+                },
+            },
+            watch: {
+                "email.value": function (value) {
+                    this.validate("email", value);
                 }
-            })
-        </script>
-    }*@
+            }
+        });
+    </script>
+}
 
-@*@section scripts{
-        <script>
-            new Vue({
-                el: '#app',
-                data: function () {
-                    return {
-                        title: 'Vue Vee Validation',
-                        // model.name bound to
-                        // a form text control
-                        model: {
-                            name: ''
-                        }
-                    }
-                }
-            })
-        </script>
-    }*@
-
-@*<script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
-    @section scripts{
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
-
-        <script>
-            new Vue({
-                el: '#app',
-                data: function () {
-                    return {
-                        title: 'Vue Vee Validation',
-                        // model.name bound to
-                        // a form text control
-                        model: {
-                            name: ''
-                        }
-                    }
-                }
-            })
-        </script>
-    }*@
