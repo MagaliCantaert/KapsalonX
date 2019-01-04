@@ -201,7 +201,7 @@ namespace EE.KapsalonX.Web.Controllers
                         KlantGegevens = editVm.Klant
                     };
                     _context.Update(updateAfspraak);
-                    TempData[Constants.SuccessMessage] = $"De afspraak voor {updateAfspraak.KlantGegevens.Achternaam} {updateAfspraak.KlantGegevens.Voornaam} werd succesvol gewijzigd.";
+                    //TempData[Constants.SuccessMessage] = $"De afspraak voor {updateAfspraak.KlantGegevens.Achternaam} {updateAfspraak.KlantGegevens.Voornaam} werd succesvol gewijzigd.";
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
