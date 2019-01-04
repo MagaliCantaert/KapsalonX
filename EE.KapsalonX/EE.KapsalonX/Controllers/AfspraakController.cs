@@ -76,14 +76,27 @@ namespace EE.KapsalonX.Web.Controllers
                 nieuweBehandeling.Geslacht = viewModel.Geslacht;
                 nieuweBehandeling.GekozenBehandeling = viewModel.Behandeling;
                 var StartDateTime = Convert.ToDateTime(viewModel.Datum + " " + viewModel.Tijdstip);
-                var EndDateTime = StartDateTime.Add(BehandelingenDames.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                DateTime EndDateTime;
+
+                if (nieuweBehandeling.Geslacht == "Dames")
+                {
+                    EndDateTime = StartDateTime.Add(BehandelingenDames.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                }
+                else if (nieuweBehandeling.Geslacht == "Heren")
+                {
+                    EndDateTime = StartDateTime.Add(BehandelingenHeren.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                }
+                else if (nieuweBehandeling.Geslacht == "Kinderen")
+                {
+                    EndDateTime = StartDateTime.Add(BehandelingenKinderen.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                }
 
                 foreach (var item in adminVm.Afspraken)
                 {              
-                    var StartDateTimeInAfspraken = Convert.ToDateTime(item.Datum + " " + item.Tijdstip);              
+                    var StartDateTimeInAfspraken = Convert.ToDateTime(item.Datum + " " + item.Tijdstip);
 
                     if (StartDateTimeInAfspraken >= StartDateTime && StartDateTimeInAfspraken <= EndDateTime)
-                    { 
+                    {
                         Debug.WriteLine("Datum zit ertussen");
                         BasisDatumTijd();
                         ViewBag.Error = "Kies een andere datum en/of tijdstip a.u.b.";
@@ -149,10 +162,29 @@ namespace EE.KapsalonX.Web.Controllers
             nieuweBehandeling.Geslacht = viewModel.Geslacht;
             nieuweBehandeling.GekozenBehandeling = viewModel.Behandeling;
             var StartDateTime = Convert.ToDateTime(viewModel.Datum + " " + viewModel.Tijdstip);
-            var EndDateTime = StartDateTime.Add(BehandelingenDames.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
-            TimeSpan Duur = EndDateTime - StartDateTime;
-            nieuweBehandeling.DuurTijd = Duur;
-            nieuweBehandeling.Duur = Duur.ToString();
+            DateTime EndDateTime;
+
+            if (nieuweBehandeling.Geslacht == "Dames")
+            {
+                EndDateTime = StartDateTime.Add(BehandelingenDames.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                TimeSpan Duur = EndDateTime - StartDateTime;
+                nieuweBehandeling.DuurTijd = Duur;
+                nieuweBehandeling.Duur = Duur.ToString();
+            }
+            else if (nieuweBehandeling.Geslacht == "Heren")
+            {
+                EndDateTime = StartDateTime.Add(BehandelingenHeren.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                TimeSpan Duur = EndDateTime - StartDateTime;
+                nieuweBehandeling.DuurTijd = Duur;
+                nieuweBehandeling.Duur = Duur.ToString();
+            }
+            else if (nieuweBehandeling.Geslacht == "Kinderen")
+            {
+                EndDateTime = StartDateTime.Add(BehandelingenKinderen.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                TimeSpan Duur = EndDateTime - StartDateTime;
+                nieuweBehandeling.DuurTijd = Duur;
+                nieuweBehandeling.Duur = Duur.ToString();
+            }
             _context.Add(nieuweBehandeling);
 
             nieuweAfspraak.BehandelingGegevens = nieuweBehandeling;
