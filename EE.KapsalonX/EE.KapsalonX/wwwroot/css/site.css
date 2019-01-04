@@ -1,5 +1,16 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
+@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-vue-inputs/styles/material.css";
+@import "../../node_modules/@syncfusion/ej2-vue-inputs/styles/material.css";
+
+.wrap {
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 20px 10px;
+    width: 340px;
+}
+
 body {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -26,6 +37,20 @@ footer {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+}
+
+h1{
+    font-family: 'Beautiful People Personal Use';
+}
+
+h3{
+    margin-top: 40px; 
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+#publicFooter {
+    margin-top: 50px;
 }
 
 /* Carousel */
@@ -88,44 +113,85 @@ footer {
     text-align: center
 }
 
-
-.stepwizard-row {
-    display: table-row;
-}
-
-.stepwizard {
-    display: table;
-    width: 100%;
-    position: relative;
+input[type=submit]{
+    margin-top: 5px;
     margin-bottom: 30px;
 }
 
+#btnNext{
+    margin-top: 25px;
+}
 
-.stepwizard-row:before {
-    top: 14px;
-    bottom: 0;
-    position: absolute;
-    content: " ";
+#dlOverzicht{
+    margin: 0 auto;
+    width: 500px;
+    display:block;
+}
+
+body {
+    background: #f1f1f1;
+    font-family: 'Roboto', sans-serif;
+}
+
+.contact-form {
+    font-family: 16px;
+    margin: 0 auto;
+    max-width: 600px;
     width: 100%;
-    height: 1px;
-    background-color: #ccc;
-    z-order: 0;
 }
 
-.stepwizard-step {
-    display: table-cell;
-    text-align: center;
-    position: relative;
+    .contact-form .separator {
+        border-bottom: solid 1px #ccc;
+        margin-bottom: 15px;
+    }
+
+    .contact-form .form {
+        display: flex;
+        flex-direction: column;
+        font-size: 16px;
+    }
+
+.contact-form_title {
+    color: #333;
+    text-align: left;
+    font-size: 28px;
 }
 
-.btn-circle {
-    width: 30px;
-    height: 30px;
+.contact-form input[type="email"],
+.contact-form input[type="text"],
+.contact-form textarea {
+    border: solid 1px #e8e8e8;
+    font-family: 'Roboto', sans-serif;
+    padding: 10px 7px;
+    margin-bottom: 15px;
+    outline: none;
+}
+
+.contact-form textarea {
+    resize: none;
+}
+
+.contact-form .button {
+    background: #da552f;
+    border: solid 1px #da552f;
+    color: white;
+    cursor: pointer;
+    padding: 10px 50px;
     text-align: center;
-    padding: 6px 0;
-    font-size: 12px;
-    line-height: 1.428571429;
-    border-radius: 15px;
+    text-transform: uppercase;
+}
+
+    .contact-form .button:hover {
+        background: #ea532a;
+        border: solid 1px #ea532a;
+    }
+
+.contact-form input[type="email"],
+.contact-form input[type="text"],
+.contact-form textarea,
+.contact-form .button {
+    font-size: 15px;
+    border-radius: 3px
 }
 
 *,

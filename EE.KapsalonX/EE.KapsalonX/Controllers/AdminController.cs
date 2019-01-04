@@ -201,6 +201,7 @@ namespace EE.KapsalonX.Web.Controllers
                         Datum = editVm.Datum,
                         Tijdstip = editVm.Tijdstip,
                         Opmerking = editVm.Opmerkingen,
+                        KlantGegevens = editVm.Klant
                     };
                     //_context.Update(updateAfspraak);
                     _context.Entry(updateAfspraak).State = EntityState.Modified;

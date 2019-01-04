@@ -37,7 +37,7 @@
         @{
             foreach (var afspraak in Model.Afspraken)
             {
-                if (DateTime.Parse(afspraak.Datum) >= DateTime.Now)
+                if (DateTime.Parse(afspraak.Datum) >= DateTime.Today)
                 {
                     var tijdstipFormat = afspraak.Tijdstip;
                     DateTime.Parse(tijdstipFormat).ToShortTimeString();

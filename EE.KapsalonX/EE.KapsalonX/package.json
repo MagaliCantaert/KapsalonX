@@ -1,1 +1,30 @@
-{"name":"myproject", "version":"1.0.0"}
+{
+  "name": "kapsalonx",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@syncfusion/ej2-vue-grids": "^16.4.45",
+    "vee-validate": "^2.1.2",
+    "vue": "^2.5.21"
+  },
+  "description": "kapsalonx",
+  "main": "index.js",
+  "dependencies": {
+    "@syncfusion/ej2-base": "^16.4.42",
+    "@syncfusion/ej2-inputs": "^16.4.42",
+    "@syncfusion/ej2-vue-buttons": "^16.4.42",
+    "@syncfusion/ej2-vue-inputs": "^16.4.45"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HBO5-1819-B03-Programmeren4/eindevaluatie-1819-b03-max.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HBO5-1819-B03-Programmeren4/eindevaluatie-1819-b03-max/issues"
+  },
+  "homepage": "https://github.com/HBO5-1819-B03-Programmeren4/eindevaluatie-1819-b03-max#readme"
+}
