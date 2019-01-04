@@ -3,74 +3,78 @@
     ViewData["Title"] = "Contact";
 }
 
+<br />
+
+<input v-validate="'required'" name="myinput" type="text">
+<span>{{ errors.first('myinput') }}</span>
 
 
 
-@*<head>
+
+<script src="~/js/site.js"></script>
 
 
-        <script src="path/to/vue.js"></script>
-        <script src="path/to/vee-validate.js"></script>
-        <script>
-            Vue.use(VeeValidate); // good to go.
-        </script>
-    </head>*@
-@*<div class="container">
-        <header>
+
+<div class="container">
+    <header>
+        <h2>Contacteer ons</h2>
+    </header>
+</div>
+<div class="container">
+    <div class="col-md-6">
+        <div asp-validation-summary="ModelOnly"></div>
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Voornaam"></label>
+                <input asp-for="Voornaam" name="Voornaam"
+                       class="form-control" placeholder="Geef uw voornaam in" />
+                <span asp-validation-for="Voornaam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Achternaam"></label>
+                <input asp-for="Achternaam" class="form-control" placeholder="Geef uw achternaam in" />
+                <span asp-validation-for="Achternaam" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Emailadres">E-mailadres</label>
+                <input asp-for="Emailadres" class="form-control" placeholder="Geef uw e-mailadres in" />
+                <span asp-validation-for="Emailadres" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Telefoonnummer"></label>
+                <input asp-for="Telefoonnummer" class="form-control" placeholder="Geef uw telefoonnummer in" />
+                <span asp-validation-for="Telefoonnummer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bericht"></label>
+                <textarea asp-for="Bericht" class="form-control" placeholder="Geef uw bericht in"></textarea>
+                <span asp-validation-for="Bericht" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-success">Verstuur bericht</button>
+            <button type="reset" class="btn btn-danger">Reset</button>
+        </form>
+        <div id="contact">
             <h2>Contacteer ons</h2>
-        </header>
-    </div>
-    <div class="container">
-        <div class="col-md-6">
-            <div asp-validation-summary="ModelOnly"></div>
-            <form method="post">
-                <div class="form-group">
-                    <label asp-for="Voornaam"></label>
-                    <input asp-for="Voornaam" class="form-control" placeholder="Geef uw voornaam in" />
-                    <span asp-validation-for="Voornaam" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Achternaam"></label>
-                    <input asp-for="Achternaam" class="form-control" placeholder="Geef uw achternaam in" />
-                    <span asp-validation-for="Achternaam" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Emailadres">E-mailadres</label>
-                    <input asp-for="Emailadres" class="form-control" placeholder="Geef uw e-mailadres in" />
-                    <span asp-validation-for="Emailadres" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Telefoonnummer"></label>
-                    <input asp-for="Telefoonnummer" class="form-control" placeholder="Geef uw telefoonnummer in" />
-                    <span asp-validation-for="Telefoonnummer" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Bericht"></label>
-                    <textarea asp-for="Bericht" class="form-control" placeholder="Geef uw bericht in"></textarea>
-                    <span asp-validation-for="Bericht" class="text-danger"></span>
-                </div>
-                <button type="submit" class="btn btn-success">Verstuur bericht</button>
+            <form class="form" @submit="contact" method="post">
+                <label>Voornaam</label><br />
+                <input required name="voornaam" v-model='contact.voornaam' placeholder="Geef uw voornaam in" type="text"><br />
+                <label>Achternaam</label><br />
+                <input required name="achternaam" v-model="contact.achternaam" placeholder="Geef uw achternaam in" type="text"><br />
+                <label>E-mailadres</label><br />
+                <input required name="email" v-model="contact.email" placeholder="Geef uw e-mailadres in" type="email"><br />
+                <label>Telefoonnummer</label><br />
+                <input required name="telefoon" v-model="contact.telefoon" placeholder="Geef uw telefoonnummer in" type="tel"><br />
+                <label>Bericht</label><br />
+                <textarea name="bericht" v-model="contact.bericht" rows="5" placeholder="Geef uw bericht in"></textarea>
+                <button type="submit" class="btn btn-success">Send</button>
                 <button type="reset" class="btn btn-danger">Reset</button>
             </form>
-            <div id="contact">
-                <h2>Contacteer ons</h2>
-                <form class="form" @submit="contact" method="post">
-                    <label>Voornaam</label><br />
-                    <input required name="voornaam" v-model='contact.voornaam' placeholder="Geef uw voornaam in" type="text"><br />
-                    <label>Achternaam</label><br />
-                    <input required name="achternaam" v-model="contact.achternaam" placeholder="Geef uw achternaam in" type="text"><br />
-                    <label>E-mailadres</label><br />
-                    <input required name="email" v-model="contact.email" placeholder="Geef uw e-mailadres in" type="email"><br />
-                    <label>Telefoonnummer</label><br />
-                    <input required name="telefoon" v-model="contact.telefoon" placeholder="Geef uw telefoonnummer in" type="tel"><br />
-                    <label>Bericht</label><br />
-                    <textarea name="bericht" v-model="contact.bericht" rows="5" placeholder="Geef uw bericht in"></textarea>
-                    <button type="submit" class="btn btn-success">Send</button>
-                    <button type="reset" class="btn btn-danger">Reset</button>
-                </form>
-            </div>
         </div>
-    </div>*@
+    </div>
+</div>
+
+
+
 @*<div id="app">
         <div class="container">
             <div class="col-md-offset-4 col-md-4">
