@@ -4,57 +4,73 @@
 }
 
 
-@*<div class="img">
-    <img src="~/images/banner2.jpg" alt="banner" class="img-responsive" />
-    <div class="centered">
-        TESTJE
-    </div>
-    @*<a asp-action="Index" asp-controller="Afspraak"><h3>BOEK HIER ONLINE JE AFSPRAAK</h3></a>*@
-@*</div>*@
-
 <div class="container image">
-
-    <img src="~/images/banner2.jpg" alt="" class="img-responsive"/>
-
+    <img src="~/images/banner2.jpg" alt="" class="img-responsive" />
     <a id="link" asp-action="Index" asp-controller="Afspraak"><span>BOEK HIER ONLINE JE AFSPRAAK</span></a>
 
 </div>
 <br />
 
-<h2 class="text-center">ONTDEK ONZE BEHANDELINGEN</h2><br />
-<div class="container">
+<div class="container" id="app">
+    <h2 class="text-center">{{ Message }}</h2><br />
     <div class="row">
         <div class="col-md-6">
-            <img class="img-responsive" src="~/images/brushing.jpg" style="opacity:0.8"/>
+            <img class="img-responsive" src="~/images/brushing.jpg" style="opacity:0.8" />
         </div>
         <div class="col-md-6 text-center behandeling" id="box-dames">
-            <p>knippen</p>
-            <p>kleuren</p>
-            <p>brushing</p>
+                <p v-for="behandeling in BehandelingDames">
+                    <span>{{ behandeling.naam }}</span>
+                </p>         
         </div>
     </div>
     <div class="row">
         <div class="col-md-6 text-center behandeling" id="box-heren">
-            <p>snit</p>
-            <p>tondeuze</p>
+            <p v-for="behandeling in BehandelingHeren">
+                <span>{{ behandeling.naam }}</span>
+            </p>
         </div>
         <div class="col-md-6">
-            <img class="img-responsive" src="~/images/tondeuze.jpg" style="opacity:0.8"/>
+            <img class="img-responsive" src="~/images/tondeuze.jpg" style="opacity:0.8" />
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-            <img class="img-responsive" src="~/images/kinderen.jpg" style="opacity:0.8"/>
+            <img class="img-responsive" src="~/images/kinderen.jpg" style="opacity:0.8" />
         </div>
         <div class="col-md-6 text-center behandeling" id="box-kinderen">
-            <p>meisjes snit</p>
-            <p>jongens snit</p>
+            <p v-for="behandeling in BehandelingKinderen">
+                <span>{{ behandeling.naam }}</span>
+            </p>
         </div>
     </div>
 </div>
 
 
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script>
+        var URL = 'https://localhost:5001/';
+        var app = new Vue({
+            el: '#app',
+            data: {
+                Message: 'ONTDEK ONZE BEHANDELINGEN',
+                BehandelingDames: [
+                    { naam: 'Knippen', votes: 0 },
+                    { naam: 'Brushen', votes: 0 },
+                    { naam: 'Kleuren', votes: 0 }
+                ],
+                BehandelingHeren: [
+                    { naam: 'Knippen' },
+                    { naam: 'Tondeuze' }
+                ],
+                BehandelingKinderen: [
+                    { naam: 'Meisjessnit' },
+                    { naam: 'Jongenssnit' }
+                ]
+            }});
 
+    </script>
+}
 
 
 
