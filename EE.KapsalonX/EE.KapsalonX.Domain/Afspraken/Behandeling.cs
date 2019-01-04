@@ -15,6 +15,8 @@ namespace EE.KapsalonX.Domain.Afspraken
         public string GekozenBehandeling { get; set; }
 
         [NotMapped]
-        public DateTime DuurTijd { get; set; }
+        public TimeSpan DuurTijd { get; set; }
+
+        public string Duur { get; set; }
     }
 }

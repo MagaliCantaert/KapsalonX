@@ -30,10 +30,7 @@ namespace EE.KapsalonX.Web.Controllers
                 Klanten = await _context.Klanten.ToListAsync(),
                 Behandenlingen = await _context.Behandelingen.ToListAsync(),
                 Afspraken = await _context.Afspraken.Include(a => a.KlantGegevens).OrderBy(b => b.Datum).ThenBy(c => c.Tijdstip).ToListAsync()
-            };
-
-            
-
+            }; 
             return View(viewModel);
         }
 
@@ -61,13 +58,14 @@ namespace EE.KapsalonX.Web.Controllers
             List<Event> afspraakData = new List<Event>();
 
             foreach (var item in viewModel.Afspraken)
-            {
+            {         
+                var End = TimeSpan.Parse(item.BehandelingGegevens.Duur);
                 afspraakData.Add(new Event
                 {
                     Id = item.AfspraakId,
                     Behandeling = $"{item.BehandelingGegevens.GekozenBehandeling} - {item.KlantGegevens.Voornaam} {item.KlantGegevens.Achternaam}",
                     StartTijd = DateTime.Parse(item.Datum + " " + item.Tijdstip),
-                    EindTijd = DateTime.Parse(item.Datum + " " + item.Tijdstip) + new TimeSpan(1, 30, 0),
+                    EindTijd = DateTime.Parse(item.Datum + " " + item.Tijdstip).Add(End),
                     Klant = $"Klant: {item.KlantGegevens.Voornaam} {item.KlantGegevens.Achternaam}"
                 });
             }

@@ -80,6 +80,8 @@
                             <div class="col-sm-4">
                                 <img src="https://picsum.photos/80/80" /><br />
                                 <input asp-for="Behandeling" type="submit" name="Behandeling" id="BehandelingDames" value="@item.Behandeling" />
+                                @*<input asp-for="Tijdsduur" type="submit" name="Tijdsduur" id="BehandelingDames" value="@item.Tijdsduur" />*@
+
                             </div>
                         }
                     </div>
@@ -91,7 +93,8 @@
                         {
                             <div class="col-sm-4">
                                 <img src="https://picsum.photos/80/80" /><br />
-                                <input asp-for="Behandeling" type="submit" name="Behandeling" id="BehandelingHeren" value="@item.Behandeling (@item.Tijdsduur)" />
+                                <input asp-for="Behandeling" type="submit" name="Behandeling" id="BehandelingHeren" value="@item.Behandeling" />
+                                @*<input asp-for="Tijdsduur" type="submit" name="Tijdsduur" id="BehandelingHeren" value="@item.Tijdsduur" />*@
                             </div>
                         }
                     </div>
@@ -103,7 +106,8 @@
                         {
                             <div class="col-sm-4">
                                 <img src="https://picsum.photos/80/80" /><br />
-                                <input asp-for="Behandeling" type="submit" name="Behandeling" id="BehandelingKinderen" value="@item.Behandeling (@item.Tijdsduur)" />
+                                <input asp-for="Behandeling" type="submit" name="Behandeling" id="BehandelingKinderen" value="@item.Behandeling" />
+                                @*<input asp-for="Tijdsduur" type="submit" name="Tijdsduur" id="BehandelingKinderen" value="@item.Tijdsduur" />*@
                             </div>
                         }
                     </div>
@@ -132,6 +136,7 @@
                 <p>Kies gewenste datum en tijdstip</p>
                 <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
                 <input asp-for="Behandeling" value="@Model.Behandeling" hidden />
+                @*<input asp-for="Tijdsduur" value="@Model.Tijdsduur" hidden />*@
 
                 <div class="row">
                     <div class="col-sm-4">
@@ -180,6 +185,7 @@
                 <p>Vul onderstaande gegevens in</p>
                 <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
                 <input asp-for="Behandeling" value="@Model.Behandeling" hidden />
+                @*<input asp-for="Tijdsduur" value="@Model.Tijdsduur" hidden />*@
                 <input asp-for="Datum" value="@Model.Datum" hidden />
                 <input asp-for="Tijdstip" value="@Model.Tijdstip" hidden />
 

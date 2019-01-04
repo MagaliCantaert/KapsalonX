@@ -51,7 +51,7 @@ namespace EE.KapsalonX.Web.Controllers
             AfspraakVm viewModel = new AfspraakVm(stapId.GetValueOrDefault(1));
             viewModel.BehandelingenDames = BehandelingenDames;
             viewModel.BehandelingenHeren = BehandelingenHeren;
-            viewModel.BehandelingenKinderen = BehandelingenKinderen;
+            viewModel.BehandelingenKinderen = BehandelingenKinderen;   
             BasisDatumTijd();
             WaardenNaarViewModel(viewModel);
             return View(viewModel);
@@ -77,26 +77,18 @@ namespace EE.KapsalonX.Web.Controllers
                 nieuweBehandeling.GekozenBehandeling = viewModel.Behandeling;
                 var StartDateTime = Convert.ToDateTime(viewModel.Datum + " " + viewModel.Tijdstip);
                 var EndDateTime = StartDateTime.Add(BehandelingenDames.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
-                TimeSpan timeSpan = EndDateTime - StartDateTime;
 
                 foreach (var item in adminVm.Afspraken)
-                {
-                    var test = Convert.ToDateTime(item.Datum + " " + item.Tijdstip);
+                {              
+                    var StartDateTimeInAfspraken = Convert.ToDateTime(item.Datum + " " + item.Tijdstip);              
 
-                    if (viewModel.Datum == item.Datum && viewModel.Tijdstip == item.Tijdstip)
-                    {
-
+                    if (StartDateTimeInAfspraken >= StartDateTime && StartDateTimeInAfspraken <= EndDateTime)
+                    { 
+                        Debug.WriteLine("Datum zit ertussen");
                         BasisDatumTijd();
                         ViewBag.Error = "Kies een andere datum en/of tijdstip a.u.b.";
                         return View(viewModel);
                     }
-                    if (test >= StartDateTime && test <= EndDateTime)
-                    {
-                        
-                        Debug.WriteLine("Datum zit ertussen");
-                    }
-
-
                 }
             }
             if (viewModel.Stap == 4)
@@ -135,10 +127,6 @@ namespace EE.KapsalonX.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Overzicht(AfspraakVm viewModel)
         {
-            //Vervolgens heb je het gekozen tijdstip, gelinkt met de gekozen behandeling, waar uiteraard de duurtijd uit kan afgeleid worden, 
-            // maar het is misschien makkelijker om dit meteen op te nemen in de Afspraak zelf.Dit zou je kunnen doen door eventueel te opteren 
-            // voor een StartDateTime en een EndDateTime.Dit maakt het controleren op vrije momenten in de agenda misschien iets makkelijker(zie bovenstaande bemerking).
-
             var nieuweKlant = new Klant();
             var nieuweBehandeling = new Behandeling();
             var nieuweAfspraak = new Afspraak();
@@ -162,15 +150,17 @@ namespace EE.KapsalonX.Web.Controllers
             nieuweBehandeling.GekozenBehandeling = viewModel.Behandeling;
             var StartDateTime = Convert.ToDateTime(viewModel.Datum + " " + viewModel.Tijdstip);
             var EndDateTime = StartDateTime.Add(BehandelingenDames.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
-            nieuweBehandeling.DuurTijd = EndDateTime;
+            TimeSpan Duur = EndDateTime - StartDateTime;
+            nieuweBehandeling.DuurTijd = Duur;
+            nieuweBehandeling.Duur = Duur.ToString();
             _context.Add(nieuweBehandeling);
 
             nieuweAfspraak.BehandelingGegevens = nieuweBehandeling;
+            viewModel.Tijdsduur = nieuweAfspraak.BehandelingGegevens.DuurTijd.ToString();
             nieuweAfspraak.Datum = viewModel.Datum;
             nieuweAfspraak.Tijdstip = viewModel.Tijdstip;
             nieuweAfspraak.Opmerking = viewModel.Opmerkingen;
             _context.Add(nieuweAfspraak);
-
             _context.SaveChanges();
 
             //HIER LATER VERSTUREN VAN MAIL NAAR KLANT MET GEGEVENS AFSPRAAK
@@ -189,7 +179,6 @@ namespace EE.KapsalonX.Web.Controllers
             viewModel.Behandeling = TempData["Behandeling"]?.ToString();
             viewModel.Datum = TempData["Datum"]?.ToString();
             viewModel.Tijdstip = TempData["Tijdstip"]?.ToString();
-
             viewModel.Voornaam = TempData["Voornaam"]?.ToString();
             viewModel.Achternaam = TempData["Achternaam"]?.ToString();
             viewModel.Telefoonnummer = TempData["Telefoonnummer"]?.ToString();
@@ -199,14 +188,11 @@ namespace EE.KapsalonX.Web.Controllers
 
         private void WaardenNaarTempData(AfspraakVm viewModel)
         {
+            var test = viewModel.Duur;
             TempData["Geslacht"] = viewModel.Geslacht;
             TempData["Behandeling"] = viewModel.Behandeling?.ToString();
             TempData["Datum"] = viewModel.Date.ToShortDateString();
             TempData["Tijdstip"] = viewModel.Time.ToShortTimeString();
-
-            //TempData["StartDateTime"] = viewModel.StartTijd;
-            //TempData["EndDateTime"] = viewModel.EindTijd;
-
             TempData["Voornaam"] = viewModel.Voornaam;
             TempData["Achternaam"] = viewModel.Achternaam;
             TempData["Telefoonnummer"] = viewModel.Telefoonnummer;
