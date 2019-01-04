@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace EE.KapsalonX.Domain.Afspraken
@@ -13,6 +14,9 @@ namespace EE.KapsalonX.Domain.Afspraken
         [Display(Name = "Behandeling")]
         public string GekozenBehandeling { get; set; }
 
-        //public DateTime DuurTijd { get; set; }
+        [NotMapped]
+        public TimeSpan DuurTijd { get; set; }
+
+        public string Duur { get; set; }
     }
 }

@@ -16,10 +16,7 @@ namespace EE.KapsalonX.Domain.Afspraken
         [NotMapped]
         public string Datum { get; set; }
         public string Tijdstip { get; set; }
+
         public string Opmerking { get; set; }
-
-        //public DateTime StartTijd { get; set; }
-        //public DateTime EindTijd { get; set; }
-
     }
 }

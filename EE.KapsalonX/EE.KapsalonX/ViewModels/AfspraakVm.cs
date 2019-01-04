@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,10 +19,7 @@ namespace EE.KapsalonX.Web.ViewModels
         public string Behandeling { get; set; }
         public string Datum { get; set; }
         public string Tijdstip { get; set; }
-
-        //public string StartTijd { get; set; }
-        //public string EindTijd { get; set; }
-
+        public string Tijdsduur { get; set; }
 
         public List<SelectListItem> Behandelingen { get; set; }
         public List<BehandelingVm> BehandelingenDames { get; set; }
@@ -36,6 +34,10 @@ namespace EE.KapsalonX.Web.ViewModels
         [Display(Name = "Tijdstip")]
         [DataType(DataType.Time)]
         public DateTime Time { get; set; }
+
+        [NotMapped]
+        [DataType(DataType.Time)]
+        public TimeSpan Duur { get; set; }
 
         [Required(ErrorMessage = "Dit is een verplicht veld")]
         public string Voornaam { get; set; }

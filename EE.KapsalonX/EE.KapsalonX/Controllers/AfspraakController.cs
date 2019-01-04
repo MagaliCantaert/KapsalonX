@@ -2,16 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using EE.KapsalonX.Data;
 using EE.KapsalonX.Domain.Afspraken;
 using EE.KapsalonX.Web.ViewModels;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Caching.Memory;
-using Newtonsoft.Json;
 
 namespace EE.KapsalonX.Web.Controllers
 {
@@ -57,7 +51,7 @@ namespace EE.KapsalonX.Web.Controllers
             AfspraakVm viewModel = new AfspraakVm(stapId.GetValueOrDefault(1));
             viewModel.BehandelingenDames = BehandelingenDames;
             viewModel.BehandelingenHeren = BehandelingenHeren;
-            viewModel.BehandelingenKinderen = BehandelingenKinderen;
+            viewModel.BehandelingenKinderen = BehandelingenKinderen;   
             BasisDatumTijd();
             WaardenNaarViewModel(viewModel);
             return View(viewModel);
@@ -71,23 +65,77 @@ namespace EE.KapsalonX.Web.Controllers
             {
                 AdminIndexVm adminVm = new AdminIndexVm
                 {
-                    //Klanten = _context.Klanten.ToList(),
                     Behandenlingen = _context.Behandelingen.ToList(),
                     Afspraken = _context.Afspraken.ToList()
                 };
                 WaardenNaarTempData(viewModel);
                 WaardenNaarViewModel(viewModel);
-                foreach (var item in adminVm.Afspraken)
-                {
-                    if (viewModel.Datum == item.Datum && viewModel.Tijdstip == item.Tijdstip)
-                    {
-                        BasisDatumTijd();
-                        ViewBag.Error = "Kies een andere datum en/of tijdstip a.u.b.";
-                        return View(viewModel);
-                    }
 
+                var nieuweBehandeling = new Behandeling();
+                nieuweBehandeling.Geslacht = viewModel.Geslacht;
+                nieuweBehandeling.GekozenBehandeling = viewModel.Behandeling;
+                var StartDateTimeNieuweAfspraak = Convert.ToDateTime(viewModel.Datum + " " + viewModel.Tijdstip);
+                DateTime EndDateTimeNieuweAfspraak;
+
+                if (nieuweBehandeling.Geslacht == "Dames")
+                {
+                    EndDateTimeNieuweAfspraak = StartDateTimeNieuweAfspraak.Add(BehandelingenDames.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                    foreach (var item in adminVm.Afspraken)
+                    {
+                        var TimeBetweenInAfspraken = TimeSpan.Parse(item.BehandelingGegevens.Duur);
+                        var StartDateTimeInAfspraken = Convert.ToDateTime(item.Datum + " " + item.Tijdstip);
+                        var EndDateTimeInAfspraken = Convert.ToDateTime(item.Datum + " " + item.Tijdstip).Add(TimeBetweenInAfspraken);
+
+                        if (StartDateTimeNieuweAfspraak <= StartDateTimeInAfspraken && StartDateTimeNieuweAfspraak >= EndDateTimeInAfspraken
+                            || EndDateTimeNieuweAfspraak >= StartDateTimeInAfspraken && EndDateTimeNieuweAfspraak <= EndDateTimeInAfspraken)                           
+                        {
+                            // TIJDSTIP IN TIMEPICKER INDEX.CSHTML LATEN BLOKKEREN ?
+                            BasisDatumTijd();
+                            ViewBag.Error = "Het gekozen tijdstip is reeds ingevuld. Kies een andere datum en/of tijdstip a.u.b.";
+                            return View(viewModel);
+                        }
+                    }
+                }
+                else if (nieuweBehandeling.Geslacht == "Heren")
+                {
+                    EndDateTimeNieuweAfspraak = StartDateTimeNieuweAfspraak.Add(BehandelingenHeren.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                    foreach (var item in adminVm.Afspraken)
+                    {
+                        var TimeBetweenInAfspraken = TimeSpan.Parse(item.BehandelingGegevens.Duur);
+                        var StartDateTimeInAfspraken = Convert.ToDateTime(item.Datum + " " + item.Tijdstip);
+                        var EndDateTimeInAfspraken = Convert.ToDateTime(item.Datum + " " + item.Tijdstip).Add(TimeBetweenInAfspraken);
+
+                        if (StartDateTimeNieuweAfspraak <= StartDateTimeInAfspraken && StartDateTimeNieuweAfspraak >= EndDateTimeInAfspraken
+                            || EndDateTimeNieuweAfspraak >= StartDateTimeInAfspraken && EndDateTimeNieuweAfspraak <= EndDateTimeInAfspraken)
+                        {
+                            Debug.WriteLine("Datum zit ertussen");
+                            BasisDatumTijd();
+                            ViewBag.Error = "Kies een andere datum en/of tijdstip a.u.b.";
+                            return View(viewModel);
+                        }
+                    }
+                }
+                else if (nieuweBehandeling.Geslacht == "Kinderen")
+                {
+                    EndDateTimeNieuweAfspraak = StartDateTimeNieuweAfspraak.Add(BehandelingenKinderen.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                    foreach (var item in adminVm.Afspraken)
+                    {
+                        var TimeBetweenInAfspraken = TimeSpan.Parse(item.BehandelingGegevens.Duur);
+                        var StartDateTimeInAfspraken = Convert.ToDateTime(item.Datum + " " + item.Tijdstip);
+                        var EndDateTimeInAfspraken = Convert.ToDateTime(item.Datum + " " + item.Tijdstip).Add(TimeBetweenInAfspraken);
+
+                        if (StartDateTimeNieuweAfspraak <= StartDateTimeInAfspraken && StartDateTimeNieuweAfspraak >= EndDateTimeInAfspraken
+                            || EndDateTimeNieuweAfspraak >= StartDateTimeInAfspraken && EndDateTimeNieuweAfspraak <= EndDateTimeInAfspraken)
+                        {
+                            Debug.WriteLine("Datum zit ertussen");
+                            BasisDatumTijd();
+                            ViewBag.Error = "Kies een andere datum en/of tijdstip a.u.b.";
+                            return View(viewModel);
+                        }
+                    }
                 }
             }
+
             if (viewModel.Stap == 4)
             {
                 if (ModelState.IsValid)
@@ -117,9 +165,6 @@ namespace EE.KapsalonX.Web.Controllers
             return View(viewModel);
         }
 
-
-        // INDIEN KLANT AL GEKEND IS:
-        // FOUT BIJ DUBBELE PRIMARY KEY TUSSEN KLANTID EN AFSPRAAKID
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Overzicht(AfspraakVm viewModel)
@@ -128,7 +173,7 @@ namespace EE.KapsalonX.Web.Controllers
             var nieuweBehandeling = new Behandeling();
             var nieuweAfspraak = new Afspraak();
 
-            if (_context.Klanten.FirstOrDefault(k =>k.Emailadres == viewModel.Emailadres) != null)
+            if (_context.Klanten.FirstOrDefault(k => k.Emailadres == viewModel.Emailadres) != null)
             {
                 Debug.WriteLine("gekend");
                 nieuweAfspraak.KlantGegevensId = _context.Klanten.FirstOrDefault(k => k.Emailadres == viewModel.Emailadres).KlantId;
@@ -142,16 +187,41 @@ namespace EE.KapsalonX.Web.Controllers
                 nieuweAfspraak.KlantGegevens = nieuweKlant;
                 _context.Add(nieuweKlant);
             }
+
             nieuweBehandeling.Geslacht = viewModel.Geslacht;
             nieuweBehandeling.GekozenBehandeling = viewModel.Behandeling;
+            var StartDateTime = Convert.ToDateTime(viewModel.Datum + " " + viewModel.Tijdstip);
+            DateTime EndDateTime;
+
+            if (nieuweBehandeling.Geslacht == "Dames")
+            {
+                EndDateTime = StartDateTime.Add(BehandelingenDames.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                TimeSpan Duur = EndDateTime - StartDateTime;
+                nieuweBehandeling.DuurTijd = Duur;
+                nieuweBehandeling.Duur = Duur.ToString();
+            }
+            else if (nieuweBehandeling.Geslacht == "Heren")
+            {
+                EndDateTime = StartDateTime.Add(BehandelingenHeren.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                TimeSpan Duur = EndDateTime - StartDateTime;
+                nieuweBehandeling.DuurTijd = Duur;
+                nieuweBehandeling.Duur = Duur.ToString();
+            }
+            else if (nieuweBehandeling.Geslacht == "Kinderen")
+            {
+                EndDateTime = StartDateTime.Add(BehandelingenKinderen.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                TimeSpan Duur = EndDateTime - StartDateTime;
+                nieuweBehandeling.DuurTijd = Duur;
+                nieuweBehandeling.Duur = Duur.ToString();
+            }
             _context.Add(nieuweBehandeling);
 
             nieuweAfspraak.BehandelingGegevens = nieuweBehandeling;
+            viewModel.Tijdsduur = nieuweAfspraak.BehandelingGegevens.DuurTijd.ToString();
             nieuweAfspraak.Datum = viewModel.Datum;
             nieuweAfspraak.Tijdstip = viewModel.Tijdstip;
             nieuweAfspraak.Opmerking = viewModel.Opmerkingen;
             _context.Add(nieuweAfspraak);
-
             _context.SaveChanges();
 
             //HIER LATER VERSTUREN VAN MAIL NAAR KLANT MET GEGEVENS AFSPRAAK
@@ -170,7 +240,6 @@ namespace EE.KapsalonX.Web.Controllers
             viewModel.Behandeling = TempData["Behandeling"]?.ToString();
             viewModel.Datum = TempData["Datum"]?.ToString();
             viewModel.Tijdstip = TempData["Tijdstip"]?.ToString();
-
             viewModel.Voornaam = TempData["Voornaam"]?.ToString();
             viewModel.Achternaam = TempData["Achternaam"]?.ToString();
             viewModel.Telefoonnummer = TempData["Telefoonnummer"]?.ToString();
@@ -184,16 +253,11 @@ namespace EE.KapsalonX.Web.Controllers
             TempData["Behandeling"] = viewModel.Behandeling?.ToString();
             TempData["Datum"] = viewModel.Date.ToShortDateString();
             TempData["Tijdstip"] = viewModel.Time.ToShortTimeString();
-
-            //TempData["StartDateTime"] = viewModel.StartTijd;
-            //TempData["EndDateTime"] = viewModel.EindTijd;
-
             TempData["Voornaam"] = viewModel.Voornaam;
             TempData["Achternaam"] = viewModel.Achternaam;
             TempData["Telefoonnummer"] = viewModel.Telefoonnummer;
             TempData["Emailadres"] = viewModel.Emailadres;
             TempData["Opmerkingen"] = viewModel.Opmerkingen;
-
         }
 
         void BasisDatumTijd()
