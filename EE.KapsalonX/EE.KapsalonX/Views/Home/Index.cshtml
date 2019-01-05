@@ -14,40 +14,59 @@
 <br />
 <h2 class="text-center"></h2>
 <div class="container" id="app">
-    <h2 class="text-center">{{ Message }}</h2><br />
+    <h2 class="text-center">{{ Behandelingen }}</h2><br />
     <div class="row">
-        <div class="col-md-6">
-            <img class="img-responsive" src="~/images/brushing.jpg" style="opacity:0.8" />
+        <div class="col-md-4">
+            <img class="img-responsive" src="~/images/kapsel-vrouw.jpg" style="opacity:0.8" />
         </div>
-        <div class="col-md-6 text-center behandeling" id="box-dames">
-            <p v-for="behandeling in BehandelingDames">
-                <span>{{ behandeling.naam }}</span>
-                
-            </p>
+        <div class="col-md-4">
+            <img class="img-responsive" src="~/images/kapsel-man.jpg" style="opacity:0.8" />
+        </div>
+        <div class="col-md-4">
+            <img class="img-responsive" src="~/images/kinderen.jpg" style="opacity:0.8" />
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 text-center behandeling" id="box-heren">
+        <div class="col-md-4 text-center behandeling box">
+            <p v-for="behandeling in BehandelingDames">
+                <span>{{ behandeling.naam }}</span>
+            </p>
+        </div>
+        <div class="col-md-4 text-center behandeling box">
             <p v-for="behandeling in BehandelingHeren">
                 <span>{{ behandeling.naam }}</span>
             </p>
         </div>
-        <div class="col-md-6">
-            <img class="img-responsive" src="~/images/tondeuze.jpg" style="opacity:0.8" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <img class="img-responsive" src="~/images/kinderen.jpg" style="opacity:0.8" />
-        </div>
-        <div class="col-md-6 text-center behandeling" id="box-kinderen">
+        <div class="col-md-4 text-center behandeling box">
             <p v-for="behandeling in BehandelingKinderen">
                 <span>{{ behandeling.naam }}</span>
             </p>
         </div>
     </div>
+    <h2 class="text-center">{{ Producten }}</h2><br />
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <img class="img-responsive" src="~/images/gold.png" style="opacity:0.8" />
+        </div>
+        <div class="col-md-4">
+            <img class="img-responsive" src="~/images/kms.png" style="opacity:0.8" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4 text-center behandeling box">
+            <p>
+                <span>{{ Goldwell }}</span>
+            </p>
+        </div>
+        <div class="col-md-4 text-center behandeling box">
+            <p>
+                <span>{{ Kms }}</span>
+            </p>
+        </div>
+    </div>
 </div>
-
 
 @section scripts{
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
@@ -56,20 +75,24 @@
         var app = new Vue({
             el: '#app',
             data: {
-                Message: 'ONTDEK ONZE BEHANDELINGEN',
+                Behandelingen: 'BEHANDELINGEN',
+                Producten: 'PRODUCTEN',
                 BehandelingDames: [
-                    { naam: 'Knippen', votes: 0 },
-                    { naam: 'Brushen', votes: 0 },
-                    { naam: 'Kleuren', votes: 0 }
+                    { naam: 'knippen' },
+                    { naam: 'brushing' },
+                    { naam: 'kleuren' }
                 ],
                 BehandelingHeren: [
-                    { naam: 'Knippen' },
-                    { naam: 'Tondeuze' }
+                    { naam: 'knippen' },
+                    { naam: 'tondeuze' }
                 ],
                 BehandelingKinderen: [
-                    { naam: 'Meisjessnit' },
-                    { naam: 'Jongenssnit' }
-                ]
+                    { naam: 'meisjessnit' },
+                    { naam: 'jongenssnit' }
+                ],
+                Goldwell: "goldwell",
+                Kms: "kms",
+                Paul: "paul mitchell"
             }
         });
 

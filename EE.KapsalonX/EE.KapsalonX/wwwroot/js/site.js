@@ -1,4 +1,4 @@
-﻿var string = "Boek hier online je afspraak";
+﻿var string = "Boek hier online uw afspraak";
 var str = string.split("");
 var el = document.getElementById('str');
 (function animate() {
