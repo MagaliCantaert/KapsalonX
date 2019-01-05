@@ -1,89 +1,89 @@
 ﻿@model EE.KapsalonX.Web.ViewModels.AfspraakVm
 
-<h2>Afspraak maken bij KapsalonX</h2>
-
-
-<div class="form-horizontal">
-    <h2>Stap @Model.Stap van 5</h2>
-    <div class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="100"
-             aria-valuemin="0" aria-valuemax="100" style="width:100%">
-            <span class="sr-only">70% Complete</span>
-        </div>
-    </div>
-    <hr />
-    <h3>Controleer gewenste afspraak</h3>
-    <p class="text-center">Indien onderstaande boeking klopt, klikt u op 'bevestigen' om de boeking te voltooien.</p>
-    <table></table>
-    <div id="dlOverzicht">
-        <dl class="dl-horizontal well">
-            <dt>
-                @Html.DisplayNameFor(model => model.Geslacht)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Geslacht)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Behandeling)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Behandeling)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Datum)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Datum)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Tijdstip)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Tijdstip)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Voornaam)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Voornaam)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Achternaam)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Achternaam)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Telefoonnummer)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Telefoonnummer)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Emailadres)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Emailadres)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Opmerkingen)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Opmerkingen)
-            </dd>
-
-
-        </dl>
-    </div>
-    <form method="post">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="text-center">
-                    <button type="submit" class="btn btn-default text-center" id="btnNext">Bevestigen &raquo;</button>
-                </div>
+<div class="container">
+    <h2>Afspraak maken bij KapsalonX</h2>
+    <div class="form-horizontal">
+        <h2>Stap @Model.Stap van 5</h2>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="100"
+                 aria-valuemin="0" aria-valuemax="100" style="width:100%">
+                <span class="sr-only">70% Complete</span>
             </div>
         </div>
-    </form>
+        <hr />
+        <h3>Controleer gewenste afspraak</h3>
+        <p class="text-center">Indien onderstaande boeking klopt, klikt u op 'bevestigen' om de boeking te voltooien.</p>
+        <table></table>
+        <div id="dlOverzicht">
+            <dl class="dl-horizontal well">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Geslacht)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Geslacht)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Behandeling)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Behandeling)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Datum)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Datum)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Tijdstip)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Tijdstip)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Voornaam)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Voornaam)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Achternaam)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Achternaam)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Telefoonnummer)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Telefoonnummer)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Emailadres)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Emailadres)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Opmerkingen)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Opmerkingen)
+                </dd>
+
+
+            </dl>
+        </div>
+        <form method="post">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-default text-center" id="btnNext">Bevestigen &raquo;</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 

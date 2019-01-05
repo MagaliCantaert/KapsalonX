@@ -3,67 +3,68 @@
 @{
     ViewData["Title"] = "Edit";
 }
-
-<h2>Afspraak bewerken</h2>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input asp-for="Id" hidden/>
-            <div class="form-group">
-                <label asp-for="Klant.Achternaam" class="control-label"></label>
-                <input asp-for="Klant.Achternaam" class="form-control" />
-                <span asp-validation-for="Klant.Achternaam" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Klant.Voornaam" class="control-label"></label>
-                <input asp-for="Klant.Voornaam" class="form-control" />
-                <span asp-validation-for="Klant.Voornaam" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Klant.Emailadres" class="control-label"></label>
-                <input asp-for="Klant.Emailadres" class="form-control" />
-                <span asp-validation-for="Klant.Emailadres" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Klant.Telefoonnummer" class="control-label"></label>
-                <input asp-for="Klant.Telefoonnummer" class="form-control" />
-                <span asp-validation-for="Klant.Telefoonnummer" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Afspraak.Datum" class="control-label"></label>
-                <input asp-for="Afspraak.Datum" class="form-control" />
-                <span asp-validation-for="Afspraak.Datum" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Afspraak.Tijdstip" class="control-label"></label>
-                <input asp-for="Afspraak.Tijdstip" class="form-control" />
-                <span asp-validation-for="Afspraak.Tijdstip" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Behandeling.Geslacht" class="control-label"></label>
-                <input asp-for="Behandeling.Geslacht" class="form-control" />
-                <span asp-validation-for="Behandeling.Geslacht" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Behandeling.GekozenBehandeling" class="control-label"></label>
-                <input asp-for="Behandeling.GekozenBehandeling" class="form-control" />
-                <span asp-validation-for="Behandeling.GekozenBehandeling" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Opmerkingen" class="control-label"></label>
-                <input asp-for="Opmerkingen" class="form-control" />
-                <span asp-validation-for="Opmerkingen" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Opslaan" class="btn btn-default" />
-            </div>
-        </form>
+<div class="container">
+    <h2>Afspraak bewerken</h2>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="Id" hidden />
+                <div class="form-group">
+                    <label asp-for="Klant.Achternaam" class="control-label"></label>
+                    <input asp-for="Klant.Achternaam" class="form-control" />
+                    <span asp-validation-for="Klant.Achternaam" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Klant.Voornaam" class="control-label"></label>
+                    <input asp-for="Klant.Voornaam" class="form-control" />
+                    <span asp-validation-for="Klant.Voornaam" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Klant.Emailadres" class="control-label"></label>
+                    <input asp-for="Klant.Emailadres" class="form-control" />
+                    <span asp-validation-for="Klant.Emailadres" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Klant.Telefoonnummer" class="control-label"></label>
+                    <input asp-for="Klant.Telefoonnummer" class="form-control" />
+                    <span asp-validation-for="Klant.Telefoonnummer" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Afspraak.Datum" class="control-label"></label>
+                    <input asp-for="Afspraak.Datum" class="form-control" />
+                    <span asp-validation-for="Afspraak.Datum" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Afspraak.Tijdstip" class="control-label"></label>
+                    <input asp-for="Afspraak.Tijdstip" class="form-control" />
+                    <span asp-validation-for="Afspraak.Tijdstip" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Behandeling.Geslacht" class="control-label"></label>
+                    <input asp-for="Behandeling.Geslacht" class="form-control" />
+                    <span asp-validation-for="Behandeling.Geslacht" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Behandeling.GekozenBehandeling" class="control-label"></label>
+                    <input asp-for="Behandeling.GekozenBehandeling" class="form-control" />
+                    <span asp-validation-for="Behandeling.GekozenBehandeling" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Opmerkingen" class="control-label"></label>
+                    <input asp-for="Opmerkingen" class="form-control" />
+                    <span asp-validation-for="Opmerkingen" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Opslaan" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Keer terug</a>
+    <div>
+        <a asp-action="Index">Keer terug</a>
+    </div>
 </div>
 

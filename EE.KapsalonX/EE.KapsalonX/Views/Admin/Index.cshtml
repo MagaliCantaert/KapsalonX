@@ -3,100 +3,101 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h2>Dashboard</h2>
-<hr />
-<div class="col-md-2">
-    <input type="button" class="btn btn-default" onclick="location.href='@Url.Action("Kalender", "Admin")'" value="Toon kalender">
-</div>
-<div class="col-md-2">
-    <input type="button" class="btn btn-default" onclick="location.href='@Url.Action("Index", "Afspraak")'" value="Maak nieuwe afspraak">
-</div>
-<br />
-<hr />
-<br />
-<h4>Overzicht huidige afspraken</h4>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Afspraken.FirstOrDefault().Datum)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Afspraken.FirstOrDefault().Tijdstip)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Klanten.FirstOrDefault().Voornaam)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Klanten.FirstOrDefault().Achternaam)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Behandenlingen.FirstOrDefault().GekozenBehandeling)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            foreach (var afspraak in Model.Afspraken)
-            {
-                if (DateTime.Parse(afspraak.Datum) >= DateTime.Today)
+<div class="container">
+    <h2>Dashboard</h2>
+    <hr />
+    <div class="col-md-2">
+        <input type="button" class="btn btn-default" onclick="location.href='@Url.Action("Kalender", "Admin")'" value="Toon kalender">
+    </div>
+    <div class="col-md-2">
+        <input type="button" class="btn btn-default" onclick="location.href='@Url.Action("Index", "Afspraak")'" value="Maak nieuwe afspraak">
+    </div>
+    <br /><br />
+    <hr />
+    <br />
+    <h4>Overzicht huidige afspraken</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Afspraken.FirstOrDefault().Datum)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Afspraken.FirstOrDefault().Tijdstip)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Klanten.FirstOrDefault().Voornaam)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Klanten.FirstOrDefault().Achternaam)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Behandenlingen.FirstOrDefault().GekozenBehandeling)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var afspraak in Model.Afspraken)
                 {
-                    var tijdstipFormat = afspraak.Tijdstip;
-                    DateTime.Parse(tijdstipFormat).ToShortTimeString();
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => afspraak.Datum)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => tijdstipFormat)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => afspraak.KlantGegevens.Voornaam)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => afspraak.KlantGegevens.Achternaam)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => afspraak.BehandelingGegevens.GekozenBehandeling)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@afspraak.AfspraakId">Bewerk</a> |
-                            <a asp-action="Details" asp-route-id="@afspraak.AfspraakId">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@afspraak.AfspraakId">Verwijder</a>
-                        </td>
-                    </tr>
+                    if (DateTime.Parse(afspraak.Datum) >= DateTime.Today)
+                    {
+                        var tijdstipFormat = afspraak.Tijdstip;
+                        DateTime.Parse(tijdstipFormat).ToShortTimeString();
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => afspraak.Datum)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => tijdstipFormat)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => afspraak.KlantGegevens.Voornaam)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => afspraak.KlantGegevens.Achternaam)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => afspraak.BehandelingGegevens.GekozenBehandeling)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@afspraak.AfspraakId">Bewerk</a> |
+                                <a asp-action="Details" asp-route-id="@afspraak.AfspraakId">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@afspraak.AfspraakId">Verwijder</a>
+                            </td>
+                        </tr>
+                    }
                 }
             }
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
-<br />
-<h2>Account</h2>
-<hr />
+    <br />
+    <h2>Account</h2>
+    <hr />
 
-@* METEEN DOORSTUREN NAAR HOMEPAGINA? DIT IN FORM: *@
-@*asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })"*@
-<div class="row">
-    <div class="button-container">
-        <div class="col-md-2">
-            <form asp-area="Identity" asp-page="/Account/Logout" method="post" id="logoutForm">
-                <input type="submit" class="btn btn-default" value="Afmelden">
-            </form>
+    @* METEEN DOORSTUREN NAAR HOMEPAGINA? DIT IN FORM: *@
+    @*asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })"*@
+    <div class="row">
+        <div class="button-container">
+            <div class="col-md-2">
+                <form asp-area="Identity" asp-page="/Account/Logout" method="post" id="logoutForm">
+                    <input type="submit" class="btn btn-default" value="Afmelden">
+                </form>
+            </div>
+            <div class="col-md-2">
+                <form asp-area="Identity" asp-page="/Account/Manage/ChangePassword" method="post" id="changepasswordForm">
+                    <input type="submit" class="btn btn-default" value="Wachtwoord wijzigen">
+                </form>
+            </div>
+
         </div>
-        <div class="col-md-2">
-            <form asp-area="Identity" asp-page="/Account/Manage/ChangePassword" method="post" id="changepasswordForm">
-                <input type="submit" class="btn btn-default" value="Wachtwoord wijzigen">
-            </form>
-        </div>
+        @*<form asp-area="Identity" asp-page="/Account/Manage/Index" method="post" id="accountSettings">
+                <input type="submit" class="btn btn-outline-dark" value="Settings">
+            </form>*@
 
     </div>
-    @*<form asp-area="Identity" asp-page="/Account/Manage/Index" method="post" id="accountSettings">
-            <input type="submit" class="btn btn-outline-dark" value="Settings">
-        </form>*@
-
 </div>
 
 

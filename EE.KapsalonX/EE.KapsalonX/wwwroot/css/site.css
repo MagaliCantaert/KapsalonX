@@ -121,12 +121,13 @@ body {
 #link {
     position: absolute;
     top: 100px;
-    left: 0;
     width: 100%;
     text-decoration: none;
+    text-align:center;
+
 }
 
-    #link span {
+    a#str {
         color: white;
         letter-spacing: -1px;
         background: rgb(0, 0, 0);
@@ -137,6 +138,8 @@ body {
         font-size: 20pt;
         letter-spacing: 2px;
         font-weight: 600;
+        text-decoration:none;
+        text-align:center;
     }
 
 #box-dames {
@@ -179,4 +182,11 @@ textarea{
 .button-container button {
     display: inline;
     vertical-align: middle;
+}
+
+hr{
+    border: 0;
+    height: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }

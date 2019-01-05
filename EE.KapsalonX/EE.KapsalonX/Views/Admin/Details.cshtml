@@ -4,68 +4,70 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
+<div class="container">
+    <h2>Details</h2>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.KlantGegevens.Achternaam)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.KlantGegevens.Achternaam)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.KlantGegevens.Voornaam)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.KlantGegevens.Voornaam)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.KlantGegevens.Emailadres)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.KlantGegevens.Emailadres)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.KlantGegevens.Telefoonnummer)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.KlantGegevens.Telefoonnummer)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Datum)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Datum)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Tijdstip)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Tijdstip)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BehandelingGegevens.Geslacht)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BehandelingGegevens.Geslacht)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.BehandelingGegevens.GekozenBehandeling)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.BehandelingGegevens.GekozenBehandeling)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Opmerking)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Opmerking)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.AfspraakId">Bewerk</a> |
-    <a asp-action="Index">Keer terug</a>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.KlantGegevens.Achternaam)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.KlantGegevens.Achternaam)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.KlantGegevens.Voornaam)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.KlantGegevens.Voornaam)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.KlantGegevens.Emailadres)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.KlantGegevens.Emailadres)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.KlantGegevens.Telefoonnummer)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.KlantGegevens.Telefoonnummer)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Datum)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Datum)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Tijdstip)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Tijdstip)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.BehandelingGegevens.Geslacht)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.BehandelingGegevens.Geslacht)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.BehandelingGegevens.GekozenBehandeling)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.BehandelingGegevens.GekozenBehandeling)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Opmerking)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Opmerking)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.AfspraakId">Bewerk</a> |
+        <a asp-action="Index">Keer terug</a>
+    </div>
 </div>

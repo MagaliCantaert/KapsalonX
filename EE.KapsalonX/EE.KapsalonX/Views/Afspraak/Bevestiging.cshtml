@@ -2,77 +2,78 @@
 @{
     ViewData["Title"] = "Bevestiging";
 }
-
-<h2>Bevestiging afspraak</h2>
-<hr />
-<div>
-    <h3 class="text-center">Hieronder vindt u een overzicht van uw gemaakte afspraak.<br /><br />Tot binnenkort!<br />KapsalonX-team</h3>
-    <div id="dlOverzicht">
-        <dl class="dl-horizontal well">
-            <dt>
-                @Html.DisplayNameFor(model => model.Geslacht)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Geslacht)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Behandeling)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Behandeling)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Datum)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Datum)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Tijdstip)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Tijdstip)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Voornaam)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Voornaam)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Achternaam)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Achternaam)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Telefoonnummer)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Telefoonnummer)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Emailadres)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Emailadres)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Opmerkingen)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Opmerkingen)
-            </dd>
-        </dl>
-    </div>
-    <form method="post">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="text-center">
-                    <button asp-controller="Home" asp-action="Index" class="btn btn-default text-center" id="btnNext">Ga naar home pagina</button>
+<div class="container">
+    <h2>Bevestiging afspraak</h2>
+    <hr />
+    <div>
+        <h3 class="text-center">Hieronder vindt u een overzicht van uw gemaakte afspraak.<br /><br />Tot binnenkort!<br />KapsalonX-team</h3>
+        <div id="dlOverzicht">
+            <dl class="dl-horizontal well">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Geslacht)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Geslacht)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Behandeling)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Behandeling)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Datum)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Datum)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Tijdstip)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Tijdstip)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Voornaam)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Voornaam)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Achternaam)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Achternaam)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Telefoonnummer)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Telefoonnummer)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Emailadres)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Emailadres)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Opmerkingen)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Opmerkingen)
+                </dd>
+            </dl>
+        </div>
+        <form method="post">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <button asp-controller="Home" asp-action="Index" class="btn btn-default text-center" id="btnNext">Ga naar home pagina</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 

@@ -6,52 +6,51 @@
     <header>
         <h2>Contacteer ons</h2><br />
     </header>
-</div>
-@ViewBag.SuccessMessage
-<div id="app" class="container col-md-6">
-    <form class="vue-form" v-on:submit.prevent="submit" action="/contact">
-        <div class="form-sections">
-            <p>Voornaam</p>
-            <input type="text" name="voornaam" id="voornaam" required="" v-model="voornaam" size="40">
-        </div>
-        <div class="form-sections">
-            <p>Achternaam</p>
-            <input type="text" name="achternaam" id="achternaam" required="" v-model="achternaam" size="40">
-        </div>
-        <div class="form-sections">
-            <p>E-mailadres</p>
-            <input type="email" name="email" id="email" required=""
-                   :class="{ email , error: !email.valid }"
-                   v-model="email.value" size="40">
-        </div>
-        <div class="form-sections">
-            <p>Telefoonnummer</p>
-            <input type="tel" name="telefoon" id="telefoon" required="" v-model="telefoon" size="40">
-        </div>
-        <div class="form-sections">
-            <p>Kies onderwerp</p>
-            <p class="select">
-                <select class="budget" v-model="onderwerp.member" required="">
-                    <option value="0">Algemene vraag</option>
-                    <option value="1">Specifieke behandeling</option>
-                    <option value="2">Afspraak</option>
-                    <option value="3">Andere</option>
-                </select>
-            </p>
-        </div>
-        <div class="form-sections">
-            <p>Uw bericht</p>
-            <textarea class="bericht" name="bericht" id="bericht" required=""
-                      v-model="bericht.text"></textarea>
-        </div>
-        <div>
-            <button type="submit" class="btn btn-success" @@click="handleSubmit">Verstuur bericht</button>
-            <button type="reset" class="btn btn-danger">Reset</button>
-        </div>
-    </form>
-</div>
-<div  style="width: 100%" id="maps"><iframe width="40%" height="250" src="https://maps.google.com/maps?width=100%&height=400&hl=nl&q=Pieter%20Deswartelaan%2031%2C%20bus%200302+(Kapsalon%20X)&ie=UTF8&t=&z=14&iwloc=B&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"><a href="https://www.mapsdirections.info/nl/maak-een-google-map/">Maak een Google Map</a> van <a href="https://www.mapsdirections.info/nl/">Nederland Kaart</a></iframe></div><br />
 
+    <div id="app" class="container col-md-6">
+        <form class="vue-form" v-on:submit.prevent="submit" action="/contact">
+            <div class="form-sections">
+                <p>Voornaam</p>
+                <input type="text" name="voornaam" id="voornaam" required="" v-model="voornaam" size="40">
+            </div>
+            <div class="form-sections">
+                <p>Achternaam</p>
+                <input type="text" name="achternaam" id="achternaam" required="" v-model="achternaam" size="40">
+            </div>
+            <div class="form-sections">
+                <p>E-mailadres</p>
+                <input type="email" name="email" id="email" required=""
+                       :class="{ email , error: !email.valid }"
+                       v-model="email.value" size="40">
+            </div>
+            <div class="form-sections">
+                <p>Telefoonnummer</p>
+                <input type="tel" name="telefoon" id="telefoon" required="" v-model="telefoon" size="40">
+            </div>
+            <div class="form-sections">
+                <p>Kies onderwerp</p>
+                <p class="select">
+                    <select class="budget" v-model="onderwerp.member" required="">
+                        <option value="0">Algemene vraag</option>
+                        <option value="1">Specifieke behandeling</option>
+                        <option value="2">Afspraak</option>
+                        <option value="3">Andere</option>
+                    </select>
+                </p>
+            </div>
+            <div class="form-sections">
+                <p>Uw bericht</p>
+                <textarea class="bericht" name="bericht" id="bericht" required=""
+                          v-model="bericht.text"></textarea>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success" @@click="handleSubmit">Verstuur bericht</button>
+                <button type="reset" class="btn btn-danger">Reset</button>
+            </div>
+        </form>
+    </div>
+    <div style="width: 100%" id="maps"><iframe width="40%" height="250" src="https://maps.google.com/maps?width=100%&height=400&hl=nl&q=Pieter%20Deswartelaan%2031%2C%20bus%200302+(Kapsalon%20X)&ie=UTF8&t=&z=14&iwloc=B&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"><a href="https://www.mapsdirections.info/nl/maak-een-google-map/">Maak een Google Map</a> van <a href="https://www.mapsdirections.info/nl/">Nederland Kaart</a></iframe></div><br />
+</div>
 @section scripts{
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
     <script>

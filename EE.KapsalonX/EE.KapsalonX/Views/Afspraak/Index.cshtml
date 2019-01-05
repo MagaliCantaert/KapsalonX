@@ -6,211 +6,212 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h2>Afspraak maken bij KapsalonX</h2>
 <div class="container">
-    <div asp-validation-summary="ModelOnly"></div>
-    <form asp-controller="Afspraak" asp-action="Index" method="post" class="form-horizontal">
-        <input asp-for="Stap" hidden />
-        @switch (Model.Stap)
-        {
-            case 1:
-                <h2>Stap @Model.Stap van 5</h2>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="0"
-                         aria-valuemin="0" aria-valuemax="100" style="width:0%">
+    <h2>Afspraak maken bij KapsalonX</h2>
+    <div class="container">
+        <div asp-validation-summary="ModelOnly"></div>
+        <form asp-controller="Afspraak" asp-action="Index" method="post" class="form-horizontal">
+            <input asp-for="Stap" hidden />
+            @switch (Model.Stap)
+            {
+                case 1:
+                    <h2>Stap @Model.Stap van 5</h2>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="0"
+                             aria-valuemin="0" aria-valuemax="100" style="width:0%">
+                        </div>
                     </div>
-                </div>
-                <hr />
-                <h3>Ik wens een behandeling voor... </h3>
-                <div class="row">
-                    <div class="col-sm-4 text-center">
-                        <img src="~/images/women-hair.jpg" width="200" height="200" /><br />
-                        <input asp-for="Geslacht" type="submit" name="Geslacht" id="GeslachtDames" value="Dames" class="btn btn-default" />
-                    </div>
-                    <div class="col-sm-4 text-center">
-                        <img src="~/images/men-hair.jpg" width="200" height="200" /><br />
-                        <input asp-for="Geslacht" type="submit" name="Geslacht" id="GeslachtHeren" value="Heren" class="btn btn-default" />
-                    </div>
-                    <div class="col-sm-4 text-center">
-                        <img src="~/images/kids-hair.jpg" width="200" height="200" /><br />
-                        <input asp-for="Geslacht" type="submit" name="Geslacht" id="GeslachtKinderen" value="Kinderen" class="btn btn-default" />
-                    </div>
-                </div>
-                break;
-            case 2:
-                <h2>Stap @Model.Stap van 5</h2>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="25"
-                         aria-valuemin="0" aria-valuemax="100" style="width:25%">
-                    </div>
-                </div>
-                <hr />
-                <h3>Ik wens de volgende behandeling... </h3>
-                <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
-                if (Model.Geslacht == "Dames")
-                {
+                    <hr />
+                    <h3>Ik wens een behandeling voor... </h3>
                     <div class="row">
-                        @foreach (var item in Model.BehandelingenDames)
-                        {
-                            <div class="col-sm-4 text-center">
-                                <img src="~/images/@item.FotoPad" width="200" height="200" /><br />
-                                <input asp-for="Behandeling" type="submit" name="Behandeling" id="BehandelingDames" value="@item.Behandeling" class="btn btn-default" />
-                            </div>
-                        }
+                        <div class="col-sm-4 text-center">
+                            <img src="~/images/women-hair.jpg" width="200" height="200" /><br />
+                            <input asp-for="Geslacht" type="submit" name="Geslacht" id="GeslachtDames" value="Dames" class="btn btn-default" />
+                        </div>
+                        <div class="col-sm-4 text-center">
+                            <img src="~/images/men-hair.jpg" width="200" height="200" /><br />
+                            <input asp-for="Geslacht" type="submit" name="Geslacht" id="GeslachtHeren" value="Heren" class="btn btn-default" />
+                        </div>
+                        <div class="col-sm-4 text-center">
+                            <img src="~/images/kids-hair.jpg" width="200" height="200" /><br />
+                            <input asp-for="Geslacht" type="submit" name="Geslacht" id="GeslachtKinderen" value="Kinderen" class="btn btn-default" />
+                        </div>
                     </div>
-                }
-                else if (Model.Geslacht == "Heren")
-                {
+                    break;
+                case 2:
+                    <h2>Stap @Model.Stap van 5</h2>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="25"
+                             aria-valuemin="0" aria-valuemax="100" style="width:25%">
+                        </div>
+                    </div>
+                    <hr />
+                    <h3>Ik wens de volgende behandeling... </h3>
+                    <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
+                    if (Model.Geslacht == "Dames")
+                    {
+                        <div class="row">
+                            @foreach (var item in Model.BehandelingenDames)
+                            {
+                                <div class="col-sm-4 text-center">
+                                    <img src="~/images/@item.FotoPad" width="200" height="200" /><br />
+                                    <input asp-for="Behandeling" type="submit" name="Behandeling" id="BehandelingDames" value="@item.Behandeling" class="btn btn-default" />
+                                </div>
+                            }
+                        </div>
+                    }
+                    else if (Model.Geslacht == "Heren")
+                    {
+                        <div class="row">
+                            @foreach (var item in Model.BehandelingenHeren)
+                            {
+                                <div class="col-sm-4 text-center">
+                                    <img src="~/images/@item.FotoPad" width="200" height="200" /><br />
+                                    <input asp-for="Behandeling" type="submit" name="Behandeling" id="BehandelingHeren" value="@item.Behandeling" class="btn btn-default" />
+                                </div>
+                            }
+                        </div>
+                    }
+                    else if (Model.Geslacht == "Kinderen")
+                    {
+                        <div class="row">
+                            @foreach (var item in Model.BehandelingenKinderen)
+                            {
+                                <div class="col-sm-4 text-center">
+                                    <img src="~/images/@item.FotoPad" width="200" height="200" /><br />
+                                    <input asp-for="Behandeling" type="submit" name="Behandeling" id="BehandelingKinderen" value="@item.Behandeling" class="btn btn-default" />
+                                </div>
+                            }
+                        </div>
+                    }
+                    break;
+                case 3:
+                    <h2>Stap @Model.Stap van 5</h2>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="50"
+                             aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                        </div>
+                    </div>
+                    <hr />
+                    <h3>Kies gewenste datum en tijdstip </h3>
+                    <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
+                    <input asp-for="Behandeling" value="@Model.Behandeling" hidden />
+
                     <div class="row">
-                        @foreach (var item in Model.BehandelingenHeren)
-                        {
-                            <div class="col-sm-4 text-center">
-                                <img src="~/images/@item.FotoPad" width="200" height="200" /><br />
-                                <input asp-for="Behandeling" type="submit" name="Behandeling" id="BehandelingHeren" value="@item.Behandeling" class="btn btn-default" />
-                            </div>
-                        }
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <label asp-for="Date"></label>
+                            <ejs-datepicker id="datepicker" name="Date" ejs-for="Date" format="d/M/yyyy" value="@ViewBag.valueDate" min="@ViewBag.minDate"
+                                            max="@ViewBag.maxDate" placeholder="Geef een datum in" strictMode="true" firstDayOfWeek="1"
+                                            renderDayCell="disableDate"></ejs-datepicker>
+                        </div>
                     </div>
-                }
-                else if (Model.Geslacht == "Kinderen")
-                {
+                    <br />
                     <div class="row">
-                        @foreach (var item in Model.BehandelingenKinderen)
-                        {
-                            <div class="col-sm-4 text-center">
-                                <img src="~/images/@item.FotoPad" width="200" height="200" /><br />
-                                <input asp-for="Behandeling" type="submit" name="Behandeling" id="BehandelingKinderen" value="@item.Behandeling" class="btn btn-default" />
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            <label asp-for="Time"></label>
+                            <ejs-timepicker id="timepicker" name="Time" ejs-for="Time" format="HH:mm" step="30" value="@ViewBag.valueTime"
+                                            min="@ViewBag.minTime" max="@ViewBag.maxTime" strictMode="true"></ejs-timepicker>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-12 text-center text-danger">@ViewBag.Error</div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-default text-center" id="btnNext">Volgende &raquo;</button>
                             </div>
-                        }
+                        </div>
                     </div>
-                }
-                break;
-            case 3:
-                <h2>Stap @Model.Stap van 5</h2>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="50"
-                         aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                    break;
+                case 4:
+                    <h2>Stap @Model.Stap van 5</h2>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" aria-valuenow="75"
+                             aria-valuemin="0" aria-valuemax="100" style="width:75%">
+                        </div>
                     </div>
-                </div>
-                <hr />
-                <h3>Kies gewenste datum en tijdstip </h3>
-                <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
-                <input asp-for="Behandeling" value="@Model.Behandeling" hidden />
+                    <hr />
+                    <h3>Vul onderstaande gegevens in </h3>
+                    <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
+                    <input asp-for="Behandeling" value="@Model.Behandeling" hidden />
+                    <input asp-for="Datum" value="@Model.Datum" hidden />
+                    <input asp-for="Tijdstip" value="@Model.Tijdstip" hidden />
 
-                <div class="row">
-                    <div class="col-sm-4"></div>
-                    <div class="col-sm-4">
-                        <label asp-for="Date"></label>
-                        <ejs-datepicker id="datepicker" name="Date" ejs-for="Date" format="d/M/yyyy" value="@ViewBag.valueDate" min="@ViewBag.minDate"
-                                        max="@ViewBag.maxDate" placeholder="Geef een datum in" strictMode="true" firstDayOfWeek="1"
-                                        renderDayCell="disableDate"></ejs-datepicker>
-                    </div>
-                </div>
-                <br />
-                <div class="row">
-                    <div class="col-sm-4"></div>
-                    <div class="col-sm-4">
-                        <label asp-for="Time"></label>
-                        <ejs-timepicker id="timepicker" name="Time" ejs-for="Time" format="HH:mm" step="30" value="@ViewBag.valueTime" 
-                        min="@ViewBag.minTime" max="@ViewBag.maxTime" strictMode="true"></ejs-timepicker>
-                    </div>
-
-                </div>
-                <div class="col-sm-12 text-center text-danger">@ViewBag.Error</div>
-                
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-default text-center" id="btnNext">Volgende &raquo;</button>
+                    <div class="form-group">
+                        <label asp-for="Voornaam" class="col-md-4 control-label">Voornaam</label>
+                        <div class="col-md-5">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </span>
+                                <input asp-for="Voornaam" class="form-control" type="text" />
+                                <span asp-validation-for="Voornaam" class="text-danger"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                break;
-            case 4:
-                <h2>Stap @Model.Stap van 5</h2>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow="75"
-                         aria-valuemin="0" aria-valuemax="100" style="width:75%">
-                    </div>
-                </div>
-                <hr />
-                <h3>Vul onderstaande gegevens in </h3>
-                <input asp-for="Geslacht" value="@Model.Geslacht" hidden />
-                <input asp-for="Behandeling" value="@Model.Behandeling" hidden />
-                <input asp-for="Datum" value="@Model.Datum" hidden />
-                <input asp-for="Tijdstip" value="@Model.Tijdstip" hidden />
-
-                <div class="form-group">
-                    <label asp-for="Voornaam" class="col-md-4 control-label">Voornaam</label>
-                    <div class="col-md-5">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="glyphicon glyphicon-user"></i>
-                            </span>
-                            <input asp-for="Voornaam" class="form-control" type="text" />
-                            <span asp-validation-for="Voornaam" class="text-danger"></span>
+                    <div class="form-group">
+                        <label asp-for="Achternaam" class="col-md-4 control-label">Achternaam</label>
+                        <div class="col-md-5">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </span>
+                                <input asp-for="Achternaam" class="form-control" />
+                                <span asp-validation-for="Achternaam" class="text-danger"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Achternaam" class="col-md-4 control-label">Achternaam</label>
-                    <div class="col-md-5">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="glyphicon glyphicon-user"></i>
-                            </span>
-                            <input asp-for="Achternaam" class="form-control" />
-                            <span asp-validation-for="Achternaam" class="text-danger"></span>
+                    <div class="form-group">
+                        <label asp-for="Emailadres" class="col-md-4 control-label">E-mailadres</label>
+                        <div class="col-md-5">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-envelope"></i>
+                                </span>
+                                <input asp-for="Emailadres" class="form-control" />
+                                <span asp-validation-for="Emailadres" class="text-danger"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Emailadres" class="col-md-4 control-label">E-mailadres</label>
-                    <div class="col-md-5">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="glyphicon glyphicon-envelope"></i>
-                            </span>
-                            <input asp-for="Emailadres" class="form-control" />
-                            <span asp-validation-for="Emailadres" class="text-danger"></span>
+                    <div class="form-group">
+                        <label asp-for="Telefoonnummer" class="col-md-4 control-label">Telefoonnummer</label>
+                        <div class="col-md-5">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-earphone"></i>
+                                </span>
+                                <input asp-for="Telefoonnummer" class="form-control" />
+                                <span asp-validation-for="Telefoonnummer" class="text-danger"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Telefoonnummer" class="col-md-4 control-label">Telefoonnummer</label>
-                    <div class="col-md-5">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="glyphicon glyphicon-earphone"></i>
-                            </span>
-                            <input asp-for="Telefoonnummer" class="form-control" />
-                            <span asp-validation-for="Telefoonnummer" class="text-danger"></span>
+                    <div class="form-group">
+                        <label asp-for="Opmerkingen" class="col-md-4 control-label">Opmerkingen</label>
+                        <div class="col-md-5">
+                            <div class=" input-group">
+                                <span class="input-group-addon">
+                                    <i class="glyphicon glyphicon-pencil"></i>
+                                </span>
+                                <textarea asp-for="Opmerkingen" class="form-control" placeholder="Heeft u speciale opmerkingen?"></textarea>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Opmerkingen" class="col-md-4 control-label">Opmerkingen</label>
-                    <div class="col-md-5">
-                        <div class=" input-group">
-                            <span class="input-group-addon">
-                                <i class="glyphicon glyphicon-pencil"></i>
-                            </span>
-                            <textarea asp-for="Opmerkingen" class="form-control" placeholder="Heeft u speciale opmerkingen?"></textarea>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-default text-center" id="btnNext">Volgende &raquo;</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-default text-center" id="btnNext">Volgende &raquo;</button>
-                        </div>
-                    </div>
-                </div>
-                break;
-            default:
-                break;
-        }
-    </form>
+                    break;
+                default:
+                    break;
+            }
+        </form>
+    </div>
 </div>
 
 
