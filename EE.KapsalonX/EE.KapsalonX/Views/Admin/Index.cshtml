@@ -6,8 +6,12 @@
 
 <h2>Dashboard</h2>
 <hr />
-<input type="button" class="btn btn-outline-dark" onclick="location.href='@Url.Action("Kalender", "Admin")'" value="Toon kalender">
-<input type="button" class="btn btn-outline-dark" onclick="location.href='@Url.Action("Create", "Admin")'" value="Maak nieuwe afspraak">
+<div class="col-md-2">
+    <input type="button" class="btn btn-outline-dark" onclick="location.href='@Url.Action("Kalender", "Admin")'" value="Toon kalender">
+</div>
+<div class="col-md-2">
+    <input type="button" class="btn btn-outline-dark" onclick="location.href='@Url.Action("Index", "Afspraak")'" value="Maak nieuwe afspraak">
+</div>
 <br />
 <hr />
 <br />
@@ -68,6 +72,34 @@
         }
     </tbody>
 </table>
+
+<br />
+<h2>Account</h2>
+<hr />
+
+@* METEEN DOORSTUREN NAAR HOMEPAGINA? DIT IN FORM: *@
+@*asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })"*@
+<div class="row">
+    <div class="button-container">
+        <div class="col-md-2">
+            <form asp-area="Identity" asp-page="/Account/Logout" method="post" id="logoutForm">
+                <input type="submit" class="btn btn-outline-dark" value="Afmelden">
+            </form>
+        </div>
+        <div class="col-md-2">
+            <form asp-area="Identity" asp-page="/Account/Manage/ChangePassword" method="post" id="changepasswordForm">
+                <input type="submit" class="btn btn-outline-dark" value="Wachtwoord wijzigen">
+            </form>
+        </div>
+
+    </div>
+    @*<form asp-area="Identity" asp-page="/Account/Manage/Index" method="post" id="accountSettings">
+            <input type="submit" class="btn btn-outline-dark" value="Settings">
+        </form>*@
+
+</div>
+
+
 
 
 

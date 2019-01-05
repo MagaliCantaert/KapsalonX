@@ -22,6 +22,34 @@ namespace EE.KapsalonX.Web.Controllers
             _context = context;
         }
 
+        #region Opvullen van behandelinglijst
+        List<BehandelingVm> BehandelingenDames = new List<BehandelingVm>
+        {
+            new BehandelingVm { Behandeling = "KORT HAAR - Knippen", Tijdsduur = new TimeSpan(00,30,00), FotoPad = "kort-haar.jpg"},
+            new BehandelingVm { Behandeling = "KORT HAAR - Kleuren", Tijdsduur = new TimeSpan(00,45,00), FotoPad = "kort-haar.jpg"},
+            new BehandelingVm { Behandeling = "KORT HAAR - Brushing", Tijdsduur = new TimeSpan(00,30,00), FotoPad = "kort-haar.jpg"},
+            new BehandelingVm { Behandeling = "KORT HAAR - Knippen + kleuren", Tijdsduur = new TimeSpan(01,15,00), FotoPad = "kort-haar.jpg"},
+            new BehandelingVm { Behandeling = "KORT HAAR - Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(01,45,00), FotoPad = "kort-haar.jpg"},
+
+            new BehandelingVm { Behandeling = "LANG HAAR - Knippen", Tijdsduur = new TimeSpan(00,40,00), FotoPad = "women-hair.jpg"},
+            new BehandelingVm { Behandeling = "LANG HAAR - Kleuren", Tijdsduur = new TimeSpan(01,00,00), FotoPad = "women-hair.jpg"},
+            new BehandelingVm { Behandeling = "LANG HAAR - Brushing", Tijdsduur = new TimeSpan(00,40,00), FotoPad = "women-hair.jpg"},
+            new BehandelingVm { Behandeling = "LANG HAAR - Knippen + kleuren", Tijdsduur = new TimeSpan(01,40,00), FotoPad = "women-hair.jpg"},
+            new BehandelingVm { Behandeling = "LANG HAAR - Knippen + kleuren + brushing", Tijdsduur = new TimeSpan(02,20,00), FotoPad = "women-hair.jpg"}
+        };
+        List<BehandelingVm> BehandelingenHeren = new List<BehandelingVm>
+        {
+            new BehandelingVm { Behandeling = "Snit", Tijdsduur = new TimeSpan(00,30,00), FotoPad = "heren-knippen.jpg" },
+            new BehandelingVm { Behandeling = "Tondeuse", Tijdsduur = new TimeSpan(00,30,00), FotoPad = "mannen-tondeuse.jpg" },
+            new BehandelingVm { Behandeling = "Knippen + kleuren", Tijdsduur = new TimeSpan(01,00,00), FotoPad = "mannen-knipkleur.jpg"}
+        };
+        List<BehandelingVm> BehandelingenKinderen = new List<BehandelingVm>
+        {
+            new BehandelingVm { Behandeling = "Snit meisjes", Tijdsduur = new TimeSpan(00,30,00), FotoPad = "meisjes-snit.jpg" },
+            new BehandelingVm { Behandeling = "Snit jongens", Tijdsduur = new TimeSpan(00,30,00), FotoPad = "kids-hair.jpg" }
+        };
+        #endregion
+
         // GET: Admin
         public async Task<IActionResult> Index()
         {
@@ -35,7 +63,7 @@ namespace EE.KapsalonX.Web.Controllers
         }
 
         public async Task<IActionResult> Kalender()
-        {
+        {     
             var viewModel = new AdminIndexVm
             {
                 Klanten = await _context.Klanten.ToListAsync(),
@@ -52,7 +80,7 @@ namespace EE.KapsalonX.Web.Controllers
             {
                 Klanten = _context.Klanten.ToList(),
                 Behandenlingen = _context.Behandelingen.ToList(),
-                Afspraken = _context.Afspraken.Include(a => a.KlantGegevens).ToList()
+                Afspraken = _context.Afspraken.Include(a => a.KlantGegevens).ToList()            
             };
 
             List<Event> afspraakData = new List<Event>();
@@ -157,7 +185,9 @@ namespace EE.KapsalonX.Web.Controllers
                 Id = afspraak.AfspraakId,
                 Klant = afspraak.KlantGegevens,
                 Behandeling = afspraak.BehandelingGegevens,
+                Date = Convert.ToDateTime(afspraak.Datum),
                 Datum = afspraak.Datum,
+                Time = Convert.ToDateTime(afspraak.Datum),
                 Tijdstip = afspraak.Tijdstip,
                 Opmerkingen = afspraak.Opmerking
             };
