@@ -125,7 +125,7 @@ namespace EE.KapsalonX
             // REDIRECT ROUTE VAN ADMIN:
             app.Use(async (context, next) => {
                 var request = context.Request;
-                if (request.Path == "/Albertooo")
+                if (request.Path == "/Wiezoektdievindt")
                 {
                     context.Response.Redirect("/Identity/Account/Login");
                 }
