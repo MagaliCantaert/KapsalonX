@@ -4,6 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
+
 <h2>Dashboard</h2>
 <hr />
 <div class="col-md-2">
@@ -15,7 +16,7 @@
 <br />
 <hr />
 <br />
-<h4>Overzicht huidige afspraken</h4>
+<h4>Overzicht huidige afspraken:  <span class="badge bg-primary"> @Model.Afspraken.Count()</span></h4>    
 <table class="table">
     <thead>
         <tr>
@@ -74,7 +75,7 @@
 </table>
 
 <br />
-<h2>Account</h2>
+<h2>Profiel</h2>
 <hr />
 
 @* METEEN DOORSTUREN NAAR HOMEPAGINA? DIT IN FORM: *@
