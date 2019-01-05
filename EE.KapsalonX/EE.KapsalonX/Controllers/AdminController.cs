@@ -88,6 +88,7 @@ namespace EE.KapsalonX.Web.Controllers
             foreach (var item in viewModel.Afspraken)
             {         
                 var End = TimeSpan.Parse(item.BehandelingGegevens.Duur);
+
                 afspraakData.Add(new Event
                 {
                     Id = item.AfspraakId,
@@ -149,7 +150,7 @@ namespace EE.KapsalonX.Web.Controllers
                 {
                     AfspraakId = Guid.NewGuid(),
                     KlantGegevens = createVm.Klant,
-                    BehandelingGegevens = createVm.Behandeling,
+                    BehandelingGegevens = createVm.Behandeling,     
                     Datum = createVm.Datum,
                     Tijdstip = createVm.Tijdstip,
                     Opmerking = createVm.Opmerkingen
@@ -180,6 +181,34 @@ namespace EE.KapsalonX.Web.Controllers
                 return NotFound();
             }
 
+            var nieuweBehandeling = new Behandeling();
+            nieuweBehandeling.Geslacht = afspraak.BehandelingGegevens.Geslacht;
+            nieuweBehandeling.GekozenBehandeling = afspraak.BehandelingGegevens.GekozenBehandeling;
+            var StartDateTime = Convert.ToDateTime(afspraak.Datum + " " + afspraak.Tijdstip);
+            DateTime EndDateTime;
+
+            if (nieuweBehandeling.Geslacht == "Dames")
+            {
+                EndDateTime = StartDateTime.Add(BehandelingenDames.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                TimeSpan Duur = EndDateTime - StartDateTime;
+                nieuweBehandeling.DuurTijd = Duur;
+                nieuweBehandeling.Duur = Duur.ToString();
+            }
+            else if (nieuweBehandeling.Geslacht == "Heren")
+            {
+                EndDateTime = StartDateTime.Add(BehandelingenHeren.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                TimeSpan Duur = EndDateTime - StartDateTime;
+                nieuweBehandeling.DuurTijd = Duur;
+                nieuweBehandeling.Duur = Duur.ToString();
+            }
+            else if (nieuweBehandeling.Geslacht == "Kinderen")
+            {
+                EndDateTime = StartDateTime.Add(BehandelingenKinderen.Single(b => b.Behandeling == nieuweBehandeling.GekozenBehandeling).Tijdsduur);
+                TimeSpan Duur = EndDateTime - StartDateTime;
+                nieuweBehandeling.DuurTijd = Duur;
+                nieuweBehandeling.Duur = Duur.ToString();
+            }
+
             var viewModel = new AdminEditVm
             {
                 Id = afspraak.AfspraakId,
@@ -189,8 +218,10 @@ namespace EE.KapsalonX.Web.Controllers
                 Datum = afspraak.Datum,
                 Time = Convert.ToDateTime(afspraak.Datum),
                 Tijdstip = afspraak.Tijdstip,
-                Opmerkingen = afspraak.Opmerking
+                Opmerkingen = afspraak.Opmerking,              
             };
+            viewModel.Behandeling.Duur = nieuweBehandeling.Duur;
+            viewModel.Tijdsduur = nieuweBehandeling.Duur;
             return View(viewModel);
         }
 
@@ -208,20 +239,15 @@ namespace EE.KapsalonX.Web.Controllers
             {
                 try
                 {
-
                     Klant updateKlant = new Klant
                     {
-                        KlantId = editVm.Id,
+                        KlantId = editVm.Klant.KlantId,
                         Achternaam = editVm.Klant.Achternaam,
                         Voornaam = editVm.Klant.Voornaam,
                         Emailadres = editVm.Klant.Emailadres,
                         Telefoonnummer = editVm.Klant.Telefoonnummer,
                         Afspraken = editVm.Klant.Afspraken,
                     };
-
-                    //_context.Update(updateKlant);
-                    _context.Entry(updateKlant).State = EntityState.Modified;
-
                     Afspraak updateAfspraak = new Afspraak
                     {
                         AfspraakId = editVm.Id,
@@ -230,10 +256,42 @@ namespace EE.KapsalonX.Web.Controllers
                         KlantGegevensId = editVm.Klant.KlantId,
                         Datum = editVm.Datum,
                         Tijdstip = editVm.Tijdstip,
-                        Opmerking = editVm.Opmerkingen
+                        Opmerking = editVm.Opmerkingen,
                     };
-                    //_context.Update(updateAfspraak);
-                    _context.Entry(updateAfspraak).State = EntityState.Modified;
+                    Behandeling updateBehandeling  = new Behandeling();
+                    updateBehandeling.Geslacht = editVm.Behandeling.Geslacht;
+                    updateBehandeling.GekozenBehandeling = editVm.Behandeling.GekozenBehandeling;
+                    var StartDateTime = Convert.ToDateTime(editVm.Datum + " " + editVm.Tijdstip);
+                    DateTime EndDateTime;
+
+                    if (updateBehandeling.Geslacht == "Dames")
+                    {
+                        EndDateTime = StartDateTime.Add(BehandelingenDames.Single(b => b.Behandeling == updateBehandeling.GekozenBehandeling).Tijdsduur);
+                        TimeSpan Duur = EndDateTime - StartDateTime;
+                        updateBehandeling.DuurTijd = Duur;
+                        updateBehandeling.Duur = Duur.ToString();
+                    }
+                    else if (updateBehandeling.Geslacht == "Heren")
+                    {
+                        EndDateTime = StartDateTime.Add(BehandelingenHeren.Single(b => b.Behandeling == updateBehandeling.GekozenBehandeling).Tijdsduur);
+                        TimeSpan Duur = EndDateTime - StartDateTime;
+                        updateBehandeling.DuurTijd = Duur;
+                        updateBehandeling.Duur = Duur.ToString();
+                    }
+                    else if (updateBehandeling.Geslacht == "Kinderen")
+                    {
+                        EndDateTime = StartDateTime.Add(BehandelingenKinderen.Single(b => b.Behandeling == updateBehandeling.GekozenBehandeling).Tijdsduur);
+                        TimeSpan Duur = EndDateTime - StartDateTime;
+                        updateBehandeling.DuurTijd = Duur;
+                        updateBehandeling.Duur = Duur.ToString();
+                    }
+
+                    editVm.Tijdsduur = updateAfspraak.BehandelingGegevens.Duur;
+                    editVm.Behandeling.Duur = updateBehandeling.Duur;
+                    editVm.Tijdsduur = updateBehandeling.Duur;
+
+                    _context.Update(updateAfspraak);
+                    _context.Update(updateKlant);
 
                     TempData[Constants.SuccessMessage] = $"De afspraak voor {updateKlant.Achternaam} {updateKlant.Voornaam} werd succesvol gewijzigd.";
                     await _context.SaveChangesAsync();
