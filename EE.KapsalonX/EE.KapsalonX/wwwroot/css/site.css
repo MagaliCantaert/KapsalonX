@@ -59,32 +59,6 @@ h3{
     line-height: 1.4;
 }
 
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
-}
-
-/* QR code generator */
-#qrCode {
-    margin: 15px;
-}
-
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
-}
-
-.fade-enter-active, .fade-leave-active {
-    transition: opacity .5s;
-}
-
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 0;
-}
-
 #date_label {
     display: block;
     width: 248px;
@@ -133,106 +107,9 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-.contact-form {
-    font-family: 16px;
-    margin: 0 auto;
-    max-width: 600px;
-    width: 100%;
-}
-
-    .contact-form .separator {
-        border-bottom: solid 1px #ccc;
-        margin-bottom: 15px;
-    }
-
-    .contact-form .form {
-        display: flex;
-        flex-direction: column;
-        font-size: 16px;
-    }
-
-.contact-form_title {
-    color: #333;
-    text-align: left;
-    font-size: 28px;
-}
-
-.contact-form input[type="email"],
-.contact-form input[type="text"],
-.contact-form textarea {
-    border: solid 1px #e8e8e8;
-    font-family: 'Roboto', sans-serif;
-    padding: 10px 7px;
-    margin-bottom: 15px;
-    outline: none;
-}
-
-.contact-form textarea {
-    resize: none;
-}
-
-.contact-form .button {
-    background: #da552f;
-    border: solid 1px #da552f;
-    color: white;
-    cursor: pointer;
-    padding: 10px 50px;
-    text-align: center;
-    text-transform: uppercase;
-}
-
-    .contact-form .button:hover {
-        background: #ea532a;
-        border: solid 1px #ea532a;
-    }
-
-.contact-form input[type="email"],
-.contact-form input[type="text"],
-.contact-form textarea,
-.contact-form .button {
-    font-size: 15px;
-    border-radius: 3px
-}
-
-*,
-*::before,
-*::after {
-    box-sizing: border-box
-}
 
 body {
     margin: 0
-}
-
-.carousel {
-    background-color: #ddd;
-    position: relative;
-}
-
-& > div {
-    background-color: #000;
-    color: #fff;
-    width: 10vw;
-    /*height: 10vw;*/
-    position: absolute;
-    /*top: 50%;*/
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    line-height: 10vw;
-    font-family: sans-serif;
-    font-size: 6vw;
-}
-
-.dots {
-    position: absolute;
-    bottom: 0;
-    padding: 5%;
-    width: 100%
-}
-
-.dot {
-    background-color: #000;
 }
 
 .image {
@@ -278,4 +155,18 @@ body {
     vertical-align: middle;
     line-height: 75px;
     margin-top: 130px;
+}
+
+.form-sections{
+    margin-bottom: 20px;
+}
+
+textarea{
+    width: 330px;
+}
+
+#maps{
+    vertical-align: middle;
+    margin-top: 100px;
+    text-align:center;
 }
