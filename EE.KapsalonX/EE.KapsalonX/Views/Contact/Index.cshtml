@@ -9,7 +9,7 @@
 </div>
 @ViewBag.SuccessMessage
 <div id="app" class="container col-md-6">
-    <form class="vue-form" @submit.prevent="submit">
+    <form class="vue-form" v-on:submit.prevent="submit" action="/contact">
         <div class="form-sections">
             <p>Voornaam</p>
             <input type="text" name="voornaam" id="voornaam" required="" v-model="voornaam" size="40">
@@ -42,12 +42,10 @@
         <div class="form-sections">
             <p>Uw bericht</p>
             <textarea class="bericht" name="bericht" id="bericht" required=""
-                      v-model="bericht.text"
-                      ::maxlength="bericht.maxlength"></textarea>
-            <span class="counter">{{ bericht.text.length }} / {{ bericht.maxlength }}</span>
+                      v-model="bericht.text"></textarea>
         </div>
         <div>
-            <button type="submit" class="btn btn-success">Verstuur bericht</button>
+            <button type="submit" class="btn btn-success" @@click="handleSubmit">Verstuur bericht</button>
             <button type="reset" class="btn btn-danger">Reset</button>
         </div>
     </form>
@@ -71,10 +69,8 @@
                         keuze: "0"
                     },
                     bericht: {
-                        text: "",
-                        maxlength: 500
-                    },
-                    submitted: false
+                        text: ""
+                    }
                 };
             },
             methods: {
@@ -86,6 +82,10 @@
                 isEmail: function (value) {
                     return emailRegExp.test(value);
                 },
+                submit() {
+                    alert("Bedankt voor uw bericht. We trachten u zo snel mogelijk een antwoord terug te sturen. Het KapsalonX-team");
+                    location.reload();
+                }
             }
         });
     </script>
