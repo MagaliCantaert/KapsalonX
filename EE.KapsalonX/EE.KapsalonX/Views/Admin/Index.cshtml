@@ -7,10 +7,10 @@
 <h2>Dashboard</h2>
 <hr />
 <div class="col-md-2">
-    <input type="button" class="btn btn-outline-dark" onclick="location.href='@Url.Action("Kalender", "Admin")'" value="Toon kalender">
+    <input type="button" class="btn btn-default" onclick="location.href='@Url.Action("Kalender", "Admin")'" value="Toon kalender">
 </div>
 <div class="col-md-2">
-    <input type="button" class="btn btn-outline-dark" onclick="location.href='@Url.Action("Index", "Afspraak")'" value="Maak nieuwe afspraak">
+    <input type="button" class="btn btn-default" onclick="location.href='@Url.Action("Index", "Afspraak")'" value="Maak nieuwe afspraak">
 </div>
 <br />
 <hr />
@@ -83,12 +83,12 @@
     <div class="button-container">
         <div class="col-md-2">
             <form asp-area="Identity" asp-page="/Account/Logout" method="post" id="logoutForm">
-                <input type="submit" class="btn btn-outline-dark" value="Afmelden">
+                <input type="submit" class="btn btn-default" value="Afmelden">
             </form>
         </div>
         <div class="col-md-2">
             <form asp-area="Identity" asp-page="/Account/Manage/ChangePassword" method="post" id="changepasswordForm">
-                <input type="submit" class="btn btn-outline-dark" value="Wachtwoord wijzigen">
+                <input type="submit" class="btn btn-default" value="Wachtwoord wijzigen">
             </form>
         </div>
 
