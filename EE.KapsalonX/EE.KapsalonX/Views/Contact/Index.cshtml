@@ -1,98 +1,57 @@
-﻿@model EE.KapsalonX.Web.ViewModels.ContactIndexVm
-@{
+﻿@{
     ViewData["Title"] = "Contact";
 }
-
-@*<div class="container">
-        <header>
-            <h2>Contacteer ons</h2>
-        </header>
-    </div>
-    <div class="container">
-        <div class="col-md-6">
-            <div asp-validation-summary="ModelOnly"></div>
-            <form method="post">
-                <div class="form-group">
-                    <label asp-for="Voornaam"></label>
-                    <input asp-for="Voornaam" class="form-control" placeholder="Geef uw voornaam in" />
-                    <span asp-validation-for="Voornaam" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Achternaam"></label>
-                    <input asp-for="Achternaam" class="form-control" placeholder="Geef uw achternaam in" />
-                    <span asp-validation-for="Achternaam" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Emailadres">E-mailadres</label>
-                    <input asp-for="Emailadres" class="form-control" placeholder="Geef uw e-mailadres in" />
-                    <span asp-validation-for="Emailadres" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Telefoonnummer"></label>
-                    <input asp-for="Telefoonnummer" class="form-control" placeholder="Geef uw telefoonnummer in" />
-                    <span asp-validation-for="Telefoonnummer" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Bericht"></label>
-                    <textarea asp-for="Bericht" class="form-control" placeholder="Geef uw bericht in"></textarea>
-                    <span asp-validation-for="Bericht" class="text-danger"></span>
-                </div>
-                <button type="submit" class="btn btn-success">Verstuur bericht</button>
-                <button type="reset" class="btn btn-danger">Reset</button>
-            </form>
-        </div>
-    </div>*@
+@ViewBag.test
 <div class="container">
     <header>
-        <h2>Contacteer ons</h2>
+        <h2>Contacteer ons</h2><br />
     </header>
 </div>
-<div id="app" class="container">
-    <form class="vue-form" @submit.prevent="submit">
-            <div>
-                <p>Voornaam</p>
-                <input type="text" name="voornaam" id="voornaam" required="" v-model="voornaam">
-            </div>
-            <div>
-                <p>Achternaam</p>
-                <input type="text" name="achternaam" id="achternaam" required="" v-model="achternaam">
-            </div>
-            <div>
-                <p>E-mailadres</p>
-                <input type="email" name="email" id="email" required=""
-                       :class="{ email , error: !email.valid }"
-                       v-model="email.value">
-            </div>
-            <div>
-                <p>Telefoonnummer</p>
-                <input type="tel" name="telefoon" id="telefoon" required="" v-model="telefoon">
-            </div>
-            <div>
-                <p>Kies onderwerp</p>
-                <p class="select">
-                    <select class="budget" v-model="onderwerp.member" required="">
-                        <option value="0">Algemene vraag</option>
-                        <option value="1">Specifieke behandeling</option>
-                        <option value="2">Afspraak</option>
-                        <option value="3">Andere</option>
-                    </select>
-                </p>
-            </div>
-            <div>
-                <p>Uw bericht</p>
-                <textarea class="bericht" name="bericht" id="bericht" required=""
-                          v-model="bericht.text"
-                          ::maxlength="bericht.maxlength"></textarea>
-                <span class="counter">{{ bericht.text.length }} / {{ bericht.maxlength }}</span>
-            </div>
-            <div>
-                <button type="submit" class="btn btn-success">Verstuur bericht</button>
-                <button type="reset" class="btn btn-danger">Reset</button>
-            </div>
+@ViewBag.SuccessMessage
+<div id="app" class="container col-md-6">
+    <form class="vue-form" v-on:submit.prevent="submit" action="/contact">
+        <div class="form-sections">
+            <p>Voornaam</p>
+            <input type="text" name="voornaam" id="voornaam" required="" v-model="voornaam" size="40">
+        </div>
+        <div class="form-sections">
+            <p>Achternaam</p>
+            <input type="text" name="achternaam" id="achternaam" required="" v-model="achternaam" size="40">
+        </div>
+        <div class="form-sections">
+            <p>E-mailadres</p>
+            <input type="email" name="email" id="email" required=""
+                   :class="{ email , error: !email.valid }"
+                   v-model="email.value" size="40">
+        </div>
+        <div class="form-sections">
+            <p>Telefoonnummer</p>
+            <input type="tel" name="telefoon" id="telefoon" required="" v-model="telefoon" size="40">
+        </div>
+        <div class="form-sections">
+            <p>Kies onderwerp</p>
+            <p class="select">
+                <select class="budget" v-model="onderwerp.member" required="">
+                    <option value="0">Algemene vraag</option>
+                    <option value="1">Specifieke behandeling</option>
+                    <option value="2">Afspraak</option>
+                    <option value="3">Andere</option>
+                </select>
+            </p>
+        </div>
+        <div class="form-sections">
+            <p>Uw bericht</p>
+            <textarea class="bericht" name="bericht" id="bericht" required=""
+                      v-model="bericht.text"></textarea>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-success" @@click="handleSubmit">Verstuur bericht</button>
+            <button type="reset" class="btn btn-danger">Reset</button>
+        </div>
     </form>
-
-
 </div>
+<div  style="width: 100%" id="maps"><iframe width="40%" height="250" src="https://maps.google.com/maps?width=100%&height=400&hl=nl&q=Pieter%20Deswartelaan%2031%2C%20bus%200302+(Kapsalon%20X)&ie=UTF8&t=&z=14&iwloc=B&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"><a href="https://www.mapsdirections.info/nl/maak-een-google-map/">Maak een Google Map</a> van <a href="https://www.mapsdirections.info/nl/">Nederland Kaart</a></iframe></div><br />
+
 @section scripts{
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.21/dist/vue.js"></script>
     <script>
@@ -110,16 +69,11 @@
                         keuze: "0"
                     },
                     bericht: {
-                        text: "",
-                        maxlength: 500
-                    },
-                    submitted: false
+                        text: ""
+                    }
                 };
             },
             methods: {
-                submit: function () {
-                    this.submitted = true;
-                },
                 validate: function (type, value) {
                     if (type === "email") {
                         this.email.valid = this.isEmail(value) ? true : false;
@@ -128,10 +82,9 @@
                 isEmail: function (value) {
                     return emailRegExp.test(value);
                 },
-            },
-            watch: {
-                "email.value": function (value) {
-                    this.validate("email", value);
+                submit() {
+                    alert("Bedankt voor uw bericht. We trachten u zo snel mogelijk een antwoord terug te sturen. Het KapsalonX-team");
+                    location.reload();
                 }
             }
         });
