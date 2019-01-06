@@ -14,7 +14,6 @@ namespace EE.KapsalonX.Web.ViewModels
         public string Datum { get; set; }
         public string Tijdstip { get; set; }
 
-        [Required(ErrorMessage = "Dit is een verplicht veld")]
         public string Tijdsduur { get; set; }
 
         public Klant Klant { get; set; }
