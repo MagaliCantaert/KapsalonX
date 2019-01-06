@@ -155,13 +155,11 @@ namespace EE.KapsalonX.Web.Controllers
                     Tijdstip = createVm.Tijdstip,
                     Opmerking = createVm.Opmerkingen
                 };
-                //afspraak.AfspraakId = Guid.NewGuid();
                 _context.Add(createdAfspraak);
                 await _context.SaveChangesAsync();
                 TempData[Constants.SuccessMessage] = $"De afspraak voor {createdAfspraak.KlantGegevens.Achternaam} {createdAfspraak.KlantGegevens.Voornaam} werd succesvol toegevoegd.";
                 return RedirectToAction(nameof(Index));
             }
-            //ViewData["AfspraakId"] = new SelectList(_context.Klanten, "KlantId", "Achternaam", afspraak.AfspraakId);
             return View(createVm);
         }
 

@@ -9,20 +9,20 @@
     <h2>Afspraak bewerken</h2>
     <hr />
     <div class="row">
-        <div class="col-md-2"></div>
+        <div class="col-md-3"></div>
         <div class="col-md-6">
             <div asp-validation-summary="ModelOnly"></div>
             <form asp-controller="Admin" asp-action="Edit" method="post" class="form-horizontal">
                 <input asp-for="Id" hidden />
                 <div class="form-group">
-                    <label asp-for="Klant.Achternaam" class="control-label"></label>
-                    <input asp-for="Klant.Achternaam" class="form-control" />
-                    <span asp-validation-for="Klant.Achternaam" class="text-danger"></span>
-                </div>
-                <div class="form-group">
                     <label asp-for="Klant.Voornaam" class="control-label"></label>
                     <input asp-for="Klant.Voornaam" class="form-control" />
                     <span asp-validation-for="Klant.Voornaam" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Klant.Achternaam" class="control-label"></label>
+                    <input asp-for="Klant.Achternaam" class="form-control" />
+                    <span asp-validation-for="Klant.Achternaam" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Klant.Emailadres" class="control-label"></label>
@@ -45,14 +45,6 @@
                     <span asp-validation-for="Time" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Behandeling.Geslacht" class="control-label" hidden></label>
-                    <input asp-for="Behandeling.Geslacht" hidden />
-                </div>
-                <div class="form-group">
-                    <label asp-for="Behandeling.GekozenBehandeling" class="control-label" hidden></label>
-                    <input asp-for="Behandeling.GekozenBehandeling" hidden />
-                </div>
-                <div class="form-group">
                     <label asp-for="Opmerkingen" class="control-label"></label>
                     <input asp-for="Opmerkingen" class="form-control" />
                 </div>
@@ -62,17 +54,18 @@
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Opslaan" class="btn btn-default" />
+                    <input type="submit" value="Keer terug" class="btn btn-default" asp-action="Index" />
                 </div>
-                <div>
-                    <a asp-action="Index">Keer terug</a>
+                <div class="form-group">
+                    <label asp-for="Behandeling.Geslacht" class="control-label" hidden></label>
+                    <input asp-for="Behandeling.Geslacht" hidden />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Behandeling.GekozenBehandeling" class="control-label" hidden></label>
+                    <input asp-for="Behandeling.GekozenBehandeling" hidden />
                 </div>
             </form>
         </div>
-
-
-        <div class="col-md-2"></div>
     </div>
-
-
 </div>
 
