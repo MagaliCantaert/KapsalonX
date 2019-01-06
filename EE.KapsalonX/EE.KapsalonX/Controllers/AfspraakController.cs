@@ -227,7 +227,6 @@ namespace EE.KapsalonX.Web.Controllers
             return new RedirectToActionResult("Bevestiging", "Afspraak", viewModel);
         }
 
-
         public IActionResult Bevestiging(AfspraakVm viewModel)
         {
             return View(viewModel);
