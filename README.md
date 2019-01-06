@@ -1,6 +1,6 @@
 # KAPSALON X (eindevaluatie-1819-b03-max)
 
-In deze repository wordt een applicatietool geïntegreerd voor het maken van een online afspraak bij een kapper. De klant kan zelf zijn afspraak zijn inplannen en deze wordt vervolgens automatisch ingepland in de kalender van de kapper. Deze kalendar is raad te plegen op de administrator pagina, waar verdere aanpassingen kunnen uitgevoerd worden (zowel voor afspraken als accountsettings).
+In deze repository wordt een applicatietool geïntegreerd voor het maken van een online afspraak bij een kapper. De klant kan zelf zijn afspraak inplannen en deze wordt vervolgens automatisch ingepland in de kalender van de kapper. Deze kalendar is raad te plegen op de administrator pagina, waar verdere aanpassingen kunnen uitgevoerd worden (zowel voor afspraken als accountsettings).
 
 ## Aan de slag
 Dit ASP.NET Core project kan eenvoudigweg opgestart worden na het leggen van een databaseconnectie (terug te vinden in appsettings.json).
