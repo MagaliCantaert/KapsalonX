@@ -218,7 +218,7 @@ namespace EE.KapsalonX.Web.Controllers
                 Date = DateTime.Parse(afspraak.Datum),
                 Tijdstip = afspraak.Tijdstip,
                 Time = DateTime.Parse(afspraak.Tijdstip),
-                Opmerkingen = afspraak.Opmerking,              
+                Opmerkingen = afspraak.Opmerking           
             };
             viewModel.Behandeling.Duur = nieuweBehandeling.Duur;
             viewModel.Tijdsduur = nieuweBehandeling.Duur;
@@ -266,7 +266,6 @@ namespace EE.KapsalonX.Web.Controllers
                     updateBehandeling.Geslacht = editVm.Behandeling.Geslacht;
                     updateBehandeling.GekozenBehandeling = editVm.Behandeling.GekozenBehandeling;
                     var StartDateTime = DateTime.Parse(updateAfspraak.Datum + " " + updateAfspraak.Tijdstip);
-                    //var StartDateTime = DateTime.Parse(editVm.Datum + " " + editVm.Tijdstip);
                     DateTime EndDateTime;
 
                     if (updateBehandeling.Geslacht == "Dames")

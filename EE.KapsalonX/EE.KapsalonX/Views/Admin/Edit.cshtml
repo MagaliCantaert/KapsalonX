@@ -9,7 +9,8 @@
     <h2>Afspraak bewerken</h2>
     <hr />
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-2"></div>
+        <div class="col-md-6">
             <div asp-validation-summary="ModelOnly"></div>
             <form asp-controller="Admin" asp-action="Edit" method="post" class="form-horizontal">
                 <input asp-for="Id" hidden />
@@ -44,12 +45,12 @@
                     <span asp-validation-for="Time" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Behandeling.Geslacht" class="control-label" hidden></label>
-                    <input asp-for="Behandeling.Geslacht" hidden />
+                    <label asp-for="Behandeling.Geslacht" class="control-label"></label>
+                    <input asp-for="Behandeling.Geslacht" class="form-control" disabled />
                 </div>
                 <div class="form-group">
-                    <label asp-for="Behandeling.GekozenBehandeling" class="control-label" hidden></label>
-                    <input asp-for="Behandeling.GekozenBehandeling" hidden />
+                    <label asp-for="Behandeling.GekozenBehandeling" class="control-label"></label>
+                    <input asp-for="Behandeling.GekozenBehandeling" class="form-control" disabled />
                 </div>
                 <div class="form-group">
                     <label asp-for="Opmerkingen" class="control-label"></label>
@@ -57,18 +58,20 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="Tijdsduur" class="control-label"></label>
-                    <input asp-for="Tijdsduur" class="form-control" />
-                    <span asp-validation-for="Tijdsduur" class="text-danger"></span>
+                    <input asp-for="Tijdsduur" type="time" class="form-control" disabled />
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Opslaan" class="btn btn-default" />
                 </div>
             </form>
         </div>
+
+        <div>
+            <a asp-action="Index">Keer terug</a>
+        </div>
+        <div class="col-md-2"></div>
     </div>
 
-    <div>
-        <a asp-action="Index">Keer terug</a>
-    </div>
+
 </div>
 

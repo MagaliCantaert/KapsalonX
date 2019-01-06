@@ -18,7 +18,6 @@ namespace EE.KapsalonX.Controllers
             return View();
         }
 
-        //[Authorize] // Om te illusteren dat je moet ingelogd zijn om deze pagina te bezoeken
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
