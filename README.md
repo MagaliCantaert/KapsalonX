@@ -15,9 +15,8 @@ Gebruikersnaam: admin@kapsalonx.knip
 Wachtwoord: Admin!
 ```
 Na het correct inloggen, verschijnt de optie 'Dashboard' in de navigatiebalk. Dashboard geeft een overzicht van de ingeplande afspraken (lijst of kalender) en verschaft de mogelijkheid accountsettings bij te werken.
-Opmerking: het bewerken van een afspraak dient momenteel nog te gebeuren in string-notatie.
 
-## Gebouwd met
+## Ontworpen met
 * [ASP.NET CORE](https://www.asp.net/core/overview/aspnet-vnext) - framework
 
 ## Versie 
