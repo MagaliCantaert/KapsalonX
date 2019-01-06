@@ -89,7 +89,6 @@ namespace EE.KapsalonX.Web.Controllers
                         if (StartDateTimeNieuweAfspraak <= StartDateTimeInAfspraken && StartDateTimeNieuweAfspraak >= EndDateTimeInAfspraken
                             || EndDateTimeNieuweAfspraak >= StartDateTimeInAfspraken && EndDateTimeNieuweAfspraak <= EndDateTimeInAfspraken)                           
                         {
-                            // TIJDSTIP IN TIMEPICKER INDEX.CSHTML LATEN BLOKKEREN ?
                             BasisDatumTijd();
                             ViewBag.Error = "Het gekozen tijdstip is reeds ingevuld. Kies een andere datum en/of tijdstip a.u.b.";
                             return View(viewModel);
@@ -225,7 +224,6 @@ namespace EE.KapsalonX.Web.Controllers
             _context.Add(nieuweAfspraak);
             _context.SaveChanges();
 
-            //HIER LATER VERSTUREN VAN MAIL NAAR KLANT MET GEGEVENS AFSPRAAK
             return new RedirectToActionResult("Bevestiging", "Afspraak", viewModel);
         }
 

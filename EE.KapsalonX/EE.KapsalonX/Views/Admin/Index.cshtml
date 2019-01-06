@@ -62,9 +62,9 @@
                                 @Html.DisplayFor(modelItem => afspraak.BehandelingGegevens.GekozenBehandeling)
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@afspraak.AfspraakId">Bewerk</a> |
-                                <a asp-action="Details" asp-route-id="@afspraak.AfspraakId">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@afspraak.AfspraakId">Verwijder</a>
+                                <a asp-action="Edit" asp-route-id="@afspraak.AfspraakId" style="text-decoration:none">Bewerk <span class="glyphicon glyphicon-pencil"></span></a> |
+                                <a asp-action="Details" asp-route-id="@afspraak.AfspraakId" style="text-decoration:none">Details <span class="glyphicon glyphicon-zoom-in"></span></a> |
+                                <a asp-action="Delete" asp-route-id="@afspraak.AfspraakId" style="text-decoration:none">Verwijder <span class="glyphicon glyphicon-trash"></span></a>
                             </td>
                         </tr>
                     }
