@@ -214,10 +214,10 @@ namespace EE.KapsalonX.Web.Controllers
                 Id = afspraak.AfspraakId,
                 Klant = afspraak.KlantGegevens,
                 Behandeling = afspraak.BehandelingGegevens,
-                Date = Convert.ToDateTime(afspraak.Datum),
                 Datum = afspraak.Datum,
-                Time = Convert.ToDateTime(afspraak.Datum),
+                Date = DateTime.Parse(afspraak.Datum),
                 Tijdstip = afspraak.Tijdstip,
+                Time = DateTime.Parse(afspraak.Tijdstip),
                 Opmerkingen = afspraak.Opmerking,              
             };
             viewModel.Behandeling.Duur = nieuweBehandeling.Duur;
@@ -248,20 +248,25 @@ namespace EE.KapsalonX.Web.Controllers
                         Telefoonnummer = editVm.Klant.Telefoonnummer,
                         Afspraken = editVm.Klant.Afspraken,
                     };
+                    _context.Update(updateKlant);
+
                     Afspraak updateAfspraak = new Afspraak
                     {
                         AfspraakId = editVm.Id,
                         BehandelingGegevens = editVm.Behandeling,
                         KlantGegevens = editVm.Klant,
                         KlantGegevensId = editVm.Klant.KlantId,
-                        Datum = editVm.Datum,
-                        Tijdstip = editVm.Tijdstip,
+                        Datum = editVm.Date.ToShortDateString(),
+                        Tijdstip = editVm.Time.ToShortTimeString(),
                         Opmerking = editVm.Opmerkingen,
                     };
+                    _context.Update(updateAfspraak);
+
                     Behandeling updateBehandeling  = new Behandeling();
                     updateBehandeling.Geslacht = editVm.Behandeling.Geslacht;
                     updateBehandeling.GekozenBehandeling = editVm.Behandeling.GekozenBehandeling;
-                    var StartDateTime = Convert.ToDateTime(editVm.Datum + " " + editVm.Tijdstip);
+                    var StartDateTime = DateTime.Parse(updateAfspraak.Datum + " " + updateAfspraak.Tijdstip);
+                    //var StartDateTime = DateTime.Parse(editVm.Datum + " " + editVm.Tijdstip);
                     DateTime EndDateTime;
 
                     if (updateBehandeling.Geslacht == "Dames")
@@ -289,9 +294,6 @@ namespace EE.KapsalonX.Web.Controllers
                     editVm.Tijdsduur = updateAfspraak.BehandelingGegevens.Duur;
                     editVm.Behandeling.Duur = updateBehandeling.Duur;
                     editVm.Tijdsduur = updateBehandeling.Duur;
-
-                    _context.Update(updateAfspraak);
-                    _context.Update(updateKlant);
 
                     TempData[Constants.SuccessMessage] = $"De afspraak voor {updateKlant.Achternaam} {updateKlant.Voornaam} werd succesvol gewijzigd.";
                     await _context.SaveChangesAsync();
@@ -380,5 +382,6 @@ namespace EE.KapsalonX.Web.Controllers
             TempData["Behandeling"] = viewModel.Behandeling.GekozenBehandeling?.ToString();
             TempData["Opmerkingen"] = viewModel.Opmerkingen;
         }
+
     }
 }

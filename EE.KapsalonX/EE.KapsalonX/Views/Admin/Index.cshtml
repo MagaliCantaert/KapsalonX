@@ -15,7 +15,7 @@
     <br /><br />
     <hr />
     <br />
-    <h4>Overzicht huidige afspraken: <span class="badge badge-secondary">@Model.Afspraken.Count()</span></h4>
+    <h4>Overzicht huidige afspraken @*<span class="badge badge-secondary">@Model.Afspraken.Count()</span>*@</h4>
     <table class="table">
         <thead>
             <tr>
@@ -91,12 +91,7 @@
                     <input type="submit" class="btn btn-default" value="Wachtwoord wijzigen">
                 </form>
             </div>
-
         </div>
-        @*<form asp-area="Identity" asp-page="/Account/Manage/Index" method="post" id="accountSettings">
-                <input type="submit" class="btn btn-outline-dark" value="Settings">
-            </form>*@
-
     </div>
 </div>
 

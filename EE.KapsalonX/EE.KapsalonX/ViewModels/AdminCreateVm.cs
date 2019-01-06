@@ -13,6 +13,8 @@ namespace EE.KapsalonX.Web.ViewModels
     {
         public string Datum { get; set; }
         public string Tijdstip { get; set; }
+
+        [Required(ErrorMessage = "Dit is een verplicht veld")]
         public string Tijdsduur { get; set; }
 
         public Klant Klant { get; set; }
@@ -24,17 +26,19 @@ namespace EE.KapsalonX.Web.ViewModels
         public List<BehandelingVm> BehandelingenHeren { get; set; }
         public List<BehandelingVm> BehandelingenKinderen { get; set; }
 
-        [Required]
+        [Display(Name = "Datum")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Dit is een verplicht veld")]
         public DateTime Date { get; set; }
 
         [Display(Name = "Tijdstip")]
         [DataType(DataType.Time)]
+        [DisplayFormat(ApplyFormatInEditMode = true)]
+        [Required(ErrorMessage = "Dit is een verplicht veld")]
         public DateTime Time { get; set; }
 
         [NotMapped]
-        [DataType(DataType.Time)]
         public TimeSpan Duur { get; set; }
 
         public string Opmerkingen { get; set; }
